@@ -1,13 +1,40 @@
+import Cookies from "js-cookie";
 import { useState } from "react";
-
+import api from "../../../../api";
 export default function FileUpload() {
   const [checkedPieces, setCheckedPieces] = useState(false);
+  const [file, setFile] = useState();
+  const [click, setClick] = useState(false);
+  const formData = new FormData();
+
+  formData.append("file", file);
+  formData.append("date", new Date().toLocaleDateString("fa-IR"));
+  async function HandleSubmit(e) {
+    e.preventDefault();
+    if (click) {
+      return await api
+        .post("fileprint/store", formData, {
+          headers: { Authorization: "Bearer " + Cookies.get("jht4") },
+        })
+        .then((e) => {
+          console.log(e);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+  }
   return (
     <div className=" flex justify-center overflow-y-auto h-96  px-4">
       <div className="">
         <div>title</div>
         <div>
-          <form action="" className="flex flex-col " dir="rtl">
+          <form
+            onSubmit={HandleSubmit}
+            action=""
+            className="flex flex-col "
+            dir="rtl"
+          >
             <div className="flex items-center justify-center w-full" dir="rtl">
               <label
                 htmlFor="dropzone-file"
@@ -37,10 +64,15 @@ export default function FileUpload() {
                     SVG, PNG, JPG or GIF (MAX. 800x400px)
                   </p>
                 </div>
-                <input id="dropzone-file" type="file" className="hidden" />
+                <input
+                  id="dropzone-file"
+                  type="file"
+                  className="hidden"
+                  onChange={(e) => setFile(e.target.files[0])}
+                />
               </label>
             </div>
-            <div>
+            {/* <div>
               <label
                 htmlFor="file_name"
                 className="block my-2 text-sm font-medium text-gray-900 "
@@ -92,7 +124,7 @@ export default function FileUpload() {
                 type="number"
                 id="pieces"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 disabled:bg-stone-300"
-                placeholder="1,2"
+                placeholder="2"
                 disabled={!checkedPieces}
               />
               <div className="flex">
@@ -177,8 +209,10 @@ export default function FileUpload() {
               id=""
               cols="30"
               rows="10"
-            ></textarea>
+            ></textarea> */}
+            <button onClick={() => setClick(true)}>ارسال</button>
           </form>
+          {new Date().toLocaleDateString("fa-IR")}
           <div className="h-20"></div>
         </div>
       </div>
