@@ -1,34 +1,14 @@
 import Cookies from "js-cookie";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import api from "../../../../api";
+
 export default function FileUpload() {
   const [checkedPieces, setCheckedPieces] = useState(false);
   const [file, setFile] = useState();
-  const [data, setData] = useState({
-    file_name: "",
-    fabric: 0,
-    pieces: 1,
-    size_y: 0,
-    size_x: 0,
-    count: 0,
-    backforth: 0,
-    sewing: "",
-    description: "",
-  });
   const [click, setClick] = useState(false);
   const formData = new FormData();
 
   formData.append("file", file);
-  formData.append("file_name", data.file_name);
-  formData.append("size_x", data.size_x);
-  formData.append("size_y", data.size_y);
-  formData.append("fabric ", data.fabric);
-  formData.append("count", data.count);
-  formData.append("backforth", data.backforth);
-  formData.append("pieces", data.pieces);
-  formData.append("sewing", data.sewing);
-  formData.append("description", data.description);
-
   formData.append("date", new Date().toLocaleDateString("fa-IR"));
   async function HandleSubmit(e) {
     e.preventDefault();
@@ -45,16 +25,8 @@ export default function FileUpload() {
         });
     }
   }
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setData({
-      ...data,
-      [name]: value,
-    });
-  };
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  let date = new PersianDate();
+
   return (
     <div className=" flex justify-center overflow-y-auto h-96  px-4">
       <div className="">
@@ -88,13 +60,11 @@ export default function FileUpload() {
                     />
                   </svg>
                   <p className="mb-2 text-sm text-gray-500 ">
-                    <span className="font-semibold">
-                      برای آپلود عکس کلیک کنید.
-                    </span>{" "}
-                    or drag and drop
+                    <span className="font-semibold">Click to upload</span> or
+                    drag and drop
                   </p>
                   <p className="text-xs text-gray-500 ">
-                    SVG, PNG, JPG or GIF (MAX. 250MB)
+                    SVG, PNG, JPG or GIF (MAX. 800x400px)
                   </p>
                 </div>
                 <input
@@ -105,7 +75,7 @@ export default function FileUpload() {
                 />
               </label>
             </div>
-            <div>
+            {/* <div>
               <label
                 htmlFor="file_name"
                 className="block my-2 text-sm font-medium text-gray-900 "
@@ -113,27 +83,24 @@ export default function FileUpload() {
                 نام فایل
               </label>
               <input
-                onChange={handleInputChange}
                 type="text"
-                name="file_name"
                 id="file_name"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="نام فایل"
                 required
               />
               <label
-                htmlFor="fabric"
+                htmlFor="file_name"
                 className="block my-2 text-sm font-medium text-gray-900 "
               >
                 نوع پارچه
               </label>
               <select
-                onChange={handleInputChange}
-                name="fabric"
-                id="fabric"
+                name=""
+                id=""
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               >
-                <option value="1">پورشه 140000تومان</option>
+                <option value="">پورشه 140000تومان</option>
                 <option value="">بدون استر 110000تومان</option>
                 <option value="">هازان 180000تومان</option>
                 <option value="">پورشه 140000تومان</option>
@@ -157,10 +124,8 @@ export default function FileUpload() {
                 چند تیکه
               </label>
               <input
-                onChange={handleInputChange}
                 type="number"
                 id="pieces"
-                name="pieces"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 disabled:bg-stone-300"
                 placeholder="2"
                 disabled={!checkedPieces}
@@ -174,10 +139,8 @@ export default function FileUpload() {
                     طول
                   </label>
                   <input
-                    onChange={handleInputChange}
                     type="number"
-                    name="size_y"
-                    id="size_y"
+                    id="file_name"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     placeholder=" طول به سانتی متر "
                     required
@@ -192,10 +155,8 @@ export default function FileUpload() {
                     عرض
                   </label>
                   <input
-                    onChange={handleInputChange}
                     type="number"
-                    name="size_x"
-                    id="size_x"
+                    id="file_name"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     placeholder="عرض به سانتی متر"
                     required
@@ -209,9 +170,7 @@ export default function FileUpload() {
                 تعداد
               </label>
               <input
-                onChange={handleInputChange}
                 type="number"
-                name="count"
                 id="count"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="تعداد چاپ فایل "
@@ -221,45 +180,46 @@ export default function FileUpload() {
             <div className="flex items-center gap-2 mt-4 mb-2">
               <input
                 className=" w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 "
-                onChange={handleInputChange}
                 type="checkbox"
-                name="backfroth"
-                id="backfroth"
+                name="backandfroth"
+                id=""
               />
               دو رو
             </div>
             <label
-              htmlFor="sewing"
+              htmlFor="size_y"
               className="block my-2 text-sm font-medium text-gray-900 "
             >
               توضیحات دوخت
             </label>
             <textarea
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              onChange={handleInputChange}
-              name="sewing"
-              id="sewing"
+              name=""
+              id=""
               cols="30"
               rows="5"
               placeholder="توضیحات دوخت..،  سردوز،ریشه دوزی"
             ></textarea>
             <label
-              htmlFor="description"
+              htmlFor="size_y"
               className="block my-2 text-sm font-medium text-gray-900 "
             >
               توضیحات
             </label>
             <textarea
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              onChange={handleInputChange}
-              name="description"
-              id="description"
+              name=""
+              id=""
               cols="30"
               rows="10"
-            ></textarea>
+            ></textarea> */}
             <button onClick={() => setClick(true)}>ارسال</button>
           </form>
-          <div className="h-20"></div>
+          {date.getYear()} // 1399 // 1399 date.getMonth() // 1 date.getDate()
+          // 23 date.getDay() // 0 date.getDayName() // شنبه date.getMonthName()
+          // اردیبهشت date.getHours() // 18 date.getMinutes() // 59
+          date.getSeconds() // 30 date.setTime(1469854231000); date.getYear() //
+          1395 date.getMonthName() // مرداد }<div className="h-20"></div>
         </div>
       </div>
     </div>
