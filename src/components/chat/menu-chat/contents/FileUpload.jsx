@@ -6,7 +6,7 @@ export default function FileUpload() {
   const [file, setFile] = useState();
   const [data, setData] = useState({
     file_name: "",
-    fabric: 0,
+    fabric: 1,
     pieces: 1,
     size_y: 0,
     size_x: 0,
@@ -22,7 +22,7 @@ export default function FileUpload() {
   formData.append("file_name", data.file_name);
   formData.append("size_x", data.size_x);
   formData.append("size_y", data.size_y);
-  formData.append("fabric ", data.fabric);
+  formData.append("fabric", 1);
   formData.append("count", data.count);
   formData.append("backforth", data.backforth);
   formData.append("pieces", data.pieces);
