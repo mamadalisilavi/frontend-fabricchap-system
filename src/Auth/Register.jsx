@@ -1,107 +1,116 @@
-import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
-import api from "../api"
-import validator from 'validator';
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import api from "../api";
+import validator from "validator";
 import { BsCheckCircleFill } from "react-icons/bs";
-import { ImCross } from 'react-icons/im';
+import { ImCross } from "react-icons/im";
 import { TbLoader } from "react-icons/tb";
-import IsLogin from "./IsLogin"
-
+import Cookies from "js-cookie";
 export default function Register() {
-  const [name, setName] = useState()
-  const [number, setNumber] = useState()
-  const [password, setPassword] = useState()
-  const [confirmPassword , setPasswordConfirm] = useState()
+  const [name, setName] = useState();
+  const [number, setNumber] = useState();
+  const [password, setPassword] = useState();
+  const [confirmPassword, setPasswordConfirm] = useState();
 
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  //validations
+  const [validateName, setValidateName] = useState("");
+  const [isNameHasError, setIsNameHasError] = useState(false);
+  const [validateNumber, setValidateNumber] = useState("");
+  const [isNumberHasError, setIsNumberHasError] = useState(false);
+  const [isNameUnique, setIsNameUnique] = useState(false);
+  const [isNameUniqueLoading, setIsNameUniqueLoading] = useState(false);
+  const [isNameBlur, setIsNameBlur] = useState(false);
+  const [isNameUniqueMessage, setIsNameUniqueMessage] = useState("");
+  const [isNumberUnique, setIsNumberUnique] = useState(false);
+  const [isNumberUniqueLoading, setIsNumberUniqueLoading] = useState(false);
+  const [isNumberBlur, setIsNumberBlur] = useState(false);
+  const [isNumberUniqueMessage, setIsNumberUniqueMessage] = useState("");
+  const [validatePassword, setValidatePassword] = useState("");
+  const [isPasswordHasError, setIsPasswordHasError] = useState(false);
+  const [validatePasswordConfirm, setValidatePasswordConfirm] = useState("");
+  const [isPasswordConfirmHasError, setIsPasswordConfirmHasError] =
+    useState(false);
 
-  const [isSubmit, setIsSubmit] = useState(false)
-  const [isError, setIsError] = useState(false)
-  const [errorMessage, setErrorMessage] = useState('')
-  //validations 
-  const [validateName, setValidateName] = useState('')
-  const [isNameHasError, setIsNameHasError] = useState(false)
-  const [validateNumber, setValidateNumber] = useState('')
-  const [isNumberHasError, setIsNumberHasError] = useState(false)
-  const [isNameUnique, setIsNameUnique] = useState(false)
-  const [isNameUniqueLoading, setIsNameUniqueLoading] = useState(false)
-  const [isNameBlur, setIsNameBlur] = useState(false)
-  const [isNameUniqueMessage, setIsNameUniqueMessage] = useState('')
-  const [isNumberUnique, setIsNumberUnique] = useState(false)
-  const [isNumberUniqueLoading, setIsNumberUniqueLoading] = useState(false)
-  const [isNumberBlur, setIsNumberBlur] = useState(false)
-  const [isNumberUniqueMessage, setIsNumberUniqueMessage] = useState('')
-  const [validatePassword, setValidatePassword] = useState('')
-  const [isPasswordHasError, setIsPasswordHasError] = useState(false)
-  const [validatePasswordConfirm, setValidatePasswordConfirm] = useState('')
-  const [isPasswordConfirmHasError, setIsPasswordConfirmHasError] = useState(false)
-  
-  const [ numberError,setNumberError] = useState('')
-  const [ hasError,setHasErrors] = useState(false)
-//handle Number blur for checking Number is unique
-async function handleNumberBlur() {
-  setIsNumberBlur(true)
-  setIsNumberUnique(false)
-  setIsNumberUniqueLoading(false)
-  return await api.post("checkNumberIsUnique", { number })
-    .then(e => {
-      if (e.data.status) {
-        setIsNumberUnique(true)
-        setIsNumberUniqueLoading(true)
-      } else {
-        setIsNumberUnique(false)
-        setIsNumberUniqueLoading(true)
-      }
-    }).catch(e => {
-      setIsNumberUnique(false)
-      setIsNumberUniqueLoading(true)
-    })
-}
+  const [numberError, setNumberError] = useState("");
+  const [hasError, setHasErrors] = useState(false);
+  //handle Number blur for checking Number is unique
+  async function handleNumberBlur() {
+    setIsNumberBlur(true);
+    setIsNumberUnique(false);
+    setIsNumberUniqueLoading(false);
+    return await api
+      .post("checkNumberIsUnique", { number })
+      .then((e) => {
+        if (e.data.status) {
+          setIsNumberUnique(true);
+          setIsNumberUniqueLoading(true);
+        } else {
+          setIsNumberUnique(false);
+          setIsNumberUniqueLoading(true);
+        }
+      })
+      .catch((e) => {
+        setIsNumberUnique(false);
+        setIsNumberUniqueLoading(true);
+      });
+  }
 
-//handle name blur for checking name is unique
-async function handleNameBlur() {
-  setIsNameBlur(true)
-  setIsNameUnique(false)
-  setIsNameUniqueLoading(false)
-  return await api.post("checkUserNameIsUnique", { name })
-    .then(e => {
-      if (e.data.status) {
-        setIsNameUnique(true)
-        setIsNameUniqueLoading(true)
-      } else {
-        setIsNameUnique(false)
-        setIsNameUniqueLoading(true)
-      }
-    }).catch(e => {
-      setIsNameUnique(false)
-      setIsNameUniqueLoading(true)
-    })
-}
+  //handle name blur for checking name is unique
+  async function handleNameBlur() {
+    setIsNameBlur(true);
+    setIsNameUnique(false);
+    setIsNameUniqueLoading(false);
+    return await api
+      .post("checkUserNameIsUnique", { name })
+      .then((e) => {
+        if (e.data.status) {
+          setIsNameUnique(true);
+          setIsNameUniqueLoading(true);
+        } else {
+          setIsNameUnique(false);
+          setIsNameUniqueLoading(true);
+        }
+      })
+      .catch((e) => {
+        setIsNameUnique(false);
+        setIsNameUniqueLoading(true);
+      });
+  }
 
   async function submitRegister(e) {
-    e.preventDefault()
+    e.preventDefault();
     async function register() {
-      return await api.post("register", { name, number, password, password_confirmation: confirmPassword })
-        .then(e => {
-          window.location.replace('/login')
-        }).catch(e => {
-          console.log(e)
+      return await api
+        .post("register", {
+          name,
+          number,
+          password,
+          password_confirmation: confirmPassword,
         })
+        .then((e) => {
+          window.location.replace("/login");
+        })
+        .catch((e) => {
+          setErrorMessage(e.response.data.message);
+        });
     }
-    register()
+    register();
   }
   function handleName(e) {
-    return setName(e.target.value)
+    return setName(e.target.value);
   }
   function handleNumber(e) {
-    return setNumber(e.target.value)
+    return setNumber(e.target.value);
   }
   function handlePassowrd(e) {
-    return setPassword(e.target.value)
+    return setPassword(e.target.value);
   }
   function handlePassowrdConfirm(e) {
-    return setPasswordConfirm(e.target.value)
+    return setPasswordConfirm(e.target.value);
   }
-
 
   // useEffect(() => {
   //   //name validator
@@ -225,38 +234,97 @@ async function handleNameBlur() {
   //     setIsSubmit(false)
   //   }
   // }, [name, number, password, confirmPassword, isNumberBlur, isNumberUnique, isNumberUniqueLoading, isNumberHasError, isError, isNameHasError, isPasswordHasError, isPasswordConfirmHasError, isNameBlur, isNameUnique, isNameUniqueLoading])
-
-
-  return (
-    <IsLogin>
-    <div>
-      <div className=" flex flex-col mx-auto h-screen items-center justify-center " dir="rtl">
-        <div className="font-bold text-2xl mb-6">ثبت نام</div>
-        <form onSubmit={submitRegister} className="w-9/12 lg:w-1/5">
-          <label className="label " htmlFor="name">
-            نام
-          </label>
-          <input type="text" onChange={handleName} className="bg-gray-50 border mb-5 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block w-full p-2.5 " />
-          <label className="label mt-5" htmlFor="name">
-            شماره تلفن
-          </label>
-          <input type="text" onChange={handleNumber} className="bg-gray-50 border mb-5 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block w-full p-2.5 " />
-          <label className="label " htmlFor="name">
-            رمز
-          </label>
-          <input type="text" onChange={handlePassowrd} className="bg-gray-50 border mb-5 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block w-full p-2.5 " />
-          <label className="label " htmlFor="name">
-            تایید رمز
-          </label>
-          <input type="text" onChange={handlePassowrdConfirm} className="bg-gray-50 border mb-5 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block w-full p-2.5 " />
-          <div className="flex items-center">
-
-            <button className="block max-w-max my-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  sm:w-auto px-5 py-2.5 text-center">ثبت نام</button>
-            <Link to={"/login"} className="text-blue-500 hover:underline mx-5">حساب کاربری دارید؟ ورود</Link>
+  const [loading, setLoading] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
+  useEffect(() => {
+    if (Boolean(Cookies.get("jht4"))) {
+      async function checkToken() {
+        return await api
+          .get("checktoken", {
+            headers: { Authorization: "Bearer " + Cookies.get("jht4") },
+          })
+          .then((e) => {
+            if (e.data.token) {
+              setLoading(true);
+              setIsLogin(true);
+            } else {
+              setLoading(true);
+              setIsLogin(false);
+            }
+          })
+          .catch((e) => {
+            setLoading(true);
+            setIsLogin(false);
+          });
+      }
+      checkToken();
+    } else {
+      setLoading(true);
+      setIsLogin(false);
+    }
+  }, []);
+  if (loading) {
+    if (isLogin) {
+      return window.location.replace("/");
+    } else {
+      return (
+        <div>
+          <div className="text-red-600 py-3 text-center">{errorMessage}</div>
+          <div
+            className=" flex flex-col mx-auto h-screen items-center justify-center "
+            dir="rtl"
+          >
+            <div className="font-bold text-2xl mb-6">ثبت نام</div>
+            <form onSubmit={submitRegister} className="w-9/12 lg:w-1/5">
+              <label className="label " htmlFor="name">
+                نام و نام خانوادگی
+              </label>
+              <input
+                type="text"
+                onChange={handleName}
+                className="bg-gray-50 border mb-5 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block w-full p-2.5 "
+              />
+              <label className="label mt-5" htmlFor="name">
+                شماره تلفن
+              </label>
+              <input
+                type="text"
+                onChange={handleNumber}
+                className="bg-gray-50 border mb-5 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block w-full p-2.5 "
+              />
+              <label className="label " htmlFor="name">
+                گذرواژه
+              </label>
+              <input
+                type="password"
+                onChange={handlePassowrd}
+                className="bg-gray-50 border mb-5 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block w-full p-2.5 "
+              />
+              <label className="label " htmlFor="name">
+                تکرار گذرواژه
+              </label>
+              <input
+                type="password"
+                onChange={handlePassowrdConfirm}
+                className="bg-gray-50 border mb-5 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block w-full p-2.5 "
+              />
+              <div className="flex items-center">
+                <button className="block max-w-max my-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  sm:w-auto px-5 py-2.5 text-center">
+                  ثبت نام
+                </button>
+                <Link
+                  to={"/login"}
+                  className="text-blue-500 hover:underline mx-5"
+                >
+                  حساب کاربری دارید؟ ورود
+                </Link>
+              </div>
+            </form>
           </div>
-        </form>
-      </div>
-    </div>
-    </IsLogin>
-  )
+        </div>
+      );
+    }
+  } else {
+    return <div>loading...</div>;
+  }
 }
