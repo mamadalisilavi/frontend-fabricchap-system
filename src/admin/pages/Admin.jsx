@@ -37,13 +37,31 @@ export default function Admin() {
   if (loading) {
     if (isAdmin) {
       return (
-        <div className="flex flex-col md:flex-row items-center justify-center">
-          <Link
-            className="flex justify-center items-center w-60 h-60 rounded-lg text-white bg-blue-600"
-            href="/admin/settings"
-          >
-            settings
-          </Link>
+        <div className="flex flex-col gap-4 items-center justify-center mt-20 md:flex-row">
+          <div className="flex flex-col md:flex-row items-center justify-center ">
+            <Link
+              className="flex justify-center items-center w-52 h-52 rounded-lg text-xl text-white bg-blue-600 "
+              to="/admin/settings"
+            >
+              settings
+            </Link>
+          </div>
+          <div className="flex flex-col  md:flex-row items-center justify-center">
+            <Link
+              className="flex justify-center items-center w-52 h-52 rounded-lg text-xl text-white bg-orange-600 "
+              to="/admin/settings"
+            >
+              plats
+            </Link>
+          </div>
+          <div className="flex flex-col  md:flex-row items-center justify-center">
+            <Link
+              className="flex justify-center items-center w-52 h-52 rounded-lg text-xl text-white bg-green-600 "
+              to="/admin/settings"
+            >
+              fainance
+            </Link>
+          </div>
         </div>
       );
     } else {

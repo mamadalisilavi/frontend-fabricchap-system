@@ -6,6 +6,8 @@ import Admin from "./admin/pages/Admin";
 import AdminSettings from "./admin/pages/AdminSettings";
 import Profile from "./Pages/Profile";
 import FabricsSettings from "./admin/pages/FabricsSettings";
+import AddFabric from "./admin/pages/AddFabric";
+import EditFabric from "./admin/pages/EditFabric";
 
 const router = createBrowserRouter([
   {
@@ -27,12 +29,18 @@ const router = createBrowserRouter([
   {
     path: "admin/settings",
     element: <AdminSettings />,
-    children: [
-      {
-        path: "fabrics",
-        element: <FabricsSettings />,
-      },
-    ],
+  },
+  {
+    path: "admin/settings/fabrics",
+    element: <FabricsSettings />,
+  },
+  {
+    path: "admin/settings/fabrics/add",
+    element: <AddFabric />,
+  },
+  {
+    path: "admin/settings/fabrics/edit",
+    element: <EditFabric />,
   },
   {
     path: "profile",
