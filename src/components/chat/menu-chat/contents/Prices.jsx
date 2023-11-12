@@ -20,19 +20,50 @@ export default function Prices() {
     console.log(getPrices());
   }, []);
   return (
-    <div>
-      <ul>
-        <li>نام پارچه - قیمت مشتری - قیمت همکار</li>
-        {loading
-          ? prices.map((price) => {
-              return (
-                <li>
-                  {price.name} - {price.price} - {price.price_partner}
-                </li>
-              );
-            })
-          : "لطفا صبر کنید..."}
-      </ul>
+    <div dir="rtl" className="">
+      <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-9/12 md:w-full text-sm text-left rtl:text-right text-gray-500 ">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+            <tr>
+              <th scope="col" class="px-4 py-2">
+                نام پارچه
+              </th>
+              <th scope="col" class="px-4 py-2">
+                قیمت مشتری(تومان)
+              </th>
+              <th scope="col" class="px-4 py-2">
+                قیمت همکار(تومان)
+              </th>
+              <th scope="col" class="px-4 py-2">
+                درصد تخفیف
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {loading
+              ? prices.map((price) => {
+                  return (
+                    <tr class="odd:bg-white  even:bg-gray-50 ">
+                      <th
+                        scope="row"
+                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
+                      >
+                        {price.name}
+                      </th>
+                      <td class="px-4 py-2">
+                        {price.price.toLocaleString("en-US")}
+                      </td>
+                      <td class="px-4 py-2">
+                        {price.price_partner.toLocaleString("en-US")}
+                      </td>
+                      <td class="px-4 py-2">%{price.percent}</td>
+                    </tr>
+                  );
+                })
+              : "لطفا صبر کنید..."}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

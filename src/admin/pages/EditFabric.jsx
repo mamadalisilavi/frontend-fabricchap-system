@@ -67,6 +67,7 @@ export default function EditFabric() {
           { headers: { Authorization: "Bearer " + Cookies.get("jht4") } }
         )
         .then((e) => {
+          window.localStorage.removeItem("fabric_edit_id");
           window.location.replace("/admin/settings/fabrics");
         })
         .catch((e) => console.log(e));

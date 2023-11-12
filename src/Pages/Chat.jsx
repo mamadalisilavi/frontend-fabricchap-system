@@ -6,7 +6,7 @@ import MainPage from "./MainPage";
 export default function Chat() {
   return (
     <MainPage>
-      <div className="w-full md:w-9/12 lg:w-1/2  mx-auto container">
+      <div className="w-full   mx-auto container">
         {/* nav chat page */}
         <NavChat />
         <BodyChat />

@@ -12,7 +12,7 @@ export default function MenuChat() {
     <div className="fixed bottom-[60px] block w-full md:w-9/12 lg:w-1/2  mx-auto container bg-white">
       <div
         id="menu"
-        className="h-full flex flex-col align-baseline w-full md:w-9/12 lg:w-1/2  mx-auto container"
+        className="h-full flex flex-col align-baseline w-full    mx-auto container"
       >
         <div className="flex justify-center font-semibold py-3 bg-stone-50">
           <button
@@ -29,7 +29,7 @@ export default function MenuChat() {
         </div>
         <div
           className={
-            (hidden ? "h-0 " : nextPage === 1 ? "h-96 " : "h-60 ") +
+            (hidden ? "h-0 " : nextPage === 1 ? "h-96 " : "h-96 ") +
             "bg-stone-100 transition-all duration-300"
           }
         >

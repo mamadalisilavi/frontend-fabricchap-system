@@ -139,7 +139,7 @@ export default function Login() {
               />
               <div className="text-red-600 w-[200px]"> {passwordErrors}</div>
               {hasErrors ? (
-                <div className="disable-btn">ورود</div>
+                <div className="disable-btn"></div>
               ) : (
                 <button
                   onClick={() => setSubmit(true)}

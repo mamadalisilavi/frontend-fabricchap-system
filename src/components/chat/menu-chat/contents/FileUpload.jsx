@@ -52,13 +52,29 @@ export default function FileUpload() {
       [name]: value,
     });
   };
+
+  const [fabrics, setFabrics] = useState([]);
+  const [loadingFabrics, setLoadingFabrics] = useState(false);
+
+  async function getFabrics() {
+    return await api
+      .get("fabrics", {
+        headers: { Authorization: "Bearer " + Cookies.get("jht4") },
+      })
+      .then((e) => {
+        setLoadingFabrics(true);
+        setFabrics(e.data.fabrics);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
   useEffect(() => {
-    console.log(data);
-  }, [data]);
+    getFabrics();
+  }, []);
   return (
     <div className=" flex justify-center overflow-y-auto h-96  px-4">
       <div className="">
-        <div>title</div>
         <div>
           <form
             onSubmit={HandleSubmit}
@@ -133,10 +149,19 @@ export default function FileUpload() {
                 id="fabric"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               >
-                <option value="1">پورشه 140000تومان</option>
-                <option value="">بدون استر 110000تومان</option>
-                <option value="">هازان 180000تومان</option>
-                <option value="">پورشه 140000تومان</option>
+                <option>نوع پارچه - قیمت مشتری - قیمت همکار</option>
+                {loadingFabrics ? (
+                  fabrics.map((fabric) => {
+                    return (
+                      <option key={fabric.id} value={fabric.id}>
+                        {fabric.name} - {fabric.price.toLocaleString("en-US")}ت
+                        - {fabric.price_partner.toLocaleString("en-US")}ت
+                      </option>
+                    );
+                  })
+                ) : (
+                  <option value="">لطفا منتظر بمانید</option>
+                )}
               </select>
               <div className="flex items-center gap-2 mt-4 mb-2">
                 <input

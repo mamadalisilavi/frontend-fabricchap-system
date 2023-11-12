@@ -13,7 +13,7 @@ export default function NextPage({
           <button
             className={
               (hidden ? "hidden " : " ") +
-              "bg-[#34b7f1] text-white rounded-xl text-sm px-20 py-3 md:text-base md:px-10 md:py-3 absolute bottom-1 "
+              "bg-[#34b7f1] text-white rounded-xl text-sm px-20 py-3 md:text-base md:px-10 md:py-3 absolute bottom-3 "
             }
             onClick={() => setNextPage(0)}
           >
