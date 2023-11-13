@@ -1,19 +1,19 @@
-import Cookies from "js-cookie"
-import api from "../../api"
 import { useEffect, useState } from "react"
-import NavSettings from "../components/NavSettings"
+import Cookies from "js-cookie"
+import NavSettings from "../../../components/NavSettings"
+import api from "../../../../api"
 import { FaPlus } from "react-icons/fa6"
 import { Link } from "react-router-dom"
-export default function FabricsSettings() {
-  const [fabrics, setFabrics] = useState()
+export default function SewingsSettings() {
+  const [sewings, setSewings] = useState()
   const [loading, setLoading] = useState(false)
-  async function getFabrics() {
+  async function getSewings() {
     return await api
-      .get("fabrics", {
+      .get("sewings", {
         headers: { Authorization: "Bearer " + Cookies.get("jht4") },
       })
       .then((e) => {
-        setFabrics(e.data.fabrics)
+        setSewings(e.data.sewings)
         setLoading(true)
       })
       .catch((e) => {
@@ -21,36 +21,26 @@ export default function FabricsSettings() {
       })
   }
   function handleEdit(id) {
-    return window.localStorage.setItem("fabric_edit_id", id)
+    return window.localStorage.setItem("sewing_edit_id", id)
   }
   useEffect(() => {
-    getFabrics()
+    getSewings()
   }, [])
   return (
     <div
       dir="rtl"
       className="container mx-auto md:flex md:flex-col md:items-center md:justify-center"
     >
-      <NavSettings title={"پارچه ها"} back={"/admin/settings"} />
-
+      <NavSettings title={"دوخت ها"} back={"/admin/settings"} />
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-3">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
               <th scope="col" class="px-6 py-3">
-                نام پارچه
+                نوع دوخت
               </th>
               <th scope="col" class="px-6 py-3">
-                عرض پارچه(سانتیمتر)
-              </th>
-              <th scope="col" class="px-6 py-3">
-                قیمت مشتری(تومان)
-              </th>
-              <th scope="col" class="px-6 py-3">
-                قیمت همکار(تومان)
-              </th>
-              <th scope="col" class="px-6 py-3">
-                درصد تخفیف
+                قیمت (تومان)
               </th>
               <th scope="col" class="px-6 py-3">
                 ویرایش
@@ -59,26 +49,21 @@ export default function FabricsSettings() {
           </thead>
           <tbody>
             {loading
-              ? fabrics.map((fabric) => {
+              ? sewings.map((sewing) => {
                   return (
                     <tr class="odd:bg-white even:bg-gray-50  border-b ">
                       <th
                         scope="row"
                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                       >
-                        {fabric.name}
+                        {sewing.name}
                       </th>
-                      <td class="px-6 py-4">{fabric.width}</td>
                       <td class="px-6 py-4">
-                        {fabric.price.toLocaleString("en-US")}
+                        {sewing.price.toLocaleString("en-US")}
                       </td>
-                      <td class="px-6 py-4">
-                        {fabric.price_partner.toLocaleString("en-US")}
-                      </td>
-                      <td class="px-6 py-4">%{fabric.percent}</td>
                       <td class="px-6 py-4">
                         <button
-                          onClick={() => handleEdit(fabric.id)}
+                          onClick={() => handleEdit(sewing.id)}
                           className="flex gap-3"
                         >
                           <Link
@@ -100,7 +85,7 @@ export default function FabricsSettings() {
         className="bg-blue-500 text-white w-9/12 md:w-1/3 rounded py-2 text-center mx-auto mt-4 flex gap-3 justify-center items-center"
         to="add"
       >
-        افزودن پارچه
+        افزودن دوخت
         <FaPlus />
       </Link>
     </div>

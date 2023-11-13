@@ -19,14 +19,18 @@ export default function Prices() {
   useEffect(() => {
     console.log(getPrices());
   }, []);
+
   return (
     <div dir="rtl" className="">
-      <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <div class="relative overflow-auto shadow-md sm:rounded-lg h-80 w-96 md:w-full">
         <table class="w-9/12 md:w-full text-sm text-left rtl:text-right text-gray-500 ">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
             <tr>
               <th scope="col" class="px-4 py-2">
                 نام پارچه
+              </th>
+              <th scope="col" class="px-4 py-2">
+                عرض(سانتیمتر)
               </th>
               <th scope="col" class="px-4 py-2">
                 قیمت مشتری(تومان)
@@ -50,13 +54,22 @@ export default function Prices() {
                       >
                         {price.name}
                       </th>
+                      <th scope="row" class="px-6 py-4 ">
+                        {price.width}
+                      </th>
                       <td class="px-4 py-2">
                         {price.price.toLocaleString("en-US")}
                       </td>
                       <td class="px-4 py-2">
                         {price.price_partner.toLocaleString("en-US")}
                       </td>
-                      <td class="px-4 py-2">%{price.percent}</td>
+                      <td class="px-4 py-2 ">
+                        {price.percent > 0 ? (
+                          <div className="bg-yellow-500 text-white p-2 rounded-full w-max">
+                            %{price.percent}
+                          </div>
+                        ) : null}
+                      </td>
                     </tr>
                   );
                 })

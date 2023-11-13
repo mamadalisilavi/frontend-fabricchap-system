@@ -1,9 +1,9 @@
-import Cookies from "js-cookie";
-import { useEffect, useState } from "react";
-import api from "../../../../api";
+import Cookies from "js-cookie"
+import { useEffect, useState } from "react"
+import api from "../../../../api"
 export default function FileUpload() {
-  const [checkedPieces, setCheckedPieces] = useState(false);
-  const [file, setFile] = useState();
+  const [checkedPieces, setCheckedPieces] = useState(false)
+  const [file, setFile] = useState()
   const [data, setData] = useState({
     file_name: "",
     fabric: 1,
@@ -14,47 +14,59 @@ export default function FileUpload() {
     backforth: 0,
     sewing: "",
     description: "",
-  });
-  const [click, setClick] = useState(false);
-  const formData = new FormData();
+  })
+  const [click, setClick] = useState(false)
+  const formData = new FormData()
 
-  formData.append("file", file);
-  formData.append("file_name", data.file_name);
-  formData.append("size_x", data.size_x);
-  formData.append("size_y", data.size_y);
-  formData.append("fabric", 1);
-  formData.append("count", data.count);
-  formData.append("backforth", data.backforth);
-  formData.append("pieces", data.pieces);
-  formData.append("sewing", data.sewing);
-  formData.append("description", data.description);
+  formData.append("file", file)
+  formData.append("file_name", data.file_name)
+  formData.append("size_x", data.size_x)
+  formData.append("size_y", data.size_y)
+  formData.append("fabric", data.fabric)
+  formData.append("count", data.count)
+  formData.append("backforth", data.backforth)
+  formData.append("pieces", data.pieces)
+  formData.append("sewing", data.sewing)
+  formData.append("description", data.description)
 
-  formData.append("date", new Date().toLocaleDateString("fa-IR"));
+  formData.append(
+    "date",
+    new Date().toLocaleDateString("fa-IR", { numberingSystem: "latn" })
+  )
   async function HandleSubmit(e) {
-    e.preventDefault();
+    e.preventDefault()
     if (click) {
       return await api
         .post("fileprint/store", formData, {
           headers: { Authorization: "Bearer " + Cookies.get("jht4") },
         })
         .then((e) => {
-          console.log(e);
+          console.log(e)
         })
         .catch((e) => {
-          console.log(e);
-        });
+          console.log(e)
+        })
     }
   }
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setData({
       ...data,
       [name]: value,
-    });
-  };
+    })
+  }
+  const handleInputChecked = (e) => {
+    const { checked } = e.target
+    setData({
+      ...data,
+      backforth: checked ? 1 : 0,
+    })
+  }
 
-  const [fabrics, setFabrics] = useState([]);
-  const [loadingFabrics, setLoadingFabrics] = useState(false);
+  const [fabrics, setFabrics] = useState([])
+  const [sewings, setSewings] = useState([])
+  const [loadingFabrics, setLoadingFabrics] = useState(false)
+  const [loadingSewings, setLoadingSewings] = useState(false)
 
   async function getFabrics() {
     return await api
@@ -62,16 +74,35 @@ export default function FileUpload() {
         headers: { Authorization: "Bearer " + Cookies.get("jht4") },
       })
       .then((e) => {
-        setLoadingFabrics(true);
-        setFabrics(e.data.fabrics);
+        setLoadingFabrics(true)
+        setFabrics(e.data.fabrics)
       })
       .catch((e) => {
-        console.log(e);
-      });
+        console.log(e)
+      })
+  }
+  async function getSewings() {
+    return await api
+      .get("sewings", {
+        headers: { Authorization: "Bearer " + Cookies.get("jht4") },
+      })
+      .then((e) => {
+        setLoadingSewings(true)
+        setSewings(e.data.sewings)
+      })
+      .catch((e) => {
+        console.log(e)
+      })
   }
   useEffect(() => {
-    getFabrics();
-  }, []);
+    getFabrics()
+    getSewings()
+    //eslint-disable-next-line
+  }, [])
+  useEffect(() => {
+    console.log(data)
+  }, [data])
+
   return (
     <div className=" flex justify-center overflow-y-auto h-96  px-4">
       <div className="">
@@ -115,6 +146,7 @@ export default function FileUpload() {
                 </div>
                 <input
                   id="dropzone-file"
+                  name="file"
                   type="file"
                   className="hidden"
                   onChange={(e) => setFile(e.target.files[0])}
@@ -157,7 +189,7 @@ export default function FileUpload() {
                         {fabric.name} - {fabric.price.toLocaleString("en-US")}ت
                         - {fabric.price_partner.toLocaleString("en-US")}ت
                       </option>
-                    );
+                    )
                   })
                 ) : (
                   <option value="">لطفا منتظر بمانید</option>
@@ -168,7 +200,7 @@ export default function FileUpload() {
                   className=" w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 "
                   type="checkbox"
                   onChange={() => {
-                    setCheckedPieces(!checkedPieces);
+                    setCheckedPieces(!checkedPieces)
                   }}
                   name=""
                   id=""
@@ -186,7 +218,7 @@ export default function FileUpload() {
                 type="number"
                 id="pieces"
                 name="pieces"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 disabled:bg-stone-300"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 disabled:bg-stone-200"
                 placeholder="2"
                 disabled={!checkedPieces}
               />
@@ -246,7 +278,7 @@ export default function FileUpload() {
             <div className="flex items-center gap-2 mt-4 mb-2">
               <input
                 className=" w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 "
-                onChange={handleInputChange}
+                onChange={handleInputChecked}
                 type="checkbox"
                 name="backfroth"
                 id="backfroth"
@@ -257,17 +289,27 @@ export default function FileUpload() {
               htmlFor="sewing"
               className="block my-2 text-sm font-medium text-gray-900 "
             >
-              توضیحات دوخت
+              نوع دوخت
             </label>
-            <textarea
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            <select
               onChange={handleInputChange}
               name="sewing"
               id="sewing"
-              cols="30"
-              rows="5"
-              placeholder="توضیحات دوخت..،  سردوز،ریشه دوزی"
-            ></textarea>
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            >
+              <option>نوع دوخت - قیمت </option>
+              {loadingSewings ? (
+                sewings.map((sewing) => {
+                  return (
+                    <option key={sewing.id} value={sewing.id}>
+                      {sewing.name} - {sewing.price.toLocaleString("en-US")}ت
+                    </option>
+                  )
+                })
+              ) : (
+                <option value="">لطفا منتظر بمانید</option>
+              )}
+            </select>
             <label
               htmlFor="description"
               className="block my-2 text-sm font-medium text-gray-900 "
@@ -282,11 +324,16 @@ export default function FileUpload() {
               cols="30"
               rows="10"
             ></textarea>
-            <button onClick={() => setClick(true)}>ارسال</button>
+            <button
+              className="w-9/12 py-2.5 rounded-lg text-lg text-white bg-blue-600 mx-auto mt-3"
+              onClick={() => setClick(true)}
+            >
+              ارسال
+            </button>
           </form>
           <div className="h-20"></div>
         </div>
       </div>
     </div>
-  );
+  )
 }

@@ -1,13 +1,13 @@
-import { Link } from "react-router-dom";
-import { BsChatLeftDotsFill } from "react-icons/bs";
-import { CgProfile } from "react-icons/cg";
-import { useState } from "react";
-import Cookies from "js-cookie";
-import { useEffect } from "react";
-import api from "../api";
+import { Link } from "react-router-dom"
+import { BsChatLeftDotsFill } from "react-icons/bs"
+import { CgProfile } from "react-icons/cg"
+import { useState } from "react"
+import Cookies from "js-cookie"
+import { useEffect } from "react"
+import api from "../api"
 export default function MainPage({ children }) {
-  const [loading, setLoading] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
+  const [loading, setLoading] = useState(false)
+  const [isLogin, setIsLogin] = useState(false)
   useEffect(() => {
     if (Boolean(Cookies.get("jht4"))) {
       async function checkToken() {
@@ -17,24 +17,24 @@ export default function MainPage({ children }) {
           })
           .then((e) => {
             if (e.data.token) {
-              setLoading(true);
-              setIsLogin(true);
+              setLoading(true)
+              setIsLogin(true)
             } else {
-              setLoading(true);
-              setIsLogin(false);
+              setLoading(true)
+              setIsLogin(false)
             }
           })
           .catch((e) => {
-            setLoading(true);
-            setIsLogin(false);
-          });
+            setLoading(true)
+            setIsLogin(false)
+          })
       }
-      checkToken();
+      checkToken()
     } else {
-      setLoading(true);
-      setIsLogin(false);
+      setLoading(true)
+      setIsLogin(false)
     }
-  }, []);
+  }, [])
 
   if (loading) {
     if (isLogin) {
@@ -43,30 +43,30 @@ export default function MainPage({ children }) {
           <div>{children}</div>
           <div
             id="menu-chat"
-            className="fixed bottom-0 bg-[#128c7e] p-3 flex w-full md:w-9/12 lg:w-1/2 mx-auto container justify-around"
+            className="fixed bottom-0 bg-[#128c7e] py-2 flex w-full md:w-9/12 lg:w-1/2 mx-auto container justify-around"
             dir="rtl"
           >
             <Link
               to={"/"}
               className="flex flex-col justify-center items-center"
             >
-              <BsChatLeftDotsFill color="white" size={"26px"} />
+              <BsChatLeftDotsFill color="white" size={"24px"} />
               <div className="text-sm text-white">چت</div>
             </Link>
             <Link
               to={"profile"}
               className="flex flex-col justify-center items-center"
             >
-              <CgProfile color="white" size={"26px"} />
+              <CgProfile color="white" size={"24px"} />
               <div className="text-sm text-white">پروفایل</div>
             </Link>
           </div>
         </div>
-      );
+      )
     } else {
-      return window.location.replace("/login");
+      return window.location.replace("/login")
     }
   } else {
-    return <div>loading...</div>;
+    return <div>loading...</div>
   }
 }
