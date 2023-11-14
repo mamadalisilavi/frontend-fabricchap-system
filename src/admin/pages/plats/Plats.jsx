@@ -39,6 +39,7 @@ export default function Plats() {
           <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
               <tr>
+                <th scope="col" class="px-6 py-3"></th>
                 <th scope="col" class="px-6 py-3">
                   عکس
                 </th>
@@ -73,10 +74,29 @@ export default function Plats() {
                 ? plats.map((plat) => {
                     return (
                       <tr class="odd:bg-white even:bg-gray-50  border-b ">
-                        <th
+                        {/* <th
                           scope="row"
                           class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                        ></th>
+                        ></th> */}
+
+                        <td class="px-6 py-4">
+                          <a
+                            href={process.env.REACT_APP_API_STORAGE + plat.file}
+                            download={true}
+                            className="hover:underline text-sm"
+                          >
+                            دانلود عکس
+                          </a>
+                        </td>
+
+                        <td class="px-6 py-4">
+                          <img
+                            width={"70px"}
+                            className="p-1 rounded"
+                            src={process.env.REACT_APP_API_STORAGE + plat.file}
+                            alt=""
+                          />
+                        </td>
                         <td class="px-6 py-4">{plat.file_name}</td>
                         <td class="px-6 py-4">{plat.size_x}</td>
                         <td class="px-6 py-4">{plat.size_y}</td>
