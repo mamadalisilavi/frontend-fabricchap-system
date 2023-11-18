@@ -19,6 +19,7 @@ export default function MainPage({ children }) {
             if (e.data.token) {
               setLoading(true)
               setIsLogin(true)
+              Cookies.set("customer", e.data.customer)
             } else {
               setLoading(true)
               setIsLogin(false)

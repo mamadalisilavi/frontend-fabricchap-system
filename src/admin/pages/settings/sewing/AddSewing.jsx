@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import NavSettings from "../../../components/NavSettings"
 import api from "../../../../api"
 import Cookies from "js-cookie"
@@ -7,6 +7,7 @@ export default function AddSewing() {
   const [data, setData] = useState({
     name: null,
     price: null,
+    status: null,
     description: null,
   })
   async function handleSubmit(e) {
@@ -17,6 +18,7 @@ export default function AddSewing() {
         {
           name: data.name,
           price: data.price,
+          status: data.status,
           description: data.description,
         },
         { headers: { Authorization: "Bearer " + Cookies.get("jht4") } }
@@ -31,7 +33,9 @@ export default function AddSewing() {
       [name]: value,
     })
   }
-
+  useEffect(() => {
+    console.log(data)
+  }, [data])
   return (
     <div className="container mx-auto md:w-2/3 lg:1/2 flex flex-col justify-center items-center">
       <NavSettings title={"افزودن دوخت"} back={"/admin/settings/sewings"} />
@@ -75,6 +79,26 @@ export default function AddSewing() {
           />
         </div>
         <div>
+          <div className="">
+            <label
+              htmlFor="status"
+              className="block mb-2 text-sm font-medium text-gray-900"
+            >
+              حالت محاسبه دوخت
+            </label>
+            <select
+              onChange={handleInputChange}
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+              name="status"
+              id="status"
+            >
+              <option value="0">انتخاب کنید</option>
+              <option value="1">قطعی</option>
+              <option value="2">کامل</option>
+              <option value="3">یک طرفه</option>
+              <option value="4">غیر موجود</option>
+            </select>
+          </div>
           <div className="">
             <label
               htmlFor="description"

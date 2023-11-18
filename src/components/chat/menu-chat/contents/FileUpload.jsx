@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import api from "../../../../api"
 import axios from "axios"
 import validator from "validator"
+import ConfirmPage from "./ConfirmPage"
 export default function FileUpload() {
   const [checkedPieces, setCheckedPieces] = useState(false)
   const [file, setFile] = useState(null)
@@ -16,6 +17,11 @@ export default function FileUpload() {
     backforth: 0,
     sewing: "",
     description: "",
+    fabric_price: 0,
+    fabric_name: "",
+    sewing_name: "",
+    sewing_price: "",
+    sewing_status: 0,
     errors: {
       file_name: "",
       fabric: "",
@@ -28,7 +34,7 @@ export default function FileUpload() {
       description: "",
     },
   })
-
+  const [customer, setCustomer] = useState(false)
   const [persentUpload, setPercentUpload] = useState(0)
   const [max, setMax] = useState(0)
   const [click, setClick] = useState(false)
@@ -102,8 +108,8 @@ export default function FileUpload() {
     switch (fieldName) {
       case "file_name":
         if (validator.isEmpty(value)) {
-          return "لطفا اسم فایل راح پر کنید"
-        } else if (validator.isLength(value, { min: 1, max: 30 })) {
+          return "لطفا اسم فایل را پر کنید"
+        } else if (!validator.isLength(value, { min: 1, max: 30 })) {
           return "لطفا نام فایل بین 1 تا 30 کاراکتر باشد."
         } else {
           return ""
@@ -122,7 +128,12 @@ export default function FileUpload() {
           return `لطفا نوع پارچه را انتخاب کنید.`
         } else if (value <= 0) {
           return "لطفا عدد صحیح وارد کنید"
-        } else if (value > max) {
+        } else if (
+          !isNaN(value) &&
+          isFinite(value) &&
+          value >= 1 &&
+          value <= max
+        ) {
           return `عرض پارچه انتخاب شده ${max} سانت است.`
         } else if (value.includes(".") && value.split(".")[1].length > 3) {
           return `عرض پارچه انتخاب شده ${max} سانت است.`
@@ -189,7 +200,8 @@ export default function FileUpload() {
   }
 
   const [validForm, setValidForm] = useState(false)
-  const handleConfirm = () => {
+  const handleConfirm = (e) => {
+    e.preventDefault()
     setConfirm(true)
   }
 
@@ -220,16 +232,49 @@ export default function FileUpload() {
     }
   }, [data])
   useEffect(() => {
-    if (Object.values(data).every((name) => name === "")) {
-      setValidForm(false)
-    } else {
-      setValidForm(true)
+    // if (Object.values(data).every((name) => name === "")) {
+    //   setValidForm(false)
+    // } else {
+    //   setValidForm(true)
+    // }
+    setLoaded(new Date())
+    if (loaded !== null) {
+      if (Object.values(data).every((name) => name === "")) {
+        setValidForm(true)
+      } else {
+        setValidForm(false)
+      }
     }
   }, [])
-  // useEffect(() => {
-  //   console.log(data)
-  // }, [data])
+  const [loaded, setLoaded] = useState()
+  useEffect(() => {
+    console.log(data)
+  }, [data])
   const [confirm, setConfirm] = useState(false)
+
+  const handleSewingChinge = (e) => {
+    setData((prev) => ({
+      ...prev,
+      sewing: e.target.value,
+    }))
+    var index = e.target.selectedIndex
+    var optionElement = e.target.childNodes[index]
+    var sewingName = optionElement.getAttribute("name")
+    var sewingPrice = optionElement.getAttribute("price")
+    var sewingStatus = optionElement.getAttribute("status")
+    setData((prev) => ({
+      ...prev,
+      sewing_name: sewingName,
+    }))
+    setData((prev) => ({
+      ...prev,
+      sewing_price: sewingPrice,
+    }))
+    setData((prev) => ({
+      ...prev,
+      sewing_status: sewingStatus,
+    }))
+  }
   return (
     <div className=" flex justify-center overflow-y-auto h-96  px-4">
       <div className="">
@@ -331,13 +376,23 @@ export default function FileUpload() {
                   var index = e.target.selectedIndex
                   var optionElement = e.target.childNodes[index]
                   var option = optionElement.getAttribute("width")
+                  var fabricPrice = optionElement.getAttribute("price")
+                  var fabricName = optionElement.getAttribute("name")
                   setMax(option)
+                  setData((prev) => ({
+                    ...prev,
+                    fabric_price: fabricPrice,
+                  }))
+                  setData((prev) => ({
+                    ...prev,
+                    fabric_name: fabricName,
+                  }))
                 }}
                 name="fabric"
                 id="fabric"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               >
-                <option value={"0"} width={"0"}>
+                <option value={"0"} width={"0"} price={"0"}>
                   نوع پارچه - قیمت مشتری - قیمت همکار
                 </option>
                 {loadingFabrics ? (
@@ -345,6 +400,12 @@ export default function FileUpload() {
                     // setMax(fabric.width)
                     return (
                       <option
+                        price={
+                          Cookies.get("customer") === 1
+                            ? fabric.price
+                            : fabric.price_partner
+                        }
+                        name={fabric.name}
                         width={fabric.width}
                         key={fabric.id}
                         value={fabric.id}
@@ -489,12 +550,7 @@ export default function FileUpload() {
               نوع دوخت
             </label>
             <select
-              onChange={(e) => {
-                return setData((prev) => ({
-                  ...prev,
-                  sewing: e.target.value,
-                }))
-              }}
+              onChange={handleSewingChinge}
               name="sewing"
               id="sewing"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -502,7 +558,13 @@ export default function FileUpload() {
               {loadingSewings ? (
                 sewings.map((sewing) => {
                   return (
-                    <option key={sewing.id} value={sewing.id}>
+                    <option
+                      key={sewing.id}
+                      price={sewing.price}
+                      name={sewing.name}
+                      value={sewing.id}
+                      status={sewing.status}
+                    >
                       {sewing.name} - {sewing.price.toLocaleString("en-US")}
                       تومان
                     </option>
@@ -550,6 +612,7 @@ export default function FileUpload() {
             >
               ارسال
             </button> */}
+
             {persentUpload}
             <progress value={persentUpload} max="100">
               {" "}
@@ -558,6 +621,7 @@ export default function FileUpload() {
           </form>
           <div className="h-20"></div>
         </div>
+        <ConfirmPage confirm={confirm} data={data} />
       </div>
     </div>
   )

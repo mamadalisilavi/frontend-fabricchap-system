@@ -9,7 +9,7 @@ export default function SewingsSettings() {
   const [loading, setLoading] = useState(false)
   async function getSewings() {
     return await api
-      .get("sewings", {
+      .get("sewings/admin", {
         headers: { Authorization: "Bearer " + Cookies.get("jht4") },
       })
       .then((e) => {
@@ -26,6 +26,22 @@ export default function SewingsSettings() {
   useEffect(() => {
     getSewings()
   }, [])
+  const sewingStatus = [
+    { id: 1, name: "قطعی" },
+    { id: 2, name: "کامل" },
+    { id: 3, name: "یک طرفه" },
+    { id: 4, name: "غیر موجود" },
+  ]
+
+  const getSewingStatus = (id) => {
+    const foundObject = sewingStatus.find((item) => item.id === id)
+
+    if (foundObject) {
+      return foundObject.name
+    } else {
+      return "Not found" // You can handle the case where the id is not found
+    }
+  }
   return (
     <div
       dir="rtl"
@@ -41,6 +57,9 @@ export default function SewingsSettings() {
               </th>
               <th scope="col" class="px-6 py-3">
                 قیمت (تومان)
+              </th>
+              <th scope="col" class="px-6 py-3">
+                حالت
               </th>
               <th scope="col" class="px-6 py-3">
                 ویرایش
@@ -60,6 +79,9 @@ export default function SewingsSettings() {
                       </th>
                       <td class="px-6 py-4">
                         {sewing.price.toLocaleString("en-US")}
+                      </td>
+                      <td class="px-6 py-4">
+                        {getSewingStatus(sewing.status)}
                       </td>
                       <td class="px-6 py-4">
                         <button

@@ -23,6 +23,7 @@ export default function EditSewing() {
           id: data.id,
           name: data.name,
           price: data.price,
+          status: data.price,
           description: data.description,
         },
         { headers: { Authorization: "Bearer " + Cookies.get("jht4") } }
