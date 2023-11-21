@@ -35,7 +35,7 @@ export default function ConfirmPage({ data, confirm }) {
   function total() {
     return fabricPrice + sewingPrice
   }
-  console.log(data.sewing_price)
+ // console.log( fabricPrice + sewingPrice)
   return (
     <div className={confirm ? "" : "hidden"}>
       <div class="relative overflow-x-auto  pb-32" dir="rtl">

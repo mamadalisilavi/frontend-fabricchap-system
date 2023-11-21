@@ -7,8 +7,18 @@ import ConfirmPage from "./ConfirmPage"
 export default function FileUpload() {
   const [checkedPieces, setCheckedPieces] = useState(false)
   const [file, setFile] = useState(null)
+  const [fileError,setFileError] = useState("لطفا فایل را انتخاب کنید")
+  const [file_file,setFileFile] = useState("")
+  /*
+ file: "",
+    file_name: "",
+sewing: "",
+    description: "",
+     fabric_name: "",
+    sewing_name: "",
+    sewing_price: "",
+  */
   const [data, setData] = useState({
-    file: "",
     file_name: "",
     fabric: "0",
     pieces: 1,
@@ -24,13 +34,12 @@ export default function FileUpload() {
     sewing_price: "",
     sewing_status: 0,
     errors: {
-      file: "",
-      file_name: "",
+      file_name: "لطفا اسم فایل را پر کنید",
       fabric: "",
       pieces: "",
-      size_y: "",
-      size_x: "",
-      count: "",
+      size_y: "لطفا طول طرح را پر کنید",
+      size_x: "لطفا عرض طرح را پر کنید",
+      count: "لطفا تعداد را انتخاب کنید",
       backforth: "",
       sewing: "",
       description: "",
@@ -63,7 +72,7 @@ export default function FileUpload() {
   formData.append("description", data.description)
   formData.append(
     "date",
-    new Date().toLocaleDateString("fa-IR", { numberingSystem: "latn" })
+    new Date().toLocaleDateString("fa-IR", { numberingSystem: "latn" }),
   )
   async function HandleSubmit(e) {
     e.preventDefault()
@@ -110,8 +119,6 @@ export default function FileUpload() {
   }
   const validateInput = (fieldName, value) => {
     switch (fieldName) {
-      case "file":
-        return validator.isEmpty(value) ? "file err" : ""
       case "file_name":
         if (validator.isEmpty(value)) {
           return "لطفا اسم فایل را پر کنید"
@@ -121,10 +128,11 @@ export default function FileUpload() {
           return ""
         }
       case "fabric":
-        if (value === "0") {
+        if (parseInt(value) === 0) {
+          return ""
+        }else{
           return "لطفا نوع پارچه را انتخاب کنید."
         }
-        return ""
       case "size_x":
         if (validator.isEmpty(value)) {
           return "لطفا عرض طرح را وارد کنید"
@@ -228,27 +236,42 @@ export default function FileUpload() {
     //eslint-disable-next-line
   }, [])
   useEffect(() => {
-    if (Object.values(data.errors).every((error) => error === "")) {
+    if (Object.values(data.errors).every((error) => error === "") && fileError === "") {
       setValidForm(true)
     } else {
       setValidForm(false)
     }
+    console.log(data) 
   }, [data])
   useEffect(() => {
-    // if (Object.values(data).every((name) => name === "")) {
-    //   setValidForm(false)
-    // } else {
-    //   setValidForm(true)
-    // }
     setLoaded(new Date())
     if (loaded !== null) {
-      if (Object.values(data).every((name) => name === "")) {
-        setValidForm(true)
-      } else {
+      // if (Object.values(data).every((name) => name === "")) {
+      //   setValidForm(false)
+      // } else {
+      //   setValidForm(true)
+      // }
+
+      if (data.file_name === "") {
         setValidForm(false)
       }
     }
   }, [])
+
+  useEffect(() => {
+    if (file === null) {
+      setValidForm(false)
+    } else {
+      if (data.file_name === "") {
+        setValidForm(false)
+      }
+    }
+    if(file_file === ""){
+      setFileError("لطفا فایل را انتخاب کنید")
+    }else{
+      setFileError("")
+    }
+  }, [file])
 
   const [confirm, setConfirm] = useState(false)
 
@@ -279,7 +302,7 @@ export default function FileUpload() {
     <div className=" flex justify-center overflow-y-auto h-96  px-4">
       <div className="">
         <div className={confirm ? "hidden" : ""}>
-          <div className="text-red-500 text-sm my-1">{data.errors.count}</div>
+          {/* <div className="text-red-500 text-sm my-1">{data.errors.count}</div> */}
           <form
             onSubmit={HandleSubmit}
             action=""
@@ -321,7 +344,7 @@ export default function FileUpload() {
                 ) : (
                   <div className="flex flex-col items-end flex-wrap">
                     <div className="flex " dir="ltr">
-                      name: {"  "}{" "}
+                      name: 
                       <div className="text-stone-700  ml-2"> {file.name}</div>
                     </div>
                     <div className="flex " dir="ltr">
@@ -339,16 +362,13 @@ export default function FileUpload() {
                   accept="image/png, image/gif, image/jpeg, image/jpg,  image/svg"
                   className="hidden"
                   onChange={(e) => {
-                    setData((prev) => ({
-                      ...prev,
-                      file: e.target.value,
-                    }))
+                    setFileFile(e.target.value)
                     setFile(e.target.files[0])
                   }}
                 />
               </label>
             </div>
-            <div className="text-red-500 text-sm my-1">{data.errors.file}</div>
+            <div className="text-red-500 text-sm my-1">{fileError}</div>
             <div>
               <label
                 htmlFor="file_name"
