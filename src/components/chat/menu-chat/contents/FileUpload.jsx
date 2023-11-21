@@ -8,6 +8,7 @@ export default function FileUpload() {
   const [checkedPieces, setCheckedPieces] = useState(false)
   const [file, setFile] = useState(null)
   const [data, setData] = useState({
+    file: "",
     file_name: "",
     fabric: "0",
     pieces: 1,
@@ -23,6 +24,7 @@ export default function FileUpload() {
     sewing_price: "",
     sewing_status: 0,
     errors: {
+      file: "",
       file_name: "",
       fabric: "",
       pieces: "",
@@ -44,6 +46,8 @@ export default function FileUpload() {
   const [loadingSewings, setLoadingSewings] = useState(false)
   const [errorBackend, setErrorBackend] = useState("")
   const [success, setSuccess] = useState("")
+  const [loaded, setLoaded] = useState()
+
   //new form data
   const formData = new FormData()
 
@@ -106,6 +110,8 @@ export default function FileUpload() {
   }
   const validateInput = (fieldName, value) => {
     switch (fieldName) {
+      case "file":
+        return validator.isEmpty(value) ? "file err" : ""
       case "file_name":
         if (validator.isEmpty(value)) {
           return "لطفا اسم فایل را پر کنید"
@@ -126,14 +132,11 @@ export default function FileUpload() {
           return "لطفا عدد وارد کنید."
         } else if (max === 0) {
           return `لطفا نوع پارچه را انتخاب کنید.`
-        } else if (value <= 0) {
+        } else if (parseFloat(value) <= 0) {
           return "لطفا عدد صحیح وارد کنید"
-        } else if (
-          !isNaN(value) &&
-          isFinite(value) &&
-          value >= 1 &&
-          value <= max
-        ) {
+        } else if (parseFloat(value) < 1) {
+          return `عرض پارچه انتخاب شده ${max} سانت است.`
+        } else if (parseFloat(value) > max) {
           return `عرض پارچه انتخاب شده ${max} سانت است.`
         } else if (value.includes(".") && value.split(".")[1].length > 3) {
           return `عرض پارچه انتخاب شده ${max} سانت است.`
@@ -246,10 +249,7 @@ export default function FileUpload() {
       }
     }
   }, [])
-  const [loaded, setLoaded] = useState()
-  useEffect(() => {
-    console.log(data)
-  }, [data])
+
   const [confirm, setConfirm] = useState(false)
 
   const handleSewingChinge = (e) => {
@@ -338,10 +338,17 @@ export default function FileUpload() {
                   type="file"
                   accept="image/png, image/gif, image/jpeg, image/jpg,  image/svg"
                   className="hidden"
-                  onChange={(e) => setFile(e.target.files[0])}
+                  onChange={(e) => {
+                    setData((prev) => ({
+                      ...prev,
+                      file: e.target.value,
+                    }))
+                    setFile(e.target.files[0])
+                  }}
                 />
               </label>
             </div>
+            <div className="text-red-500 text-sm my-1">{data.errors.file}</div>
             <div>
               <label
                 htmlFor="file_name"
