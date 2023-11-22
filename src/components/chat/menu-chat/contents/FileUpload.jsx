@@ -7,17 +7,9 @@ import ConfirmPage from "./ConfirmPage"
 export default function FileUpload() {
   const [checkedPieces, setCheckedPieces] = useState(false)
   const [file, setFile] = useState(null)
-  const [fileError,setFileError] = useState("لطفا فایل را انتخاب کنید")
-  const [file_file,setFileFile] = useState("")
-  /*
- file: "",
-    file_name: "",
-sewing: "",
-    description: "",
-     fabric_name: "",
-    sewing_name: "",
-    sewing_price: "",
-  */
+  const [fileError, setFileError] = useState("لطفا فایل را انتخاب کنید")
+  const [file_file, setFileFile] = useState("")
+
   const [data, setData] = useState({
     file_name: "",
     fabric: "0",
@@ -26,7 +18,7 @@ sewing: "",
     size_x: 0,
     count: 0,
     backforth: 0,
-    sewing: "",
+    sewing: "0",
     description: "",
     fabric_price: 0,
     fabric_name: "",
@@ -35,27 +27,30 @@ sewing: "",
     sewing_status: 0,
     errors: {
       file_name: "لطفا اسم فایل را پر کنید",
-      fabric: "",
       pieces: "",
       size_y: "لطفا طول طرح را پر کنید",
       size_x: "لطفا عرض طرح را پر کنید",
       count: "لطفا تعداد را انتخاب کنید",
       backforth: "",
-      sewing: "",
-      description: "",
+      description: "لطفا توضیحات را بنویسید",
     },
   })
+  const [sewingError, setSewingError] = useState("لطفا نوع دوخت را انتخاب کنید")
+  const [fabricError, setFabricError] = useState(
+    "لطفا نوع پارچه را انتخاب کنید"
+  )
   const [customer, setCustomer] = useState(false)
   const [persentUpload, setPercentUpload] = useState(0)
-  const [max, setMax] = useState(0)
   const [click, setClick] = useState(false)
   const [fabrics, setFabrics] = useState([])
   const [sewings, setSewings] = useState([])
   const [loadingFabrics, setLoadingFabrics] = useState(false)
   const [loadingSewings, setLoadingSewings] = useState(false)
   const [errorBackend, setErrorBackend] = useState("")
-  const [success, setSuccess] = useState("")
+  const [success, setSuccess] = useState(false)
   const [loaded, setLoaded] = useState()
+  const [max, setMax] = useState(0)
+  const [max2, setMax2] = useState(0)
 
   //new form data
   const formData = new FormData()
@@ -72,7 +67,7 @@ sewing: "",
   formData.append("description", data.description)
   formData.append(
     "date",
-    new Date().toLocaleDateString("fa-IR", { numberingSystem: "latn" }),
+    new Date().toLocaleDateString("fa-IR", { numberingSystem: "latn" })
   )
   async function HandleSubmit(e) {
     e.preventDefault()
@@ -90,7 +85,9 @@ sewing: "",
         },
       })
         .then((e) => {
-          setSuccess(e.data.message)
+          if (e.data.status) {
+            setSuccess(true)
+          }
         })
         .catch((e) => {
           setErrorBackend(e.response.data.message)
@@ -130,24 +127,50 @@ sewing: "",
       case "fabric":
         if (parseInt(value) === 0) {
           return ""
-        }else{
+        } else {
           return "لطفا نوع پارچه را انتخاب کنید."
         }
-      case "size_x":
+      case "pieces":
         if (validator.isEmpty(value)) {
-          return "لطفا عرض طرح را وارد کنید"
-        } else if (!validator.isFloat(value) || !validator.isNumeric(value)) {
-          return "لطفا عدد وارد کنید."
-        } else if (max === 0) {
-          return `لطفا نوع پارچه را انتخاب کنید.`
-        } else if (parseFloat(value) <= 0) {
-          return "لطفا عدد صحیح وارد کنید"
-        } else if (parseFloat(value) < 1) {
-          return `عرض پارچه انتخاب شده ${max} سانت است.`
-        } else if (parseFloat(value) > max) {
-          return `عرض پارچه انتخاب شده ${max} سانت است.`
-        } else if (value.includes(".") && value.split(".")[1].length > 3) {
-          return `عرض پارچه انتخاب شده ${max} سانت است.`
+          return "لطفا تعداد تیکه طرح را وارد کنید"
+        } else if (parseInt(value) === 1) {
+          return "لطفا تعداد تیکه طرح را بیشتر از 1 وارد کنید"
+        } else {
+          return ""
+        }
+      case "size_x":
+        if (checkedPieces) {
+          if (validator.isEmpty(value)) {
+            return "لطفا عرض طرح را وارد کنید"
+          } else if (!validator.isFloat(value) || !validator.isNumeric(value)) {
+            return "لطفا عدد وارد کنید."
+          } else if (max2 === 0) {
+            return `لطفا نوع پارچه را انتخاب کنید.`
+          } else if (parseFloat(value) <= 0) {
+            return "لطفا عدد صحیح وارد کنید"
+          } else if (parseFloat(value) < 1) {
+            return `عرض پارچه انتخاب شده ${max2} سانت است.`
+          } else if (parseFloat(value) > max2) {
+            return `عرض پارچه انتخاب شده ${max2} سانت است.`
+          } else if (value.includes(".") && value.split(".")[1].length > 3) {
+            return `عرض پارچه انتخاب شده ${max2} سانت است.`
+          }
+        } else {
+          if (validator.isEmpty(value)) {
+            return "لطفا عرض طرح را وارد کنید"
+          } else if (!validator.isFloat(value) || !validator.isNumeric(value)) {
+            return "لطفا عدد وارد کنید."
+          } else if (max === 0) {
+            return `لطفا نوع پارچه را انتخاب کنید.`
+          } else if (parseFloat(value) <= 0) {
+            return "لطفا عدد صحیح وارد کنید"
+          } else if (parseFloat(value) < 1) {
+            return `عرض پارچه انتخاب شده ${max} سانت است.`
+          } else if (parseFloat(value) > max) {
+            return `عرض پارچه انتخاب شده ${max} سانت است.`
+          } else if (value.includes(".") && value.split(".")[1].length > 3) {
+            return `عرض پارچه انتخاب شده ${max} سانت است.`
+          }
         }
         return ""
       case "size_y":
@@ -179,14 +202,16 @@ sewing: "",
         } else {
           return ""
         }
-      case "sewing":
-        if (value === "0") {
-          return "لطفا نوع دوخت را انتخاب کنید."
-        } else {
-          return ""
-        }
+      // case "sewing":
+      //   if (parseInt(value) === 0) {
+      //     return "لطفا نوع دوخت را انتخاب کنید."
+      //   } else if (parseInt(value) > 0) {
+      //     return ""
+      //   }
       case "description":
-        if (!validator.isLength(value, { max: 500 })) {
+        if (validator.isEmpty(value)) {
+          return "لطفا توضیحات را بنویسید."
+        } else if (!validator.isLength(value, { max: 500 })) {
           return "حد اکثر توضیحات 500 حرف است."
         } else {
           return ""
@@ -236,24 +261,45 @@ sewing: "",
     //eslint-disable-next-line
   }, [])
   useEffect(() => {
-    if (Object.values(data.errors).every((error) => error === "") && fileError === "") {
+    if (
+      Object.values(data.errors).every((error) => error === "") &&
+      fileError === "" &&
+      fabricError === "" &&
+      sewingError === ""
+    ) {
       setValidForm(true)
     } else {
       setValidForm(false)
     }
-    console.log(data) 
+    window.localStorage.setItem("formData", JSON.stringify(data))
+    console.log(parseInt(data.sewing))
+    if (parseInt(data.sewing) === 0) {
+      setSewingError("لطفا نوع دوخت را انتخاب کنید")
+    } else if (parseInt(data.sewing) > 0) {
+      setSewingError("")
+    }
+    if (parseInt(data.fabric) === 0) {
+      setFabricError("لطفا نوع پارچه را انتخاب کنید")
+    } else if (parseInt(data.fabric) > 0) {
+      setFabricError("")
+    }
   }, [data])
   useEffect(() => {
     setLoaded(new Date())
+
     if (loaded !== null) {
-      // if (Object.values(data).every((name) => name === "")) {
-      //   setValidForm(false)
-      // } else {
-      //   setValidForm(true)
+      // if (Boolean(window.localStorage.getItem("formData"))) {
+      //   setData(JSON.parse(window.localStorage.getItem("formData")))
       // }
 
       if (data.file_name === "") {
         setValidForm(false)
+      }
+      if (parseInt(data.sewing) === 0) {
+        setSewingError("لطفا نوع دوخت را انتخاب کنید")
+      }
+      if (parseInt(data.fabric) === 0) {
+        setFabricError("لطفا نوع پارچه را انتخاب کنید")
       }
     }
   }, [])
@@ -266,12 +312,17 @@ sewing: "",
         setValidForm(false)
       }
     }
-    if(file_file === ""){
+    if (file_file === "") {
       setFileError("لطفا فایل را انتخاب کنید")
-    }else{
+    } else {
       setFileError("")
     }
   }, [file])
+  useEffect(() => {
+    if (checkedPieces) {
+      setMax2(max * data.pieces)
+    }
+  }, [checkedPieces, data.size_x])
 
   const [confirm, setConfirm] = useState(false)
 
@@ -301,14 +352,15 @@ sewing: "",
   return (
     <div className=" flex justify-center overflow-y-auto h-96  px-4">
       <div className="">
-        <div className={confirm ? "hidden" : ""}>
-          {/* <div className="text-red-500 text-sm my-1">{data.errors.count}</div> */}
-          <form
-            onSubmit={HandleSubmit}
-            action=""
-            className="flex flex-col "
-            dir="rtl"
-          >
+        {/* <div className={confirm ? "hidden" : ""}> */}
+        {/* <div className="text-red-500 text-sm my-1">{data.errors.count}</div> */}
+        <form
+          onSubmit={HandleSubmit}
+          action=""
+          className="flex flex-col "
+          dir="rtl"
+        >
+          <div className={confirm ? "hidden" : ""}>
             <div className="flex items-center justify-center w-full" dir="rtl">
               <label
                 htmlFor="dropzone-file"
@@ -344,7 +396,7 @@ sewing: "",
                 ) : (
                   <div className="flex flex-col items-end flex-wrap">
                     <div className="flex " dir="ltr">
-                      name: 
+                      name:
                       <div className="text-stone-700  ml-2"> {file.name}</div>
                     </div>
                     <div className="flex " dir="ltr">
@@ -374,13 +426,14 @@ sewing: "",
                 htmlFor="file_name"
                 className="block my-2 text-sm font-medium text-gray-900 "
               >
-                نام فایل
+                نام یا کد فایل
               </label>
               <input
                 onChange={handleInputChange}
                 type="text"
                 name="file_name"
                 id="file_name"
+                value={data.file_name}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="نام فایل"
                 required
@@ -446,9 +499,7 @@ sewing: "",
                   <option value="">لطفا منتظر بمانید</option>
                 )}
               </select>
-              <div className="text-red-500 text-sm my-1">
-                {data.errors.fabric}
-              </div>
+              <div className="text-red-500 text-sm my-1">{fabricError}</div>
               <div className="flex items-center gap-2 mt-4 mb-2">
                 <input
                   className=" w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 "
@@ -503,7 +554,7 @@ sewing: "",
                     type="number"
                     name="size_y"
                     id="size_y"
-                    step="0.01"
+                    step="0.1"
                     min={"0"}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     placeholder=" طول به سانتی متر "
@@ -526,7 +577,7 @@ sewing: "",
                     type="number"
                     name="size_x"
                     id="size_x"
-                    step="0.01"
+                    step="0.1"
                     min={0}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     placeholder="عرض به سانتی متر"
@@ -601,9 +652,7 @@ sewing: "",
                 <option value="">لطفا منتظر بمانید</option>
               )}
             </select>
-            <div className="text-red-500 text-sm my-1">
-              {data.errors.sewing}
-            </div>
+            <div className="text-red-500 text-sm my-1">{sewingError}</div>
             <label
               htmlFor="description"
               className="block my-2 text-sm font-medium text-gray-900 "
@@ -622,34 +671,84 @@ sewing: "",
               {data.errors.description}
             </div>
             {validForm ? (
-              <button
-                className="w-9/12 py-2.5 rounded-lg text-lg text-white bg-blue-500 mx-auto mt-3 hover:bg-blue-600"
-                onClick={handleConfirm}
-              >
-                تایید و ادامه
-              </button>
+              <div className="flex justify-center">
+                <button
+                  className="w-9/12 py-2.5 rounded-lg text-lg text-white bg-blue-500 mt-3 hover:bg-blue-600 "
+                  onClick={handleConfirm}
+                >
+                  تایید و ادامه
+                </button>
+              </div>
             ) : (
               <div className="w-9/12 py-2.5 rounded-lg flex justify-center text-base text-red-600 bg-red-200 border boeder-red-400  mx-auto mt-3 ">
                 لطفا اطلاعات صحیح وارد کنید
               </div>
             )}
-            {/* <button
-              className="w-9/12 py-2.5 rounded-lg text-lg text-white bg-blue-600 mx-auto mt-3"
-              onClick={() => setClick(true)}
-            >
-              ارسال
-            </button> */}
+            <div className="h-20"></div>
+          </div>
 
-            {persentUpload}
-            <progress value={persentUpload} max="100">
-              {" "}
-              {persentUpload}
-            </progress>
-          </form>
-          <div className="h-20"></div>
-        </div>
-        <ConfirmPage confirm={confirm} data={data} />
+          <ConfirmPage confirm={confirm} data={data} click={click} />
+          {confirm ? (
+            <div
+              className={"flex justify-center " + (click ? " hidden " : " ")}
+            >
+              <button
+                className="mb-20 w-9/12 py-2.5 rounded-lg text-lg text-white bg-blue-600 mx-auto mt-3"
+                onClick={() => {
+                  setClick(true)
+                }}
+              >
+                تایید و ارسال
+              </button>
+            </div>
+          ) : null}
+          <div className={" w-80 " + (click ? " " : " hidden")}>
+            {success ? (
+              <>
+                <div class="success-animation">
+                  <svg
+                    class="checkmark"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 52 52"
+                  >
+                    <circle
+                      class="checkmark__circle"
+                      cx="26"
+                      cy="26"
+                      r="25"
+                      fill="none"
+                    />
+                    <path
+                      class="checkmark__check"
+                      fill="none"
+                      d="M14.1 27.2l7.1 7.2 16.7-16.8"
+                    />
+                  </svg>
+                </div>
+                <div className="flex justify-center my-5">
+                  طرح با موفقیت ارسال شد
+                </div>
+              </>
+            ) : (
+              <>
+                <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                  <div
+                    className="bg-blue-600 text-xs font-medium text-blue-100 text-center p-1 leading-none rounded-full"
+                    style={{ width: persentUpload + "%" }}
+                  >
+                    {" "}
+                    {persentUpload}%
+                  </div>
+                </div>
+                <div className="text-center py-4">
+                  ...درحال ارسال لطفا منتظر بمانید
+                </div>
+              </>
+            )}
+          </div>
+        </form>
       </div>
     </div>
+    // </div>
   )
 }

@@ -1,3 +1,4 @@
+import moment from "jalali-moment"
 import { Link } from "react-router-dom"
 import NavAdmin from "../../components/NavAdmin"
 import api from "../../../api"
@@ -44,7 +45,7 @@ export default function Plats() {
                   عکس
                 </th>
                 <th scope="col" class="px-6 py-3">
-                  نام چاپ
+                  نام یا کد فایل
                 </th>
                 <th scope="col" class="px-6 py-3">
                   طول
@@ -65,6 +66,9 @@ export default function Plats() {
                   پشت و رو
                 </th>
                 <th scope="col" class="px-6 py-3">
+                  تاریخ
+                </th>
+                <th scope="col" class="px-6 py-3">
                   ویرایش
                 </th>
               </tr>
@@ -79,21 +83,35 @@ export default function Plats() {
                           class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                         ></th> */}
 
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-4 flex flex-col">
                           <a
                             href={process.env.REACT_APP_API_STORAGE + plat.file}
                             download={true}
-                            className="hover:underline text-sm"
+                            className="hover:underline text-xs text-white bg-blue-500 rounded px-2 py-1"
                           >
                             دانلود عکس
                           </a>
+                          <span className="text-xs">
+                            {plat.image_height +
+                              "px" +
+                              "*" +
+                              plat.image_width +
+                              "px"}
+                          </span>
+                          <span className="text-xs">{plat.file_size}MB</span>
                         </td>
 
                         <td class="px-6 py-4">
                           <img
+                            id="theImage"
+                            loading="lazy"
                             width={"70px"}
                             className="p-1 rounded"
-                            src={process.env.REACT_APP_API_STORAGE + plat.file}
+                            src={
+                              process.env.REACT_APP_API_STORAGE +
+                              "resize/" +
+                              plat.file
+                            }
                             alt=""
                           />
                         </td>
@@ -105,6 +123,11 @@ export default function Plats() {
                         <td class="px-6 py-4">{plat.pieces} </td>
                         <td class="px-6 py-4">
                           {plat.backforth === 1 ? "پشت و رو" : ""}
+                        </td>
+                        <td class="px-6 py-4">
+                          {moment(plat.created_at, "YYYY/MM/DD")
+                            .locale("fa")
+                            .format("YYYY/MM/DD")}
                         </td>
                         <td class="px-6 py-4">
                           <button onClick={() => ""} className="flex gap-3">

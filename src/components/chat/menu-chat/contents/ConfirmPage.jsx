@@ -1,7 +1,4 @@
-import Cookies from "js-cookie"
-import { useEffect, useState } from "react"
-
-export default function ConfirmPage({ data, confirm }) {
+export default function ConfirmPage({ data, confirm, click }) {
   const sewingPrices = (id, x, y, price, count) => {
     switch (id) {
       case "1":
@@ -14,31 +11,10 @@ export default function ConfirmPage({ data, confirm }) {
         return ""
     }
   }
-  const [sewingPrice, setSewingPrice] = useState(0)
-  const [fabricPrice, setFabricPrice] = useState(0)
-  const [loaded, setLoaded] = useState()
 
-  useEffect(() => {
-    setLoaded(new Date())
-    if (loaded !== null) {
-      const price = sewingPrices(
-        data.sewing_status,
-        data.size_x / 100,
-        data.size_y / 100,
-        data.sewing_price,
-        data.count
-      )
-      setSewingPrice(parseInt(price))
-      setFabricPrice(data.fabric_price * (data.size_y / 100) * data.count)
-    }
-  }, [])
-  function total() {
-    return fabricPrice + sewingPrice
-  }
- // console.log( fabricPrice + sewingPrice)
   return (
-    <div className={confirm ? "" : "hidden"}>
-      <div class="relative overflow-x-auto  pb-32" dir="rtl">
+    <div className={confirm ? (click ? "hidden" : "") : "hidden"}>
+      <div class="relative overflow-x-auto  pb-3" dir="rtl">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
           <thead class="text-xs text-gray-700 uppercase bg-gray-100">
             <tr>
@@ -62,8 +38,10 @@ export default function ConfirmPage({ data, confirm }) {
               <th scope="col" className="px-6 py-3 text-gray-700 bg-stone-50">
                 متر
               </th>
-              <th scope="col" className="px-6 py-3 text-gray-700 bg-stone-50">
-                <div className="font-light ">{data.fabric_price}</div>
+              <th scope="col" className="px-6 py-3 text-gray-900 bg-stone-50">
+                <div className=" ">
+                  {Number(data.fabric_price).toLocaleString("en-US")}
+                </div>
               </th>
               <th
                 scope="col"
@@ -124,7 +102,9 @@ export default function ConfirmPage({ data, confirm }) {
               >
                 <div className=" border-b border-stone-800">
                   {" "}
-                  {data.fabric_price * (data.size_y / 100) * data.count}{" "}
+                  {Number(
+                    data.fabric_price * (data.size_y / 100) * data.count
+                  ).toLocaleString("en-US")}{" "}
                 </div>
               </th>
             </tr>
@@ -140,7 +120,7 @@ export default function ConfirmPage({ data, confirm }) {
               </th>
               <th scope="col" className="px-6 py-3 text-gray-700 bg-stone-50">
                 {" "}
-                {data.sewing_price.toLocaleString("en-US")}
+                {Number(data.sewing_price).toLocaleString("en-US")}
               </th>
               <th
                 scope="col"
@@ -200,13 +180,15 @@ export default function ConfirmPage({ data, confirm }) {
                 className="px-6 py-3 text-gray-900 bg-stone-50 flex"
               >
                 <div className=" border-b border-stone-800">
-                  {sewingPrices(
-                    data.sewing_status,
-                    data.size_x / 100,
-                    data.size_y / 100,
-                    data.sewing_price,
-                    data.count
-                  )}
+                  {Number(
+                    sewingPrices(
+                      data.sewing_status,
+                      data.size_x / 100,
+                      data.size_y / 100,
+                      data.sewing_price,
+                      data.count
+                    )
+                  ).toLocaleString("en-US")}
                   {/* {data.sewing_status === "1"
                     ? data.fabric_price * data.count
                     : data.sewing_status === "2"
@@ -220,23 +202,38 @@ export default function ConfirmPage({ data, confirm }) {
               </th>
             </tr>
             <tr>
-              <th scope="col" className="px-6 py-3  text-gray-900 bg-white">
+              <th scope="col" className="px-6 py-3  text-gray-900 bg-green-300">
                 جمع کل
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-lg text-gray-700 bg-stone-50"
+                className="px-6 py-3 text-lg text-gray-700 bg-green-200"
               ></th>
               <th
                 scope="col"
-                className="px-6 py-3 text-gray-700 bg-stone-50"
+                className="px-6 py-3 text-gray-700 bg-green-200"
               ></th>
               <th
                 scope="col"
-                className="px-6 py-3 text-gray-900 bg-stone-50 flex"
+                className="px-6 py-3 text-gray-900 bg-green-200 flex"
               >
                 <div className="border-double border-b-4 border-stone-800 ">
-                  {total()}
+                  {Number(
+                    Number(
+                      parseInt(data.fabric_price) *
+                        (parseInt(data.size_y) / 100) *
+                        parseInt(data.count)
+                    ) +
+                      Number(
+                        sewingPrices(
+                          data.sewing_status,
+                          parseInt(data.size_x) / 100,
+                          parseInt(data.size_y) / 100,
+                          parseInt(data.sewing_price),
+                          parseInt(data.count)
+                        )
+                      )
+                  ).toLocaleString("en-US")}
                 </div>
               </th>
             </tr>
