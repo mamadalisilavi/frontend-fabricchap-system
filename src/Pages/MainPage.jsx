@@ -5,6 +5,7 @@ import { useState } from "react"
 import Cookies from "js-cookie"
 import { useEffect } from "react"
 import api from "../api"
+import Loading from "../components/Loading"
 export default function MainPage({ children }) {
   const [loading, setLoading] = useState(false)
   const [isLogin, setIsLogin] = useState(false)
@@ -55,7 +56,7 @@ export default function MainPage({ children }) {
               <div className="text-sm text-white">چت</div>
             </Link>
             <Link
-              to={"profile"}
+              to={"/profile"}
               className="flex flex-col justify-center items-center"
             >
               <CgProfile color="white" size={"24px"} />
@@ -68,6 +69,10 @@ export default function MainPage({ children }) {
       return window.location.replace("/login")
     }
   } else {
-    return <div>loading...</div>
+    return (
+      <div className="flex justify-center items-center  h-screen w-full">
+        <Loading />
+      </div>
+    )
   }
 }

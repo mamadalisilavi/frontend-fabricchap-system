@@ -15,7 +15,6 @@ export default function Plats() {
       .then((e) => {
         setPlats(e.data.plats)
         setLoading(true)
-        console.log(e)
       })
       .catch((e) => {
         console.log(e)

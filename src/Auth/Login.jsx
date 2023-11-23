@@ -1,70 +1,71 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import Cookies from "js-cookie";
-import validator from "validator";
-import { TbLoader } from "react-icons/tb";
-import api from "../api";
+import { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
+import Cookies from "js-cookie"
+import validator from "validator"
+import { TbLoader } from "react-icons/tb"
+import api from "../api"
+import Loading from "../components/Loading"
 
 export default function Login() {
-  const [number, setNumber] = useState("");
-  const [password, setPassword] = useState("");
-  const [submit, setSubmit] = useState(false);
-  const [error, setError] = useState();
-  const [hasErrors, setHasErrors] = useState(true);
-  const [numberError, setNumberError] = useState("");
-  const [passwordErrors, setPassowrdErrors] = useState("");
+  const [number, setNumber] = useState("")
+  const [password, setPassword] = useState("")
+  const [submit, setSubmit] = useState(false)
+  const [error, setError] = useState()
+  const [hasErrors, setHasErrors] = useState(true)
+  const [numberError, setNumberError] = useState("")
+  const [passwordErrors, setPassowrdErrors] = useState("")
   //login
   async function handleSubmitLogin(e) {
-    e.preventDefault();
+    e.preventDefault()
     if (submit) {
       await api
         .post("login", { number, password })
         .then((e) => {
-          Cookies.set("jht4", e.data.token, { expires: 30 });
-          window.location.reload();
-          setSubmit(false);
+          Cookies.set("jht4", e.data.token, { expires: 30 })
+          window.location.reload()
+          setSubmit(false)
         })
         .catch((e) => {
-          setError(e.response.data.message);
-          setSubmit(false);
-        });
+          setError(e.response.data.message)
+          setSubmit(false)
+        })
     }
   }
 
   function handleChingeNumber(e) {
-    setNumber(e.target.value);
+    setNumber(e.target.value)
   }
   function handleChingePass(e) {
-    setPassword(e.target.value);
+    setPassword(e.target.value)
   }
   //validation
   useEffect(() => {
     if (!validator.isEmpty(number)) {
       if (!validator.isMobilePhone(number, "ir-IR")) {
-        setNumberError("شماره موبایل صحیح نمی باشد");
-        setHasErrors(true);
+        setNumberError("شماره موبایل صحیح نمی باشد")
+        setHasErrors(true)
       } else {
-        setNumberError("");
-        setHasErrors(false);
+        setNumberError("")
+        setHasErrors(false)
       }
     } else {
-      setHasErrors(true);
+      setHasErrors(true)
     }
 
     if (!validator.isEmpty(password)) {
       if (!validator.isLength(password, { min: 8, max: 30 })) {
-        setPassowrdErrors(" لطفا رمز کمتر  از 5 حرف و بیشتر 30 حرف نباشد.");
-        setHasErrors(true);
+        setPassowrdErrors(" لطفا رمز کمتر  از 5 حرف و بیشتر 30 حرف نباشد.")
+        setHasErrors(true)
       } else {
-        setPassowrdErrors("");
-        setHasErrors(false);
+        setPassowrdErrors("")
+        setHasErrors(false)
       }
     } else {
-      setHasErrors(true);
+      setHasErrors(true)
     }
-  }, [hasErrors, number, numberError, passwordErrors, password]);
-  const [loading, setLoading] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
+  }, [hasErrors, number, numberError, passwordErrors, password])
+  const [loading, setLoading] = useState(false)
+  const [isLogin, setIsLogin] = useState(false)
   useEffect(() => {
     if (Boolean(Cookies.get("jht4"))) {
       async function checkToken() {
@@ -74,28 +75,28 @@ export default function Login() {
           })
           .then((e) => {
             if (e.data.token) {
-              setLoading(true);
-              setIsLogin(true);
+              setLoading(true)
+              setIsLogin(true)
             } else {
-              setLoading(true);
-              setIsLogin(false);
+              setLoading(true)
+              setIsLogin(false)
             }
           })
           .catch((e) => {
-            setLoading(true);
-            setIsLogin(false);
-          });
+            setLoading(true)
+            setIsLogin(false)
+          })
       }
-      checkToken();
+      checkToken()
     } else {
-      setLoading(true);
-      setIsLogin(false);
+      setLoading(true)
+      setIsLogin(false)
     }
-  }, []);
+  }, [])
 
   if (loading) {
     if (isLogin) {
-      return window.location.replace("/");
+      return window.location.replace("/")
     } else {
       return (
         <div>
@@ -154,9 +155,13 @@ export default function Login() {
             </form>
           </div>
         </div>
-      );
+      )
     }
   } else {
-    return <div>loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-screen w-full">
+        <Loading />
+      </div>
+    )
   }
 }
