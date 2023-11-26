@@ -8,7 +8,7 @@ export default function Chap() {
       <div className="flex gap-2 items-center justify-center mt-3">
         <Link
           className="flex justify-center items-center w-32 h-32 rounded-lg text-lg text-white bg-cyan-500"
-          to="/admin/chaps-manager"
+          to="/admin/print-manager"
         >
           مدیریت چاپ
         </Link>

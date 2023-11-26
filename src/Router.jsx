@@ -13,6 +13,8 @@ import SewingsSettings from "./admin/pages/settings/sewing/SewingsSettings"
 import EditSewing from "./admin/pages/settings/sewing/EditSewing"
 import Plats from "./admin/pages/plats/Plats"
 import Chap from "./admin/pages/plats/Chap"
+import PrintManager from "./admin/pages/print managment/PrintManager"
+import EditPrint from "./admin/pages/print managment/EditPrint"
 
 const router = createBrowserRouter([
   {
@@ -64,8 +66,12 @@ const router = createBrowserRouter([
     element: <Chap />,
   },
   {
-    path: "admin/chaps-manager",
-    element: <Chap />,
+    path: "admin/print-manager",
+    element: <PrintManager />,
+  },
+  {
+    path: "admin/print-manager/:id",
+    element: <EditPrint />,
   },
   {
     path: "admin/plats",
