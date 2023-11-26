@@ -19,6 +19,7 @@ code {
 .bg-chat {
   background-image: url("./assets/images/bg-w.png");
   background-size: contain;
+  background-attachment: fixed;
 }
 
 body {
