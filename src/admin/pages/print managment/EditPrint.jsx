@@ -24,6 +24,24 @@ export default function EditPrint() {
       })
   }
 
+  async function Delete(id) {
+    if (window.confirm("حذف فایل؟")) {
+      return await api
+        .post(
+          "admin/file/delete",
+          { id },
+          {
+            headers: { Authorization: "Bearer " + Cookies.get("jht4") },
+          }
+        )
+        .then((e) => {
+          window.location.replace("/admin/print-manager")
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+    }
+  }
   useEffect(() => {
     getPlats()
   }, [active])
@@ -90,9 +108,15 @@ export default function EditPrint() {
           >
             {print.active === 0 ? "فعال کردن" : "غیر فعال کردن"}
           </button>
+          <button
+            onClick={() => Delete(print.id)}
+            className={" bg-red-600 px-24 py-2 text-lg rounded text-white my-4"}
+          >
+            حذف
+          </button>
         </div>
       ) : (
-        "loadjung"
+        "loading.."
       )}
     </div>
   )

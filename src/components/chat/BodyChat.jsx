@@ -31,7 +31,7 @@ export default function BodyChat() {
           ? files.map((file) => {
               return (
                 <div className="bg-stone-100 rounded-xl my-1 mx-10 p-3">
-                  <div className="flex ">
+                  <div className="flex justify-between">
                     <div className="flex flex-col">
                       <img
                         className=" w-[60px] "
@@ -63,6 +63,35 @@ export default function BodyChat() {
                       </div>
                       <b>تعداد:</b>
                       <span>{file.count}</span>
+                    </div>
+                    <div className="">
+                      <div className="">
+                        {file.active === 0 ? (
+                          <div className="bg-red-500 text-white px-3 py-1.5 mx-3 rounded">
+                            غیر فعال
+                          </div>
+                        ) : file.status === 1 ? (
+                          <div className="bg-orange-500 text-white px-3 py-1.5 mx-3 rounded">
+                            پلات شده
+                          </div>
+                        ) : file.status === 2 ? (
+                          <div className="bg-yellow-500 text-white px-3 py-1.5 mx-3 rounded">
+                            کلندر شده
+                          </div>
+                        ) : file.status === 3 ? (
+                          <div className="bg-lime-600 text-white px-3 py-1.5 mx-3 rounded">
+                            دوخت شده
+                          </div>
+                        ) : file.status === 4 ? (
+                          <div className="bg-green-600 text-white px-3 py-1.5 mx-3 rounded">
+                            ارسال شده
+                          </div>
+                        ) : (
+                          <div className="bg-rose-600 text-white px-3 py-1.5 mx-3 rounded">
+                            فعال
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>

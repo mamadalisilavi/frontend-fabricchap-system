@@ -41,6 +41,40 @@ export default function Sewing() {
   useEffect(() => {
     getPlats()
   }, [click])
+  const [sumFabrics, setSumfabrics] = useState([])
+  const [date, setDate] = useState()
+  useEffect(() => {
+    setDate(new Date())
+  }, [])
+  useEffect(() => {
+    if (loading) {
+      sewings.map((e) =>
+        setSumfabrics((prev) => [
+          ...prev,
+          { fabric: e.fabric_plats.name, count: e.size_y },
+        ])
+      )
+    }
+
+    // console.log(all)
+  }, [date, loading])
+  const groupAndSumFabricCounts = (fabricArray) => {
+    return Object.values(
+      fabricArray.reduce((acc, fabricObj) => {
+        const fabricName = fabricObj.fabric
+        const fabricCount = fabricObj.count
+
+        if (!acc[fabricName]) {
+          acc[fabricName] = { fabric: fabricName, count: 0 }
+        }
+
+        acc[fabricName].count += fabricCount
+
+        return acc
+      }, {})
+    )
+  }
+  const resultArray = groupAndSumFabricCounts(sumFabrics)
   return (
     <div>
       <NavAdmin title={"خیاطی"} back={"/admin/chap"} color={"bg-yellow-500"} />
@@ -48,6 +82,19 @@ export default function Sewing() {
         dir="rtl"
         className="container mx-auto md:flex md:flex-col md:items-center md:justify-center"
       >
+        <div className="flex">
+          <div className="flex">
+            {resultArray.map((item, index) => (
+              <div
+                className="bg-blue-500 m-3 text-white rounded-lg p-4 text-center"
+                key={index}
+              >
+                <div className="font-bold">{item.fabric}</div>
+                <div className="">{item.count}سانت</div>
+              </div>
+            ))}
+          </div>
+        </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-3">
           <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
