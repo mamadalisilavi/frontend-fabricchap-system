@@ -19,6 +19,12 @@ export default function Chap() {
           پلات ها
         </Link>
         <Link
+          className="flex justify-center items-center w-32 h-32 rounded-lg text-lg text-white bg-rose-500"
+          to="/admin/celender"
+        >
+          کلندر
+        </Link>
+        <Link
           className="flex justify-center items-center w-32 h-32 rounded-lg text-lg text-white bg-yellow-500"
           to="/admin/sewings"
         >

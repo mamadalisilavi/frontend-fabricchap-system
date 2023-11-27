@@ -4,27 +4,27 @@ import NavAdmin from "../../components/NavAdmin"
 import api from "../../../api"
 import Cookies from "js-cookie"
 import { useEffect, useState } from "react"
-export default function Plats() {
-  const [plats, setPlats] = useState()
+export default function Sewing() {
+  const [celenders, setCelenders] = useState()
   const [loading, setLoading] = useState(false)
   const [click, setClick] = useState(0)
   async function getPlats() {
     return await api
-      .get("plats", {
+      .get("celender", {
         headers: { Authorization: "Bearer " + Cookies.get("jht4") },
       })
       .then((e) => {
-        setPlats(e.data.plats)
+        setCelenders(e.data.celender)
         setLoading(true)
       })
       .catch((e) => {
         console.log(e)
       })
   }
-  async function ActivePlat(id) {
+  async function ActiveCelender(id) {
     return await api
       .post(
-        "print/activePlat",
+        "celender/activeCelender",
         { id },
         {
           headers: { Authorization: "Bearer " + Cookies.get("jht4") },
@@ -43,11 +43,7 @@ export default function Plats() {
   }, [click])
   return (
     <div>
-      <NavAdmin
-        title={"پلات ها"}
-        back={"/admin/chap"}
-        color={"bg-orange-500"}
-      />
+      <NavAdmin title={"خیاطی"} back={"/admin/chap"} color={"bg-yellow-500"} />
       <div
         dir="rtl"
         className="container mx-auto md:flex md:flex-col md:items-center md:justify-center"
@@ -85,13 +81,19 @@ export default function Plats() {
                   تاریخ
                 </th>
                 <th scope="col" class="px-6 py-3">
+                  نام کاربر
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  تلفن کاربر
+                </th>
+                <th scope="col" class="px-6 py-3">
                   ویرایش
                 </th>
               </tr>
             </thead>
             <tbody>
               {loading
-                ? plats.map((plat) => {
+                ? celenders.map((celender) => {
                     return (
                       <tr class="odd:bg-white even:bg-gray-50  border-b ">
                         {/* <th
@@ -101,20 +103,24 @@ export default function Plats() {
 
                         <td class="px-6 py-4 flex flex-col">
                           <a
-                            href={process.env.REACT_APP_API_STORAGE + plat.file}
+                            href={
+                              process.env.REACT_APP_API_STORAGE + celender.file
+                            }
                             download={true}
                             className="hover:underline text-xs text-white bg-blue-500 rounded px-2 py-1"
                           >
                             دانلود عکس
                           </a>
                           <span className="text-xs">
-                            {plat.image_height +
+                            {celender.image_height +
                               "px" +
                               "*" +
-                              plat.image_width +
+                              celender.image_width +
                               "px"}
                           </span>
-                          <span className="text-xs">{plat.file_size}MB</span>
+                          <span className="text-xs">
+                            {celender.file_size}MB
+                          </span>
                         </td>
 
                         <td class="px-6 py-4">
@@ -126,37 +132,39 @@ export default function Plats() {
                             src={
                               process.env.REACT_APP_API_STORAGE +
                               "resize/" +
-                              plat.file
+                              celender.file
                             }
                             alt=""
                           />
                         </td>
-                        <td class="px-6 py-4">{plat.file_name}</td>
-                        <td class="px-6 py-4">{plat.size_x}</td>
-                        <td class="px-6 py-4">{plat.size_y}</td>
-                        <td class="px-6 py-4">{plat.fabric_plats.name}</td>
-                        <td class="px-6 py-4">{plat.count}</td>
-                        <td class="px-6 py-4">{plat.pieces} </td>
+                        <td class="px-6 py-4">{celender.file_name}</td>
+                        <td class="px-6 py-4">{celender.size_x}</td>
+                        <td class="px-6 py-4">{celender.size_y}</td>
+                        <td class="px-6 py-4">{celender.fabric_plats.name}</td>
+                        <td class="px-6 py-4">{celender.count}</td>
+                        <td class="px-6 py-4">{celender.pieces} </td>
                         <td class="px-6 py-4">
-                          {plat.backforth === 1 ? "پشت و رو" : ""}
+                          {celender.backforth === 1 ? "پشت و رو" : ""}
                         </td>
                         <td class="px-6 py-4">
-                          {moment(plat.created_at, "YYYY/MM/DD")
+                          {moment(celender.created_at, "YYYY/MM/DD")
                             .locale("fa")
                             .format("YYYY/MM/DD")}
                         </td>
+                        <td class="px-6 py-4">{celender.user.name} </td>
+                        <td class="px-6 py-4">{celender.user.number} </td>
                         <td class="px-6 py-4">
                           <button
-                            onClick={() => ActivePlat(plat.id)}
+                            onClick={() => ActiveCelender(celender.id)}
                             className="flex gap-3"
                           >
-                            {plat.status === 0 ? (
+                            {celender.status === 1 ? (
                               <div className="bg-red-500 rounded px-3 py-1.5 text-white text-center">
-                                پلات نشده
+                                کلندر نشده
                               </div>
                             ) : (
                               <div className="bg-green-500 rounded px-3 py-1.5 text-white text-center">
-                                پلات شده
+                                کلندر شده
                               </div>
                             )}
                           </button>

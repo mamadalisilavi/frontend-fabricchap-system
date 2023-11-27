@@ -15,6 +15,8 @@ import Plats from "./admin/pages/plats/Plats"
 import Chap from "./admin/pages/plats/Chap"
 import PrintManager from "./admin/pages/print managment/PrintManager"
 import EditPrint from "./admin/pages/print managment/EditPrint"
+import Celender from "./admin/pages/celender/Celender"
+import Sewing from "./admin/pages/sewing/Sewing"
 
 const router = createBrowserRouter([
   {
@@ -76,6 +78,14 @@ const router = createBrowserRouter([
   {
     path: "admin/plats",
     element: <Plats />,
+  },
+  {
+    path: "admin/celender",
+    element: <Celender />,
+  },
+  {
+    path: "admin/sewing",
+    element: <Sewing />,
   },
   {
     path: "profile",
