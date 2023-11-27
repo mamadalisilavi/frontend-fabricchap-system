@@ -4,38 +4,40 @@ import NavAdmin from "../../components/NavAdmin"
 import api from "../../../api"
 import Cookies from "js-cookie"
 import { useEffect, useState } from "react"
-export default function Sewing() {
-  const [sewings, setSewings] = useState()
+export default function Finished() {
+  const [finished, setFinished] = useState()
   const [loading, setLoading] = useState(false)
   const [click, setClick] = useState(0)
   async function getPlats() {
     return await api
-      .get("admin/sewings", {
+      .get("admin/finished", {
         headers: { Authorization: "Bearer " + Cookies.get("jht4") },
       })
       .then((e) => {
-        setSewings(e.data.sewings)
+        setFinished(e.data.finished)
         setLoading(true)
       })
       .catch((e) => {
         console.log(e)
       })
   }
-  async function ActiveSewing(id) {
-    return await api
-      .post(
-        "admin/sewings/activeSewing",
-        { id },
-        {
-          headers: { Authorization: "Bearer " + Cookies.get("jht4") },
-        }
-      )
-      .then((e) => {
-        setClick(click + 1)
-      })
-      .catch((e) => {
-        console.log(e)
-      })
+  async function Delete(id) {
+    if (window.confirm("حذف فایل؟")) {
+      return await api
+        .post(
+          "admin/file/delete",
+          { id },
+          {
+            headers: { Authorization: "Bearer " + Cookies.get("jht4") },
+          }
+        )
+        .then((e) => {
+          setClick(click + 1)
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+    }
   }
 
   useEffect(() => {
@@ -43,7 +45,11 @@ export default function Sewing() {
   }, [click])
   return (
     <div>
-      <NavAdmin title={"خیاطی"} back={"/admin/chap"} color={"bg-yellow-500"} />
+      <NavAdmin
+        title={"اتمام شده"}
+        back={"/admin/chap"}
+        color={"bg-green-600"}
+      />
       <div
         dir="rtl"
         className="container mx-auto md:flex md:flex-col md:items-center md:justify-center"
@@ -96,7 +102,7 @@ export default function Sewing() {
             </thead>
             <tbody>
               {loading
-                ? sewings.map((sewing) => {
+                ? finished.map((finished) => {
                     return (
                       <tr class="odd:bg-white even:bg-gray-50  border-b ">
                         {/* <th
@@ -107,7 +113,7 @@ export default function Sewing() {
                         <td class="px-6 py-4 flex flex-col">
                           <a
                             href={
-                              process.env.REACT_APP_API_STORAGE + sewing.file
+                              process.env.REACT_APP_API_STORAGE + finished.file
                             }
                             download={true}
                             className="hover:underline text-xs text-white bg-blue-500 rounded px-2 py-1"
@@ -115,13 +121,15 @@ export default function Sewing() {
                             دانلود عکس
                           </a>
                           <span className="text-xs">
-                            {sewing.image_height +
+                            {finished.image_height +
                               "px" +
                               "*" +
-                              sewing.image_width +
+                              finished.image_width +
                               "px"}
                           </span>
-                          <span className="text-xs">{sewing.file_size}MB</span>
+                          <span className="text-xs">
+                            {finished.file_size}MB
+                          </span>
                         </td>
 
                         <td class="px-6 py-4">
@@ -133,44 +141,38 @@ export default function Sewing() {
                             src={
                               process.env.REACT_APP_API_STORAGE +
                               "resize/" +
-                              sewing.file
+                              finished.file
                             }
                             alt=""
                           />
                         </td>
-                        <td class="px-6 py-4">{sewing.file_name}</td>
-                        <td class="px-6 py-4">{sewing.sewing.name}</td>
+                        <td class="px-6 py-4">{finished.file_name}</td>
+                        <td class="px-6 py-4">{finished.sewing.name}</td>
                         <td class="px-6 py-4">
-                          {sewing.size_x}x{sewing.size_y}
+                          {finished.size_x}x{finished.size_y}
                         </td>
-                        <td class="px-6 py-4">{sewing.fabric_plats.name}</td>
-                        <td class="px-6 py-4">{sewing.count}</td>
-                        <td class="px-6 py-4">{sewing.pieces} </td>
+                        <td class="px-6 py-4">{finished.fabric_plats.name}</td>
+                        <td class="px-6 py-4">{finished.count}</td>
+                        <td class="px-6 py-4">{finished.pieces} </td>
                         <td class="px-6 py-4">
-                          {sewing.backforth === 1 ? "پشت و رو" : ""}
+                          {finished.backforth === 1 ? "پشت و رو" : ""}
                         </td>
                         <td class="px-6 py-4">
-                          {moment(sewing.created_at, "YYYY/MM/DD")
+                          {moment(finished.created_at, "YYYY/MM/DD")
                             .locale("fa")
                             .format("YYYY/MM/DD")}
                         </td>
-                        <td class="px-6 py-4">{sewing.user.name} </td>
-                        <td class="px-6 py-4">{sewing.user.number} </td>
-                        <td class="px-6 py-4">{sewing.description} </td>
+                        <td class="px-6 py-4">{finished.user.name} </td>
+                        <td class="px-6 py-4">{finished.user.number} </td>
+                        <td class="px-6 py-4">{finished.description} </td>
                         <td class="px-6 py-4">
                           <button
-                            onClick={() => ActiveSewing(sewing.id)}
+                            onClick={() => Delete(finished.id)}
                             className="flex gap-3"
                           >
-                            {sewing.status === 2 ? (
-                              <div className="bg-red-500 rounded px-3 py-1.5 text-white text-center">
-                                دوخت نشده
-                              </div>
-                            ) : (
-                              <div className="bg-green-500 rounded px-3 py-1.5 text-white text-center">
-                                دوخت شده
-                              </div>
-                            )}
+                            <div className="bg-red-500 rounded px-3 py-1.5 text-white text-center">
+                              حذف
+                            </div>
                           </button>
                         </td>
                       </tr>

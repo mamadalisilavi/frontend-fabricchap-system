@@ -17,6 +17,8 @@ import PrintManager from "./admin/pages/print managment/PrintManager"
 import EditPrint from "./admin/pages/print managment/EditPrint"
 import Celender from "./admin/pages/celender/Celender"
 import Sewing from "./admin/pages/sewing/Sewing"
+import Posted from "./admin/pages/posted/Posted"
+import Finished from "./admin/pages/finished/finished"
 
 const router = createBrowserRouter([
   {
@@ -86,6 +88,14 @@ const router = createBrowserRouter([
   {
     path: "admin/sewing",
     element: <Sewing />,
+  },
+  {
+    path: "admin/posts",
+    element: <Posted />,
+  },
+  {
+    path: "admin/finished",
+    element: <Finished />,
   },
   {
     path: "profile",

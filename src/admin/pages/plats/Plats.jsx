@@ -38,6 +38,12 @@ export default function Plats() {
       })
   }
 
+  const fabricsSize = []
+  function sumPlats() {
+    plats.map((item) => {
+      return
+    })
+  }
   useEffect(() => {
     getPlats()
   }, [click])
@@ -52,6 +58,16 @@ export default function Plats() {
         dir="rtl"
         className="container mx-auto md:flex md:flex-col md:items-center md:justify-center"
       >
+        <div className="flex">
+          {fabricsSize.map((item) => {
+            return (
+              <div className="">
+                <div className="">{item.name}</div>
+                <div className="">{item.count}</div>
+              </div>
+            )
+          })}
+        </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-3">
           <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">

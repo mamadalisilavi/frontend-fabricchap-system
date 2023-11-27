@@ -4,27 +4,27 @@ import NavAdmin from "../../components/NavAdmin"
 import api from "../../../api"
 import Cookies from "js-cookie"
 import { useEffect, useState } from "react"
-export default function Sewing() {
-  const [sewings, setSewings] = useState()
+export default function Posted() {
+  const [posted, setPosted] = useState()
   const [loading, setLoading] = useState(false)
   const [click, setClick] = useState(0)
   async function getPlats() {
     return await api
-      .get("admin/sewings", {
+      .get("admin/posted", {
         headers: { Authorization: "Bearer " + Cookies.get("jht4") },
       })
       .then((e) => {
-        setSewings(e.data.sewings)
+        setPosted(e.data.posted)
         setLoading(true)
       })
       .catch((e) => {
         console.log(e)
       })
   }
-  async function ActiveSewing(id) {
+  async function ActivePosted(id) {
     return await api
       .post(
-        "admin/sewings/activeSewing",
+        "admin/posted/activePosted",
         { id },
         {
           headers: { Authorization: "Bearer " + Cookies.get("jht4") },
@@ -43,7 +43,11 @@ export default function Sewing() {
   }, [click])
   return (
     <div>
-      <NavAdmin title={"خیاطی"} back={"/admin/chap"} color={"bg-yellow-500"} />
+      <NavAdmin
+        title={"امور ارسال"}
+        back={"/admin/chap"}
+        color={"bg-teal-500"}
+      />
       <div
         dir="rtl"
         className="container mx-auto md:flex md:flex-col md:items-center md:justify-center"
@@ -60,22 +64,16 @@ export default function Sewing() {
                   نام یا کد فایل
                 </th>
                 <th scope="col" class="px-6 py-3">
-                  نوع دوخت
+                  طول
                 </th>
                 <th scope="col" class="px-6 py-3">
-                  طول و عرض
+                  عرض
                 </th>
                 <th scope="col" class="px-6 py-3">
                   پارچه
                 </th>
                 <th scope="col" class="px-6 py-3">
                   تعداد
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  تیکه
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  پشت و رو
                 </th>
                 <th scope="col" class="px-6 py-3">
                   تاریخ
@@ -96,7 +94,7 @@ export default function Sewing() {
             </thead>
             <tbody>
               {loading
-                ? sewings.map((sewing) => {
+                ? posted.map((post) => {
                     return (
                       <tr class="odd:bg-white even:bg-gray-50  border-b ">
                         {/* <th
@@ -106,22 +104,20 @@ export default function Sewing() {
 
                         <td class="px-6 py-4 flex flex-col">
                           <a
-                            href={
-                              process.env.REACT_APP_API_STORAGE + sewing.file
-                            }
+                            href={process.env.REACT_APP_API_STORAGE + post.file}
                             download={true}
                             className="hover:underline text-xs text-white bg-blue-500 rounded px-2 py-1"
                           >
                             دانلود عکس
                           </a>
                           <span className="text-xs">
-                            {sewing.image_height +
+                            {post.image_height +
                               "px" +
                               "*" +
-                              sewing.image_width +
+                              post.image_width +
                               "px"}
                           </span>
-                          <span className="text-xs">{sewing.file_size}MB</span>
+                          <span className="text-xs">{post.file_size}MB</span>
                         </td>
 
                         <td class="px-6 py-4">
@@ -133,42 +129,36 @@ export default function Sewing() {
                             src={
                               process.env.REACT_APP_API_STORAGE +
                               "resize/" +
-                              sewing.file
+                              post.file
                             }
                             alt=""
                           />
                         </td>
-                        <td class="px-6 py-4">{sewing.file_name}</td>
-                        <td class="px-6 py-4">{sewing.sewing.name}</td>
+                        <td class="px-6 py-4">{post.file_name}</td>
+                        <td class="px-6 py-4">{post.size_x}</td>
+                        <td class="px-6 py-4">{post.size_y}</td>
+                        <td class="px-6 py-4">{post.fabric_plats.name}</td>
+                        <td class="px-6 py-4">{post.count}</td>
                         <td class="px-6 py-4">
-                          {sewing.size_x}x{sewing.size_y}
-                        </td>
-                        <td class="px-6 py-4">{sewing.fabric_plats.name}</td>
-                        <td class="px-6 py-4">{sewing.count}</td>
-                        <td class="px-6 py-4">{sewing.pieces} </td>
-                        <td class="px-6 py-4">
-                          {sewing.backforth === 1 ? "پشت و رو" : ""}
-                        </td>
-                        <td class="px-6 py-4">
-                          {moment(sewing.created_at, "YYYY/MM/DD")
+                          {moment(post.created_at, "YYYY/MM/DD")
                             .locale("fa")
                             .format("YYYY/MM/DD")}
                         </td>
-                        <td class="px-6 py-4">{sewing.user.name} </td>
-                        <td class="px-6 py-4">{sewing.user.number} </td>
-                        <td class="px-6 py-4">{sewing.description} </td>
+                        <td class="px-6 py-4">{post.user.name} </td>
+                        <td class="px-6 py-4">{post.user.number} </td>
+                        <td class="px-6 py-4">{post.description} </td>
                         <td class="px-6 py-4">
                           <button
-                            onClick={() => ActiveSewing(sewing.id)}
+                            onClick={() => ActivePosted(post.id)}
                             className="flex gap-3"
                           >
-                            {sewing.status === 2 ? (
+                            {post.status === 3 ? (
                               <div className="bg-red-500 rounded px-3 py-1.5 text-white text-center">
-                                دوخت نشده
+                                ارسال نشده
                               </div>
                             ) : (
                               <div className="bg-green-500 rounded px-3 py-1.5 text-white text-center">
-                                دوخت شده
+                                ارسال شده
                               </div>
                             )}
                           </button>
