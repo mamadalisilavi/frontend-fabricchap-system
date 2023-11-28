@@ -38,8 +38,8 @@ export default function Admin() {
 
   if (loading) {
     if (isAdmin) {
-        if(window.location.pathname === "/admin/"){
-          return window.location.replace("admin/dashnoard")
+        if(window.location.pathname === "/admin"){
+          return window.location.replace("admin/dashboard")
         }else{
           return <Outlet />
         }

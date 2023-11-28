@@ -30,7 +30,7 @@ export default function BodyChat() {
         {loading
           ? files.map((file) => {
               return (
-                <div className="bg-stone-100 rounded-xl my-1 mx-10 p-3">
+                <div className="bg-[#dcf8c6] rounded-xl my-1 mx-10 p-3">
                   <div className="flex justify-between items-center">
                     <div className="flex">
 

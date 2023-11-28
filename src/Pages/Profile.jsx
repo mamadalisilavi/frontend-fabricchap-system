@@ -20,7 +20,6 @@ export default function Profile() {
       .then((e) => {
         setUser(e.data.user)
         setLoading(true)
-        console.log(e)
       })
       .catch((e) => {
         console.log(e)
