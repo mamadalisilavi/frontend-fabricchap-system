@@ -5,7 +5,6 @@ import validator from "validator";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { ImCross } from "react-icons/im";
 import { TbLoader } from "react-icons/tb";
-import { FiArrowLeft } from "react-icons/fi";
 import Cookies from "js-cookie";
 export default function Register() {
   const [name, setName] = useState();
