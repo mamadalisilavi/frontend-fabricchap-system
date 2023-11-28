@@ -96,45 +96,45 @@ export default function Celender() {
             ))}
           </div>
         </div>
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-3">
-          <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-3">
+          <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50">
               <tr>
-                <th scope="col" class="px-6 py-3"></th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3"></th>
+                <th scope="col" className="px-6 py-3">
                   عکس
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   نام یا کد فایل
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   طول
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   عرض
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   پارچه
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   تعداد
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   تیکه
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   پشت و رو
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   تاریخ
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   نام کاربر
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   تلفن کاربر
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   ویرایش
                 </th>
               </tr>
@@ -143,13 +143,13 @@ export default function Celender() {
               {loading
                 ? celenders.map((celender) => {
                     return (
-                      <tr class="odd:bg-white even:bg-gray-50  border-b ">
+                      <tr className="odd:bg-white even:bg-gray-50  border-b ">
                         {/* <th
                           scope="row"
-                          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                         ></th> */}
 
-                        <td class="px-6 py-4 flex flex-col">
+                        <td className="px-6 py-4 flex flex-col">
                           <a
                             href={
                               process.env.REACT_APP_API_STORAGE + celender.file
@@ -171,7 +171,7 @@ export default function Celender() {
                           </span>
                         </td>
 
-                        <td class="px-6 py-4">
+                        <td className="px-6 py-4">
                           <img
                             id="theImage"
                             loading="lazy"
@@ -185,23 +185,23 @@ export default function Celender() {
                             alt=""
                           />
                         </td>
-                        <td class="px-6 py-4">{celender.file_name}</td>
-                        <td class="px-6 py-4">{celender.size_x}</td>
-                        <td class="px-6 py-4">{celender.size_y}</td>
-                        <td class="px-6 py-4">{celender.fabric_plats.name}</td>
-                        <td class="px-6 py-4">{celender.count}</td>
-                        <td class="px-6 py-4">{celender.pieces} </td>
-                        <td class="px-6 py-4">
+                        <td className="px-6 py-4">{celender.file_name}</td>
+                        <td className="px-6 py-4">{celender.size_x}</td>
+                        <td className="px-6 py-4">{celender.size_y}</td>
+                        <td className="px-6 py-4">{celender.fabric_plats.name}</td>
+                        <td className="px-6 py-4">{celender.count}</td>
+                        <td className="px-6 py-4">{celender.pieces} </td>
+                        <td className="px-6 py-4">
                           {celender.backforth === 1 ? "پشت و رو" : ""}
                         </td>
-                        <td class="px-6 py-4">
+                        <td className="px-6 py-4">
                           {moment(celender.created_at, "YYYY/MM/DD")
                             .locale("fa")
                             .format("YYYY/MM/DD")}
                         </td>
-                        <td class="px-6 py-4">{celender.user.name} </td>
-                        <td class="px-6 py-4">{celender.user.number} </td>
-                        <td class="px-6 py-4">
+                        <td className="px-6 py-4">{celender.user.name} </td>
+                        <td className="px-6 py-4">{celender.user.number} </td>
+                        <td className="px-6 py-4">
                           <button
                             onClick={() => ActiveCelender(celender.id)}
                             className="flex gap-3"

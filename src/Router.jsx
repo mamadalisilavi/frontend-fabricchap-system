@@ -19,6 +19,7 @@ import Celender from "./admin/pages/celender/Celender"
 import Sewing from "./admin/pages/sewing/Sewing"
 import Posted from "./admin/pages/posted/Posted"
 import Finished from "./admin/pages/finished/finished"
+import Dashboard from "./admin/pages/Dashboard"
 
 const router = createBrowserRouter([
   {
@@ -30,77 +31,88 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
+    path: "profile",
+    element: <Profile />,
+  },
+  {
     path: "",
     element: <Chat />,
   },
   {
     path: "admin",
     element: <Admin />,
+    children: [
+      {
+        path: "dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "settings",
+        element: <AdminSettings />,
+      },
+      {
+        path: "settings",
+        element: <AdminSettings />,
+      },
+      {
+        path: "settings/fabrics",
+        element: <FabricsSettings />,
+      },
+      {
+        path: "settings/fabrics/add",
+        element: <AddFabric />,
+      },
+      {
+        path: "settings/fabrics/edit",
+        element: <EditFabric />,
+      },
+      {
+        path: "settings/sewings",
+        element: <SewingsSettings />,
+      },
+      {
+        path: "settings/sewings/add",
+        element: <AddSewing />,
+      },
+      {
+        path: "settings/sewings/edit",
+        element: <EditSewing />,
+      },
+      {
+        path: "chap",
+        element: <Chap />,
+      },
+      {
+        path: "print-manager",
+        element: <PrintManager />,
+      },
+      {
+        path: "print-manager/:id",
+        element: <EditPrint />,
+      },
+      {
+        path: "plats",
+        element: <Plats />,
+      },
+      {
+        path: "celender",
+        element: <Celender />,
+      },
+      {
+        path: "sewing",
+        element: <Sewing />,
+      },
+      {
+        path: "posts",
+        element: <Posted />,
+      },
+      {
+        path: "finished",
+        element: <Finished />,
+      },
+    ]
   },
-  {
-    path: "admin/settings",
-    element: <AdminSettings />,
-  },
-  {
-    path: "admin/settings/fabrics",
-    element: <FabricsSettings />,
-  },
-  {
-    path: "admin/settings/fabrics/add",
-    element: <AddFabric />,
-  },
-  {
-    path: "admin/settings/fabrics/edit",
-    element: <EditFabric />,
-  },
-  {
-    path: "admin/settings/sewings",
-    element: <SewingsSettings />,
-  },
-  {
-    path: "admin/settings/sewings/add",
-    element: <AddSewing />,
-  },
-  {
-    path: "admin/settings/sewings/edit",
-    element: <EditSewing />,
-  },
-  {
-    path: "admin/chap",
-    element: <Chap />,
-  },
-  {
-    path: "admin/print-manager",
-    element: <PrintManager />,
-  },
-  {
-    path: "admin/print-manager/:id",
-    element: <EditPrint />,
-  },
-  {
-    path: "admin/plats",
-    element: <Plats />,
-  },
-  {
-    path: "admin/celender",
-    element: <Celender />,
-  },
-  {
-    path: "admin/sewing",
-    element: <Sewing />,
-  },
-  {
-    path: "admin/posts",
-    element: <Posted />,
-  },
-  {
-    path: "admin/finished",
-    element: <Finished />,
-  },
-  {
-    path: "profile",
-    element: <Profile />,
-  },
+
 ])
 
 export default router

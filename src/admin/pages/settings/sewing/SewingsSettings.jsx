@@ -48,20 +48,20 @@ export default function SewingsSettings() {
       className="container mx-auto md:flex md:flex-col md:items-center md:justify-center"
     >
       <NavSettings title={"دوخت ها"} back={"/admin/settings"} />
-      <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-3">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
-          <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+      <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-3">
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 نوع دوخت
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 قیمت (تومان)
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 حالت
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 ویرایش
               </th>
             </tr>
@@ -70,27 +70,27 @@ export default function SewingsSettings() {
             {loading
               ? sewings.map((sewing) => {
                   return (
-                    <tr class="odd:bg-white even:bg-gray-50  border-b ">
+                    <tr className="odd:bg-white even:bg-gray-50  border-b ">
                       <th
                         scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                       >
                         {sewing.name}
                       </th>
-                      <td class="px-6 py-4">
+                      <td className="px-6 py-4">
                         {sewing.price.toLocaleString("en-US")}
                       </td>
-                      <td class="px-6 py-4">
+                      <td className="px-6 py-4">
                         {getSewingStatus(sewing.status)}
                       </td>
-                      <td class="px-6 py-4">
+                      <td className="px-6 py-4">
                         <button
                           onClick={() => handleEdit(sewing.id)}
                           className="flex gap-3"
                         >
                           <Link
                             to="edit"
-                            class="font-medium text-blue-600  hover:underline"
+                            className="font-medium text-blue-600  hover:underline"
                           >
                             ویرایش
                           </Link>

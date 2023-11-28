@@ -47,7 +47,7 @@ export default function AddSewing() {
         <div>
           <label
             htmlFor="name"
-            class="block mb-2 text-sm font-medium text-gray-900"
+            className="block mb-2 text-sm font-medium text-gray-900"
           >
             نوع دوخت
           </label>

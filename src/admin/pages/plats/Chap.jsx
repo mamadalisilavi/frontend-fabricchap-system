@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 export default function Chap() {
   return (
     <div>
-      <NavPlats title={"امور چاپ"} back={"/admin"} />
+      <NavPlats title={"امور چاپ"} back={"/admin/dashboard"} />
       <div className="grid grid-cols-3 mt-3 mx-auto gap-3 w-[25rem]">
         <Link
           className="flex justify-center items-center w-32 h-32 rounded-lg text-lg text-white bg-cyan-500"

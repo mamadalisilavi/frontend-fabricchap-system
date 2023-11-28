@@ -13,7 +13,7 @@ export default function AdminSettings() {
   )
   return (
     <div>
-      <NavSettings title={settings} back={"/admin"} />
+      <NavSettings title={settings} back={"/admin/dashboard"} />
       <div className="flex flex-col justify-center items-center gap-4 mt-6">
         <Link
           className=" border flex items-center gap-3 justify-center w-9/12 md:w-52 py-3 rounded"

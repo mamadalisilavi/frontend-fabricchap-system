@@ -46,7 +46,7 @@ export default function FileUpload() {
   const [sewings, setSewings] = useState([])
   const [loadingFabrics, setLoadingFabrics] = useState(false)
   const [loadingSewings, setLoadingSewings] = useState(false)
-  const [errorBackend, setErrorBackend] = useState("")
+  const [errorBackend, setErrorBackend] = useState()
   const [success, setSuccess] = useState(false)
   const [loaded, setLoaded] = useState()
   const [max, setMax] = useState(0)
@@ -272,7 +272,7 @@ export default function FileUpload() {
       setValidForm(false)
     }
     window.localStorage.setItem("formData", JSON.stringify(data))
-    console.log(parseInt(data.sewing))
+    // console.log(parseInt(data.sewing))
     if (parseInt(data.sewing) === 0) {
       setSewingError("لطفا نوع دوخت را انتخاب کنید")
     } else if (parseInt(data.sewing) > 0) {
@@ -657,7 +657,7 @@ export default function FileUpload() {
               htmlFor="description"
               className="block my-2 text-sm font-medium text-gray-900 "
             >
-              توضیحات
+              توضیحات و آدرس
             </label>
             <textarea
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -705,21 +705,21 @@ export default function FileUpload() {
           <div className={" w-80 " + (click ? " " : " hidden")}>
             {success ? (
               <>
-                <div class="success-animation">
+                <div className="success-animation">
                   <svg
-                    class="checkmark"
+                    className="checkmark"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 52 52"
                   >
                     <circle
-                      class="checkmark__circle"
+                      className="checkmark__circle"
                       cx="26"
                       cy="26"
                       r="25"
                       fill="none"
                     />
                     <path
-                      class="checkmark__check"
+                      className="checkmark__check"
                       fill="none"
                       d="M14.1 27.2l7.1 7.2 16.7-16.8"
                     />
@@ -731,7 +731,7 @@ export default function FileUpload() {
               </>
             ) : (
               <>
-                <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                <div className="w-full bg-gray-200 rounded-full ">
                   <div
                     className="bg-blue-600 text-xs font-medium text-blue-100 text-center p-1 leading-none rounded-full transition-all"
                     style={{ width: persentUpload + "%" }}
@@ -742,6 +742,11 @@ export default function FileUpload() {
                 </div>
                 <div className="text-center py-4">
                   ...درحال ارسال لطفا منتظر بمانید
+                </div>
+                <div className="text-red-500">
+                {
+                  errorBackend === null ? null : errorBackend
+                }
                 </div>
               </>
             )}

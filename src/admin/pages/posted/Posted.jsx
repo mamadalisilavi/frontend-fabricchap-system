@@ -52,42 +52,42 @@ export default function Posted() {
         dir="rtl"
         className="container mx-auto md:flex md:flex-col md:items-center md:justify-center"
       >
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-3">
-          <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-3">
+          <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50">
               <tr>
-                <th scope="col" class="px-6 py-3"></th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3"></th>
+                <th scope="col" className="px-6 py-3">
                   عکس
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   نام یا کد فایل
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   طول
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   عرض
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   پارچه
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   تعداد
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   تاریخ
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   نام کاربر
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   تلفن کاربر
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   توضیحات
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   ویرایش
                 </th>
               </tr>
@@ -96,13 +96,13 @@ export default function Posted() {
               {loading
                 ? posted.map((post) => {
                     return (
-                      <tr class="odd:bg-white even:bg-gray-50  border-b ">
+                      <tr className="odd:bg-white even:bg-gray-50  border-b ">
                         {/* <th
                           scope="row"
-                          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                         ></th> */}
 
-                        <td class="px-6 py-4 flex flex-col">
+                        <td className="px-6 py-4 flex flex-col">
                           <a
                             href={process.env.REACT_APP_API_STORAGE + post.file}
                             download={true}
@@ -120,7 +120,7 @@ export default function Posted() {
                           <span className="text-xs">{post.file_size}MB</span>
                         </td>
 
-                        <td class="px-6 py-4">
+                        <td className="px-6 py-4">
                           <img
                             id="theImage"
                             loading="lazy"
@@ -134,20 +134,20 @@ export default function Posted() {
                             alt=""
                           />
                         </td>
-                        <td class="px-6 py-4">{post.file_name}</td>
-                        <td class="px-6 py-4">{post.size_x}</td>
-                        <td class="px-6 py-4">{post.size_y}</td>
-                        <td class="px-6 py-4">{post.fabric_plats.name}</td>
-                        <td class="px-6 py-4">{post.count}</td>
-                        <td class="px-6 py-4">
+                        <td className="px-6 py-4">{post.file_name}</td>
+                        <td className="px-6 py-4">{post.size_x}</td>
+                        <td className="px-6 py-4">{post.size_y}</td>
+                        <td className="px-6 py-4">{post.fabric_plats.name}</td>
+                        <td className="px-6 py-4">{post.count}</td>
+                        <td className="px-6 py-4">
                           {moment(post.created_at, "YYYY/MM/DD")
                             .locale("fa")
                             .format("YYYY/MM/DD")}
                         </td>
-                        <td class="px-6 py-4">{post.user.name} </td>
-                        <td class="px-6 py-4">{post.user.number} </td>
-                        <td class="px-6 py-4">{post.description} </td>
-                        <td class="px-6 py-4">
+                        <td className="px-6 py-4">{post.user.name} </td>
+                        <td className="px-6 py-4">{post.user.number} </td>
+                        <td className="px-6 py-4">{post.description} </td>
+                        <td className="px-6 py-4">
                           <button
                             onClick={() => ActivePosted(post.id)}
                             className="flex gap-3"

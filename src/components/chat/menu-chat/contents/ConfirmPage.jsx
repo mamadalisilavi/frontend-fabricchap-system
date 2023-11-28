@@ -26,7 +26,7 @@ export default function ConfirmPage({ data, confirm, click }) {
       .then((e) => {
         setCustomer(e.data.customer)
         setLoading(true)
-        console.log(e)
+        // console.log(e)
       })
       .catch((e) => {
         console.log(e)
@@ -62,18 +62,18 @@ export default function ConfirmPage({ data, confirm, click }) {
             </div>
           </div>
         ) : (
-          <div class="relative overflow-x-auto  pb-3" dir="rtl">
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
-              <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+          <div className="relative overflow-x-auto  pb-3" dir="rtl">
+            <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-100">
                 <tr>
-                  <th scope="col" class="px-6 py-3 rounded-s-lg"></th>
-                  <th scope="col" class="px-6 py-3 rounded-s-lg">
+                  <th scope="col" className="px-6 py-3 rounded-s-lg"></th>
+                  <th scope="col" className="px-6 py-3 rounded-s-lg">
                     واحد
                   </th>
-                  <th scope="col" class="px-6 py-3">
+                  <th scope="col" className="px-6 py-3">
                     تومان
                   </th>
-                  <th scope="col" class="px-6 py-3">
+                  <th scope="col" className="px-6 py-3">
                     تومان
                   </th>
                 </tr>

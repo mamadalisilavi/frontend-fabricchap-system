@@ -83,42 +83,42 @@ export default function PrintManager() {
             ))}
           </div>
         </div>
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-3">
-          <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-3">
+          <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50">
               <tr>
-                <th scope="col" class="px-6 py-3"></th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3"></th>
+                <th scope="col" className="px-6 py-3">
                   عکس
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   نام یا کد فایل
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   حالت
                 </th>
-                {/* <th scope="col" class="px-6 py-3">
+                {/* <th scope="col" className="px-6 py-3">
                   طول
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   عرض
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   پارچه
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   تعداد
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   کاربر
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   شماره تماس
                 </th> */}
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   تاریخ
                 </th>
-                {/* <th scope="col" class="px-6 py-3">
+                {/* <th scope="col" className="px-6 py-3">
                   ویرایش
                 </th> */}
               </tr>
@@ -127,13 +127,13 @@ export default function PrintManager() {
               {loading
                 ? plats.map((plat) => {
                     return (
-                      <tr class="odd:bg-white even:bg-gray-50  border-b ">
+                      <tr className="odd:bg-white even:bg-gray-50  border-b ">
                         {/* <th
                           scope="row"
-                          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                         ></th> */}
 
-                        <td class="px-6 py-4 flex flex-col">
+                        <td className="px-6 py-4 flex flex-col">
                           <a
                             href={process.env.REACT_APP_API_STORAGE + plat.file}
                             download
@@ -151,7 +151,7 @@ export default function PrintManager() {
                           <span className="text-xs">{plat.file_size}MB</span>
                         </td>
 
-                        <td class="px-6 py-4">
+                        <td className="px-6 py-4">
                           <img
                             id="theImage"
                             loading="lazy"
@@ -166,7 +166,7 @@ export default function PrintManager() {
                           />
                         </td>
 
-                        <td class="px-6 py-4">
+                        <td className="px-6 py-4">
                           <Link
                             className="underline hover:text-blue-600"
                             to={"" + plat.id}
@@ -175,7 +175,7 @@ export default function PrintManager() {
                             {plat.file_name}{" "}
                           </Link>
                         </td>
-                        <td class="px-6 py-4">
+                        <td className="px-6 py-4">
                           {plat.active === 0 ? (
                             <div className="bg-red-500 rounded px-3 py-1.5 text-white text-center">
                               غیر فعال
@@ -187,22 +187,22 @@ export default function PrintManager() {
                             </div>
                           )}
                         </td>
-                        {/* <td class="px-6 py-4">{plat.size_x}</td>
-                        <td class="px-6 py-4">{plat.size_y}</td>
-                        <td class="px-6 py-4">{plat.fabric_plats.name}</td>
-                        <td class="px-6 py-4">{plat.count}</td>
-                        <td class="px-6 py-4">{plat.user.name} </td>
-                        <td class="px-6 py-4">{plat.user.number}</td> */}
-                        <td class="px-6 py-4">
+                        {/* <td className="px-6 py-4">{plat.size_x}</td>
+                        <td className="px-6 py-4">{plat.size_y}</td>
+                        <td className="px-6 py-4">{plat.fabric_plats.name}</td>
+                        <td className="px-6 py-4">{plat.count}</td>
+                        <td className="px-6 py-4">{plat.user.name} </td>
+                        <td className="px-6 py-4">{plat.user.number}</td> */}
+                        <td className="px-6 py-4">
                           {moment(plat.created_at, "YYYY/MM/DD")
                             .locale("fa")
                             .format("YYYY/MM/DD")}
                         </td>
-                        {/* <td class="px-6 py-4">
+                        {/* <td className="px-6 py-4">
                           <button onClick={() => ""} className="flex gap-3">
                             <Link
                               to="edit"
-                              class="font-medium text-blue-600  hover:underline"
+                              className="font-medium text-blue-600  hover:underline"
                             >
                               ویرایش
                             </Link>

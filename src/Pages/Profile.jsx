@@ -50,7 +50,7 @@ export default function Profile() {
           user.admin === 1 ? (
             <Link
               className="flex justify-center bg-blue-500 hover:bg-blue-800  text-white rounded my-3 mx-2 text-base font-bold py-3 w-9/12 md:w-max md:px-14"
-              to="/admin"
+              to="/admin/dashboard"
             >
               رفتن به صفحه ادمین
             </Link>

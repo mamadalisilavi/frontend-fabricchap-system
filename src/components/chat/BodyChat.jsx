@@ -2,6 +2,7 @@ import { useState } from "react"
 import api from "../../api"
 import Cookies from "js-cookie"
 import { useEffect } from "react"
+import Loading from "../Loading"
 
 export default function BodyChat() {
   const [files, setFiles] = useState([])
@@ -14,7 +15,6 @@ export default function BodyChat() {
       .then((e) => {
         setFiles(e.data.files)
         setLoading(true)
-        console.log(e)
       })
       .catch((e) => {
         console.log(e)
@@ -31,8 +31,10 @@ export default function BodyChat() {
           ? files.map((file) => {
               return (
                 <div className="bg-stone-100 rounded-xl my-1 mx-10 p-3">
-                  <div className="flex justify-between">
-                    <div className="flex flex-col">
+                  <div className="flex justify-between items-center">
+                    <div className="flex">
+
+                    <div className="flex flex-col justify-center">
                       <img
                         className=" w-[60px] "
                         src={
@@ -63,6 +65,7 @@ export default function BodyChat() {
                       </div>
                       <b>تعداد:</b>
                       <span>{file.count}</span>
+                    </div>
                     </div>
                     <div className="">
                       <div className="">
@@ -97,7 +100,12 @@ export default function BodyChat() {
                 </div>
               )
             })
-          : "loading.."}
+          : 
+              <div className="flex justify-center items-center h-screen w-full">
+    <Loading />
+  </div>
+
+          }
       </div>
     </div>
   )

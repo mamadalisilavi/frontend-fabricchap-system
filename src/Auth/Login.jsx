@@ -54,7 +54,7 @@ export default function Login() {
 
     if (!validator.isEmpty(password)) {
       if (!validator.isLength(password, { min: 8, max: 30 })) {
-        setPassowrdErrors(" لطفا رمز کمتر  از 5 حرف و بیشتر 30 حرف نباشد.")
+        setPassowrdErrors("لطفا گذرواژه بین 5 الی 30 کاراکتر باشد.")
         setHasErrors(true)
       } else {
         setPassowrdErrors("")

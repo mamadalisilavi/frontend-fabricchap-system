@@ -1,5 +1,5 @@
 import { IoIosArrowDown } from "react-icons/io"
-import { useEffect, useState } from "react"
+import {  useState } from "react"
 import ListMenu from "./menu-chat/ListMenu"
 import NextPage from "./menu-chat/NextPage"
 import FileUpload from "./menu-chat/contents/FileUpload"
@@ -8,14 +8,7 @@ import Questions from "./menu-chat/contents/Questions"
 export default function MenuChat() {
   const [hidden, setHidden] = useState(false)
   const [nextPage, setNextPage] = useState(0)
-  const [test, setTest] = useState(false)
-  useEffect(() => {
-    if (test) {
-      console.log("yes clicked")
-    } else {
-      console.log("no")
-    }
-  }, [test])
+
   return (
     <div className="fixed bottom-[60px] block w-full md:w-9/12 lg:w-1/2  mx-auto container bg-white">
       <div
@@ -25,7 +18,6 @@ export default function MenuChat() {
         <div className="flex justify-center font-semibold py-3 bg-stone-50">
           <button
             onClick={() => {
-              setTest(true)
               setHidden(!hidden)
             }}
             className="flex w-1/2 justify-center gap-1 items-center focus:outline-none text-white bg-[#25d366] hover:bg-green-600 focus:ring-4 focus:ring-green-700 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2"

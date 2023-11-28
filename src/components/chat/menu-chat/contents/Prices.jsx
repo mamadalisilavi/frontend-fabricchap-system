@@ -22,23 +22,23 @@ export default function Prices() {
 
   return (
     <div dir="rtl" className="">
-      <div class="relative overflow-auto shadow-md sm:rounded-lg h-80 w-96 md:w-full">
-        <table class="w-9/12 md:w-full text-sm text-left rtl:text-right text-gray-500 ">
-          <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+      <div className="relative overflow-auto shadow-md sm:rounded-lg h-80 w-96 md:w-full">
+        <table className="w-9/12 md:w-full text-sm text-left rtl:text-right text-gray-500 ">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
             <tr>
-              <th scope="col" class="px-4 py-2">
+              <th scope="col" className="px-4 py-2">
                 نام پارچه
               </th>
-              <th scope="col" class="px-4 py-2">
+              <th scope="col" className="px-4 py-2">
                 عرض(سانتیمتر)
               </th>
-              <th scope="col" class="px-4 py-2">
+              <th scope="col" className="px-4 py-2">
                 قیمت مشتری(تومان)
               </th>
-              <th scope="col" class="px-4 py-2">
+              <th scope="col" className="px-4 py-2">
                 قیمت همکار(تومان)
               </th>
-              <th scope="col" class="px-4 py-2">
+              <th scope="col" className="px-4 py-2">
                 درصد تخفیف
               </th>
             </tr>
@@ -47,23 +47,23 @@ export default function Prices() {
             {loading
               ? prices.map((price) => {
                   return (
-                    <tr class="odd:bg-white  even:bg-gray-50 ">
+                    <tr className="odd:bg-white  even:bg-gray-50 ">
                       <th
                         scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
+                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
                       >
                         {price.name}
                       </th>
-                      <th scope="row" class="px-6 py-4 ">
+                      <th scope="row" className="px-6 py-4 ">
                         {price.width}
                       </th>
-                      <td class="px-4 py-2">
+                      <td className="px-4 py-2">
                         {price.price.toLocaleString("en-US")}
                       </td>
-                      <td class="px-4 py-2">
+                      <td className="px-4 py-2">
                         {price.price_partner.toLocaleString("en-US")}
                       </td>
-                      <td class="px-4 py-2 ">
+                      <td className="px-4 py-2 ">
                         {price.percent > 0 ? (
                           <div className="bg-yellow-500 text-white p-2 rounded-full w-max">
                             %{price.percent}

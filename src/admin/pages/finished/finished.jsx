@@ -54,48 +54,48 @@ export default function Finished() {
         dir="rtl"
         className="container mx-auto md:flex md:flex-col md:items-center md:justify-center"
       >
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-3">
-          <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-3">
+          <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50">
               <tr>
-                <th scope="col" class="px-6 py-3"></th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3"></th>
+                <th scope="col" className="px-6 py-3">
                   عکس
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   نام یا کد فایل
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   نوع دوخت
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   طول و عرض
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   پارچه
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   تعداد
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   تیکه
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   پشت و رو
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   تاریخ
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   نام کاربر
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   تلفن کاربر
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   توضیحات
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   ویرایش
                 </th>
               </tr>
@@ -104,13 +104,13 @@ export default function Finished() {
               {loading
                 ? finished.map((finished) => {
                     return (
-                      <tr class="odd:bg-white even:bg-gray-50  border-b ">
+                      <tr className="odd:bg-white even:bg-gray-50  border-b ">
                         {/* <th
                           scope="row"
-                          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                         ></th> */}
 
-                        <td class="px-6 py-4 flex flex-col">
+                        <td className="px-6 py-4 flex flex-col">
                           <a
                             href={
                               process.env.REACT_APP_API_STORAGE + finished.file
@@ -132,7 +132,7 @@ export default function Finished() {
                           </span>
                         </td>
 
-                        <td class="px-6 py-4">
+                        <td className="px-6 py-4">
                           <img
                             id="theImage"
                             loading="lazy"
@@ -146,26 +146,26 @@ export default function Finished() {
                             alt=""
                           />
                         </td>
-                        <td class="px-6 py-4">{finished.file_name}</td>
-                        <td class="px-6 py-4">{finished.sewing.name}</td>
-                        <td class="px-6 py-4">
+                        <td className="px-6 py-4">{finished.file_name}</td>
+                        <td className="px-6 py-4">{finished.sewing.name}</td>
+                        <td className="px-6 py-4">
                           {finished.size_x}x{finished.size_y}
                         </td>
-                        <td class="px-6 py-4">{finished.fabric_plats.name}</td>
-                        <td class="px-6 py-4">{finished.count}</td>
-                        <td class="px-6 py-4">{finished.pieces} </td>
-                        <td class="px-6 py-4">
+                        <td className="px-6 py-4">{finished.fabric_plats.name}</td>
+                        <td className="px-6 py-4">{finished.count}</td>
+                        <td className="px-6 py-4">{finished.pieces} </td>
+                        <td className="px-6 py-4">
                           {finished.backforth === 1 ? "پشت و رو" : ""}
                         </td>
-                        <td class="px-6 py-4">
+                        <td className="px-6 py-4">
                           {moment(finished.created_at, "YYYY/MM/DD")
                             .locale("fa")
                             .format("YYYY/MM/DD")}
                         </td>
-                        <td class="px-6 py-4">{finished.user.name} </td>
-                        <td class="px-6 py-4">{finished.user.number} </td>
-                        <td class="px-6 py-4">{finished.description} </td>
-                        <td class="px-6 py-4">
+                        <td className="px-6 py-4">{finished.user.name} </td>
+                        <td className="px-6 py-4">{finished.user.number} </td>
+                        <td className="px-6 py-4">{finished.description} </td>
+                        <td className="px-6 py-4">
                           <button
                             onClick={() => Delete(finished.id)}
                             className="flex gap-3"

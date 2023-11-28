@@ -2,8 +2,8 @@ import { useState } from "react"
 import Cookies from "js-cookie"
 import { useEffect } from "react"
 import api from "../../api"
-import { Link } from "react-router-dom"
-import { BiLinkExternal } from "react-icons/bi"
+import {  Outlet } from "react-router-dom"
+import Loading from "../../components/Loading"
 
 export default function Admin() {
   const [loading, setLoading] = useState(false)
@@ -38,49 +38,15 @@ export default function Admin() {
 
   if (loading) {
     if (isAdmin) {
-      return (
-        <div
-          className="flex flex-col gap-4 items-center justify-center"
-          dir="rtl"
-        >
-          <div className="bg-slate-600  flex items-center justify-between w-full p-5 container">
-            <div className="text-white font-bold text-xl">داشبورد</div>
-            <Link
-              to="/"
-              className="flex gap-1 text-sm items-center  text-white underline hover:text-blue-600 hover:underline"
-            >
-              صفحه اصلی
-              <BiLinkExternal />
-            </Link>
-          </div>
-          <div className="flex gap-2 items-center justify-center ">
-            <Link
-              className="flex justify-center items-center w-32 h-32 rounded-lg text-lg text-white bg-blue-600 "
-              to="/admin/settings"
-            >
-              تنظیمات
-            </Link>
-            <Link
-              className="flex justify-center items-center w-32 h-32 rounded-lg text-lg text-white bg-orange-600 "
-              to="/admin/chap"
-            >
-              امور چاپ
-            </Link>
-            <Link
-              className="flex justify-center items-center w-32 h-32 rounded-lg text-lg text-white bg-green-600"
-              to="/admin/finance"
-            >
-              امور مالی
-            </Link>
-          </div>
-          <div className="flex flex-col  md:flex-row items-center justify-center"></div>
-          <div className="flex flex-col  md:flex-row items-center justify-center"></div>
-        </div>
-      )
+        if(window.location.pathname === "/admin/"){
+          return window.location.replace("admin/dashnoard")
+        }else{
+          return <Outlet />
+        }
     } else {
       return window.location.replace("/")
     }
   } else {
-    return <div>loading</div>
+    return <div className="flex justify-center items-center h-screen w-full"> <Loading /></div>
   }
 }
