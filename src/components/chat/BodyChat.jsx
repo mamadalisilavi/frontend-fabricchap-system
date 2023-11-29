@@ -27,13 +27,12 @@ export default function BodyChat() {
   return (
     <div id="body" className="bg-[#ece5dd] h-screen bg-chat overflow-auto">
       <div className="flex flex-col mt-[60px] mb-36" dir="rtl">
-        {loading
-          ? files.map((file) => {
-              return (
-                <div className="bg-[#dcf8c6] rounded-xl my-1 mx-10 p-3">
-                  <div className="flex justify-between items-center">
-                    <div className="flex">
-
+        {loading ? (
+          files.map((file) => {
+            return (
+              <div className="bg-[#dcf8c6] rounded-xl my-1 mx-10 p-3">
+                <div className="flex justify-between items-center">
+                  <div className="flex">
                     <div className="flex flex-col justify-center">
                       <img
                         className=" w-[60px] "
@@ -47,11 +46,7 @@ export default function BodyChat() {
                       />
                       <a
                         className="block text-sm text-blue-600"
-                        href={
-                          process.env.REACT_APP_API_STORAGE +
-                          "resize/" +
-                          file.file
-                        }
+                        href={process.env.REACT_APP_API_STORAGE + file.file}
                       >
                         مشاهده عکس
                       </a>
@@ -66,46 +61,45 @@ export default function BodyChat() {
                       <b>تعداد:</b>
                       <span>{file.count}</span>
                     </div>
-                    </div>
+                  </div>
+                  <div className="">
                     <div className="">
-                      <div className="">
-                        {file.active === 0 ? (
-                          <div className="bg-red-500 text-white px-3 py-1.5 mx-3 rounded">
-                            غیر فعال
-                          </div>
-                        ) : file.status === 1 ? (
-                          <div className="bg-orange-500 text-white px-3 py-1.5 mx-3 rounded">
-                            پلات شده
-                          </div>
-                        ) : file.status === 2 ? (
-                          <div className="bg-yellow-500 text-white px-3 py-1.5 mx-3 rounded">
-                            کلندر شده
-                          </div>
-                        ) : file.status === 3 ? (
-                          <div className="bg-lime-600 text-white px-3 py-1.5 mx-3 rounded">
-                            دوخت شده
-                          </div>
-                        ) : file.status === 4 ? (
-                          <div className="bg-green-600 text-white px-3 py-1.5 mx-3 rounded">
-                            ارسال شده
-                          </div>
-                        ) : (
-                          <div className="bg-rose-600 text-white px-3 py-1.5 mx-3 rounded">
-                            فعال
-                          </div>
-                        )}
-                      </div>
+                      {file.active === 0 ? (
+                        <div className="bg-red-500 text-white px-3 py-1.5 mx-3 rounded">
+                          غیر فعال
+                        </div>
+                      ) : file.status === 1 ? (
+                        <div className="bg-orange-500 text-white px-3 py-1.5 mx-3 rounded">
+                          پلات شده
+                        </div>
+                      ) : file.status === 2 ? (
+                        <div className="bg-yellow-500 text-white px-3 py-1.5 mx-3 rounded">
+                          کلندر شده
+                        </div>
+                      ) : file.status === 3 ? (
+                        <div className="bg-lime-600 text-white px-3 py-1.5 mx-3 rounded">
+                          دوخت شده
+                        </div>
+                      ) : file.status === 4 ? (
+                        <div className="bg-green-600 text-white px-3 py-1.5 mx-3 rounded">
+                          ارسال شده
+                        </div>
+                      ) : (
+                        <div className="bg-rose-600 text-white px-3 py-1.5 mx-3 rounded">
+                          فعال
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
-              )
-            })
-          : 
-              <div className="flex justify-center items-center h-screen w-full">
-    <Loading />
-  </div>
-
-          }
+              </div>
+            )
+          })
+        ) : (
+          <div className="flex justify-center items-center h-screen w-full">
+            <Loading />
+          </div>
+        )}
       </div>
     </div>
   )

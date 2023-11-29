@@ -20,6 +20,9 @@ import Sewing from "./admin/pages/sewing/Sewing"
 import Posted from "./admin/pages/posted/Posted"
 import Finished from "./admin/pages/finished/finished"
 import Dashboard from "./admin/pages/Dashboard"
+import UsersSettings from "./admin/pages/settings/users/UsersSetting"
+import EditUser from "./admin/pages/settings/users/EditUser"
+import Password from "./Pages/Password"
 
 const router = createBrowserRouter([
   {
@@ -33,6 +36,10 @@ const router = createBrowserRouter([
   {
     path: "profile",
     element: <Profile />,
+  },
+  {
+    path: "chinge-password",
+    element: <Password />,
   },
   {
     path: "",
@@ -75,6 +82,14 @@ const router = createBrowserRouter([
         element: <AddSewing />,
       },
       {
+        path: "settings/users",
+        element: <UsersSettings />,
+      },
+      {
+        path: "settings/users/edit",
+        element: <EditUser />,
+      },
+      {
         path: "settings/sewings/edit",
         element: <EditSewing />,
       },
@@ -110,9 +125,8 @@ const router = createBrowserRouter([
         path: "finished",
         element: <Finished />,
       },
-    ]
+    ],
   },
-
 ])
 
 export default router

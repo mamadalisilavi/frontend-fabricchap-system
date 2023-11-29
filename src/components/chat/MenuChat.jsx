@@ -1,5 +1,5 @@
 import { IoIosArrowDown } from "react-icons/io"
-import {  useState } from "react"
+import { useState } from "react"
 import ListMenu from "./menu-chat/ListMenu"
 import NextPage from "./menu-chat/NextPage"
 import FileUpload from "./menu-chat/contents/FileUpload"
@@ -65,11 +65,11 @@ export default function MenuChat() {
           >
             <ListMenu id={1} title={"ثبت سفارش"} click={() => setNextPage(1)} />
             <ListMenu id={2} title={"قیمت ها"} click={() => setNextPage(2)} />
-            <ListMenu
+            {/* <ListMenu
               id={3}
               title={"سوالات متداول"}
               click={() => setNextPage(3)}
-            />
+            /> */}
           </ul>
         </div>
       </div>

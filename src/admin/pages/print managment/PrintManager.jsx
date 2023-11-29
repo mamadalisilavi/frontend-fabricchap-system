@@ -78,7 +78,7 @@ export default function PrintManager() {
                 key={index}
               >
                 <div className="font-bold">{item.fabric}</div>
-                <div className="">{item.count}سانت</div>
+                <div className="">{parseInt(item.count) / 100}متر</div>
               </div>
             ))}
           </div>

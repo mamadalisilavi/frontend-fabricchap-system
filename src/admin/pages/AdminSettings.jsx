@@ -4,6 +4,8 @@ import { RiFilePaper2Line } from "react-icons/ri"
 import { AiFillSetting, AiFillQuestionCircle } from "react-icons/ai"
 import { CgProfile } from "react-icons/cg"
 import { GiSewingMachine } from "react-icons/gi"
+import { FaUsersCog } from "react-icons/fa"
+
 export default function AdminSettings() {
   const settings = (
     <div className="flex gap-3 items-center">
@@ -28,6 +30,13 @@ export default function AdminSettings() {
         >
           <GiSewingMachine />
           دوخت
+        </Link>
+        <Link
+          className=" border flex items-center gap-3 justify-center w-9/12 md:w-52 py-3 rounded"
+          to="users"
+        >
+          <FaUsersCog />
+          کاربران
         </Link>
         <Link
           className=" border flex items-center gap-3 justify-center w-9/12 md:w-52 py-3 rounded"

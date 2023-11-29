@@ -1,6 +1,6 @@
-import { HiPhone } from "react-icons/hi";
-import { HiMiniEllipsisVertical } from "react-icons/hi2";
-import icon from "../../assets/images/logo-profile.jpg";
+import { HiPhone } from "react-icons/hi"
+import { HiMiniEllipsisVertical } from "react-icons/hi2"
+import icon from "../../assets/images/logo-profile.jpg"
 
 export default function NavChat() {
   return (
@@ -16,13 +16,15 @@ export default function NavChat() {
         </div>
       </div>
       <div className="m-1 gap-2 flex items-center">
-        <HiPhone
-          color="white"
-          size={"22px"}
-          className="mx-2 focus:ring-green-300 focus:ring-4"
-        />
+        <a href="tel:+9162200380">
+          <HiPhone
+            color="white"
+            size={"22px"}
+            className="mx-2 focus:ring-green-300 focus:ring-4"
+          />
+        </a>
         <HiMiniEllipsisVertical color="white" size={"24px"} />
       </div>
     </nav>
-  );
+  )
 }

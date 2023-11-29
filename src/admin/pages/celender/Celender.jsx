@@ -91,7 +91,7 @@ export default function Celender() {
                 key={index}
               >
                 <div className="font-bold">{item.fabric}</div>
-                <div className="">{item.count}سانت</div>
+                <div className="">{parseInt(item.count) / 100}متر</div>
               </div>
             ))}
           </div>
@@ -188,7 +188,9 @@ export default function Celender() {
                         <td className="px-6 py-4">{celender.file_name}</td>
                         <td className="px-6 py-4">{celender.size_x}</td>
                         <td className="px-6 py-4">{celender.size_y}</td>
-                        <td className="px-6 py-4">{celender.fabric_plats.name}</td>
+                        <td className="px-6 py-4">
+                          {celender.fabric_plats.name}
+                        </td>
                         <td className="px-6 py-4">{celender.count}</td>
                         <td className="px-6 py-4">{celender.pieces} </td>
                         <td className="px-6 py-4">

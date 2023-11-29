@@ -90,11 +90,12 @@ export default function Sewing() {
                 key={index}
               >
                 <div className="font-bold">{item.fabric}</div>
-                <div className="">{item.count}سانت</div>
+                <div className="">{parseInt(item.count) / 100}متر</div>
               </div>
             ))}
           </div>
         </div>
+
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-3">
           <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50">
@@ -190,7 +191,9 @@ export default function Sewing() {
                         <td className="px-6 py-4">
                           {sewing.size_x}x{sewing.size_y}
                         </td>
-                        <td className="px-6 py-4">{sewing.fabric_plats.name}</td>
+                        <td className="px-6 py-4">
+                          {sewing.fabric_plats.name}
+                        </td>
                         <td className="px-6 py-4">{sewing.count}</td>
                         <td className="px-6 py-4">{sewing.pieces} </td>
                         <td className="px-6 py-4">

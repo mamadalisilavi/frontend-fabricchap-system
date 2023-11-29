@@ -633,6 +633,7 @@ export default function FileUpload() {
               id="sewing"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             >
+              <option value="">انتخاب کنید</option>
               {loadingSewings ? (
                 sewings.map((sewing) => {
                   return (
@@ -744,9 +745,7 @@ export default function FileUpload() {
                   ...درحال ارسال لطفا منتظر بمانید
                 </div>
                 <div className="text-red-500">
-                {
-                  errorBackend === null ? null : errorBackend
-                }
+                  {errorBackend === null ? null : errorBackend}
                 </div>
               </>
             )}
