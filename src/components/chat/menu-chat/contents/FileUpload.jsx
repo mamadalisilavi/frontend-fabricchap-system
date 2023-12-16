@@ -4,6 +4,7 @@ import api from "../../../../api"
 import axios from "axios"
 import validator from "validator"
 import ConfirmPage from "./ConfirmPage"
+import Loading from "../../../Loading"
 export default function FileUpload() {
   const [checkedPieces, setCheckedPieces] = useState(false)
   const [file, setFile] = useState(null)
@@ -85,11 +86,13 @@ export default function FileUpload() {
         },
       })
         .then((e) => {
+          setLoadIsFull(false)
           if (e.data.status) {
             setSuccess(true)
           }
         })
         .catch((e) => {
+          console.log(e)
           setErrorBackend(e.response.data.message)
         })
     }
@@ -323,7 +326,12 @@ export default function FileUpload() {
       setMax2(max * data.pieces)
     }
   }, [checkedPieces, data.size_x])
-
+  const [loadIsFull, setLoadIsFull] = useState(false)
+  useEffect(() => {
+    if (persentUpload === 100) {
+      setLoadIsFull(true)
+    }
+  }, [persentUpload])
   const [confirm, setConfirm] = useState(false)
 
   const handleSewingChinge = (e) => {
@@ -390,7 +398,7 @@ export default function FileUpload() {
                       or drag and drop
                     </p>
                     <p className="text-xs text-gray-500 ">
-                      SVG, PNG, JPG or GIF (MAX. 250MB)
+                      SVG, PNG, JPG or GIF (MAX. 60MB)
                     </p>
                   </div>
                 ) : (
@@ -547,7 +555,7 @@ export default function FileUpload() {
                     htmlFor="size_y"
                     className="block my-2 text-sm font-medium text-gray-900 "
                   >
-                    طول
+                    طول (سانتیمتر)
                   </label>
                   <input
                     onChange={handleInputChange}
@@ -570,7 +578,7 @@ export default function FileUpload() {
                     htmlFor="size_x"
                     className="block my-2 text-sm font-medium text-gray-900 "
                   >
-                    عرض
+                    عرض (سانتیمتر)
                   </label>
                   <input
                     onChange={handleInputChange}
@@ -743,6 +751,12 @@ export default function FileUpload() {
                 </div>
                 <div className="text-center py-4">
                   ...درحال ارسال لطفا منتظر بمانید
+                  {loadIsFull ? (
+                    <div className="w-full flex justify-center mt-5">
+                      <Loading />
+                      درحال اپلود فایل لطفا منتظر بمانید
+                    </div>
+                  ) : null}
                 </div>
                 <div className="text-red-500">
                   {errorBackend === null ? null : errorBackend}

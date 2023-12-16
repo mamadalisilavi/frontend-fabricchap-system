@@ -1,5 +1,6 @@
 {
   "name": "fabricchap-system-frontend",
+  "homepage": "https://kachilachap.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

@@ -1,6 +1,6 @@
 import { HiPhone } from "react-icons/hi"
 import { HiMiniEllipsisVertical } from "react-icons/hi2"
-import icon from "../../assets/images/logo-profile.jpg"
+import icon from "../../assets/images/logo-profile.png"
 
 export default function NavChat() {
   return (
@@ -16,7 +16,7 @@ export default function NavChat() {
         </div>
       </div>
       <div className="m-1 gap-2 flex items-center">
-        <a href="tel:+9162200380">
+        <a href="tel:+989162200380">
           <HiPhone
             color="white"
             size={"22px"}

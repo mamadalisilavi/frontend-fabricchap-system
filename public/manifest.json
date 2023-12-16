@@ -1,6 +1,6 @@
 {
   "short_name": "fabric chap",
-  "name": "بزرگترین مرکز تخصصی چاپ سابلیمیشن",
+  "name": "فابریک چاپ",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo fabrticchap c.jpg",
+      "src": "logo.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo fabrticchap c.jpg",
+      "src": "logo.png",
       "type": "image/png",
       "sizes": "512x512"
     }
@@ -21,5 +21,5 @@
   "start_url": "/",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#fbe461"
+  "background_color": "#ffffff"
 }
