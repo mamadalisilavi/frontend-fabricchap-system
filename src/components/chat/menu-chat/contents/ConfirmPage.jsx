@@ -63,7 +63,7 @@ export default function ConfirmPage({ data, confirm, click }) {
               </div>
             </div>
             <div className="text-red-600 text-sm text-center my-3">
-              توجه : ممکن است در قیمت نهایی کم و زیاد داشته باشد.
+              توجه : ممکن است در قیمت نهایی کم و زیادی داشته باشد.
             </div>
 
             <div className="px-6 py-3 gap-4 text-sm  text-gray-900 bg-white flex">

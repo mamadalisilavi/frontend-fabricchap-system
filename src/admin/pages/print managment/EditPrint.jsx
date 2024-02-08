@@ -174,7 +174,7 @@ export default function EditPrint() {
                         پشت و رو
                       </th>
                       <td class="px-6 py-4">
-                        {print.backforth === 0 ? "بله" : "خیر"}
+                        {print.backforth === 1 ? "بله" : "خیر"}
                       </td>
                     </tr>
                     <tr class="border-b border-gray-200 ">

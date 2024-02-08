@@ -377,7 +377,7 @@ export default function FileUpload() {
             <div className="flex items-center justify-center w-full" dir="rtl">
               <label
                 htmlFor="dropzone-file"
-                className="flex flex-col items-center justify-center w-full h-44 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 "
+                className="flex flex-col items-center justify-center w-full md:w-3/4 h-44 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 "
               >
                 {file === null ? (
                   <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -404,14 +404,17 @@ export default function FileUpload() {
                     <p className="text-xs text-gray-500 "></p>
                   </div>
                 ) : (
-                  <div className="flex flex-col items-end flex-wrap">
-                    <div className="flex " dir="ltr">
+                  <div className="flex justify-center flex-col flex-wrap w-3/4">
+                    <div className="flex  w-3/4" dir="ltr">
                       name:
-                      <div className="text-stone-700  ml-2"> {file.name}</div>
+                      <div className="text-stone-700  ml-2 w-1/4 truncate ">
+                        {" "}
+                        {file.name}
+                      </div>
                     </div>
-                    <div className="flex " dir="ltr">
+                    <div className="flex  w-3/4" dir="ltr">
                       size:
-                      <div className="text-stone-700 ml-5">
+                      <div className="text-stone-700 ml-5 truncate ">
                         {(file.size / (1024 * 1024)).toFixed(3) + "MB"}
                       </div>
                     </div>
@@ -706,18 +709,18 @@ export default function FileUpload() {
           {confirm ? (
             <div
               className={
-                "flex justify-center gap-4 " + (click ? " hidden " : " ")
+                "flex justify-center gap-4  " + (click ? " hidden " : " ")
               }
             >
               <button
                 onClick={handleBack}
-                className="mb-20 w-9/12 py-2.5 flex items-center justify-center gap-2  rounded-lg text-base text-white bg-orange-500 mx-auto mt-3"
+                className="mb-20 w-9/12 py-2.5 flex items-center justify-center gap-2 mr-5 rounded-lg text-base text-white bg-orange-500 mx-auto mt-3 "
               >
                 <FaArrowRight />
                 بازگشت به فرم
               </button>
               <button
-                className="mb-20 w-9/12 py-2.5 rounded-lg text-lg text-white bg-blue-600 mx-auto mt-3"
+                className="mb-20 w-9/12 py-2.5 rounded-lg text-base ml-5 md:text-lg text-white bg-blue-600 mx-auto mt-3"
                 onClick={() => {
                   setClick(true)
                 }}
