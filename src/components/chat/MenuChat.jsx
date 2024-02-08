@@ -5,6 +5,8 @@ import NextPage from "./menu-chat/NextPage"
 import FileUpload from "./menu-chat/contents/FileUpload"
 import Prices from "./menu-chat/contents/Prices"
 import Questions from "./menu-chat/contents/Questions"
+import { BiLinkExternal } from "react-icons/bi"
+
 export default function MenuChat() {
   const [hidden, setHidden] = useState(false)
   const [nextPage, setNextPage] = useState(0)
@@ -65,6 +67,15 @@ export default function MenuChat() {
           >
             <ListMenu id={1} title={"ثبت سفارش"} click={() => setNextPage(1)} />
             <ListMenu id={2} title={"قیمت ها"} click={() => setNextPage(2)} />
+            <a
+              href="https://fabricchap.com"
+              className="flex justify-center items-center gap-2 bg-stone-200 rounded-full w-1/2 text-center py-2"
+              target="_blank"
+              rel="noopener"
+            >
+              <BiLinkExternal />
+              لیست محصولات
+            </a>
             {/* <ListMenu
               id={3}
               title={"سوالات متداول"}

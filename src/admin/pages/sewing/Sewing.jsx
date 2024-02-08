@@ -160,15 +160,15 @@ export default function Sewing() {
                             download={true}
                             className="hover:underline text-xs text-white bg-blue-500 rounded px-2 py-1"
                           >
-                            دانلود عکس
+                            دانلود
                           </a>
-                          <span className="text-xs">
+                          {/* <span className="text-xs">
                             {sewing.image_height +
                               "px" +
                               "*" +
                               sewing.image_width +
                               "px"}
-                          </span>
+                          </span> */}
                           <span className="text-xs">{sewing.file_size}MB</span>
                         </td>
 

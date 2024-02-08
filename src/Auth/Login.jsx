@@ -152,6 +152,12 @@ export default function Login() {
               <Link to={"/register"} className="text-blue-600 hover:underline">
                 حساب کاربری ندارید؟ ثبت نام
               </Link>
+              <a
+                href="tel:+989162200380"
+                className="block text-blue-500 hover:underline"
+              >
+                فراموشی رمز تماس با پشتیبان
+              </a>
             </form>
           </div>
         </div>

@@ -118,15 +118,15 @@ export default function Finished() {
                             download={true}
                             className="hover:underline text-xs text-white bg-blue-500 rounded px-2 py-1"
                           >
-                            دانلود عکس
+                            دانلود
                           </a>
-                          <span className="text-xs">
+                          {/* <span className="text-xs">
                             {finished.image_height +
                               "px" +
                               "*" +
                               finished.image_width +
                               "px"}
-                          </span>
+                          </span> */}
                           <span className="text-xs">
                             {finished.file_size}MB
                           </span>
@@ -151,7 +151,9 @@ export default function Finished() {
                         <td className="px-6 py-4">
                           {finished.size_x}x{finished.size_y}
                         </td>
-                        <td className="px-6 py-4">{finished.fabric_plats.name}</td>
+                        <td className="px-6 py-4">
+                          {finished.fabric_plats.name}
+                        </td>
                         <td className="px-6 py-4">{finished.count}</td>
                         <td className="px-6 py-4">{finished.pieces} </td>
                         <td className="px-6 py-4">

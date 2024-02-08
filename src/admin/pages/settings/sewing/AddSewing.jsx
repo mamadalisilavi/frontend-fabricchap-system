@@ -94,7 +94,7 @@ export default function AddSewing() {
             >
               <option value="0">انتخاب کنید</option>
               <option value="1">قطعی</option>
-              <option value="2">کامل</option>
+              <option value="2">دور تا دور</option>
               <option value="3">یک طرفه</option>
               <option value="4">غیر موجود</option>
             </select>
@@ -122,6 +122,25 @@ export default function AddSewing() {
         <button className="bg-blue-600 rounded w-full text-white py-3">
           افزودن
         </button>
+        <div className="text-stone-500">
+          <div>
+            <div>حالت محاسبه قطعی یعنی بر اساس متراژ نیست </div>
+            <div>
+              حالت محاسبه دور تا دور یعنی مانند دور دوز از بالا و پایین و از چپ
+              و راست پارچه محاسبه میشود{" "}
+            </div>
+            <div>
+              {" "}
+              حالت محاسبه یک طرفه یعنی فقط از طول پارچه و فقط از یک طرف مانند
+              منگوله{" "}
+            </div>
+            <div>
+              {" "}
+              حالت ناموجود هنگامی انتخاب میشود که این نوع دوخت در حال حاظر موجود
+              نمیباشد و در صفحه اصلی نشان داده نمیشود{" "}
+            </div>
+          </div>
+        </div>
       </form>
     </div>
   )

@@ -157,15 +157,15 @@ export default function Celender() {
                             download={true}
                             className="hover:underline text-xs text-white bg-blue-500 rounded px-2 py-1"
                           >
-                            دانلود عکس
+                            دانلود
                           </a>
-                          <span className="text-xs">
+                          {/* <span className="text-xs">
                             {celender.image_height +
                               "px" +
                               "*" +
                               celender.image_width +
                               "px"}
-                          </span>
+                          </span> */}
                           <span className="text-xs">
                             {celender.file_size}MB
                           </span>
