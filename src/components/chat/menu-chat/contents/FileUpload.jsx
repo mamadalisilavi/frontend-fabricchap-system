@@ -5,6 +5,7 @@ import axios from "axios"
 import validator from "validator"
 import ConfirmPage from "./ConfirmPage"
 import Loading from "../../../Loading"
+import { FaArrowRight } from "react-icons/fa"
 export default function FileUpload() {
   const [checkedPieces, setCheckedPieces] = useState(false)
   const [file, setFile] = useState(null)
@@ -22,6 +23,7 @@ export default function FileUpload() {
     sewing: "0",
     description: "",
     fabric_price: 0,
+    fabric_price_customer: 0,
     fabric_name: "",
     sewing_name: "",
     sewing_price: "",
@@ -243,7 +245,10 @@ export default function FileUpload() {
     e.preventDefault()
     setConfirm(true)
   }
-
+  const handleBack = (e) => {
+    e.preventDefault()
+    setConfirm(false)
+  }
   //getSewings
   async function getSewings() {
     return await api
@@ -393,13 +398,10 @@ export default function FileUpload() {
                     </svg>
                     <p className="mb-2 text-sm text-gray-500 ">
                       <span className="font-semibold">
-                        برای آپلود عکس کلیک کنید.
+                        برای آپلود فایل کلیک کنید.
                       </span>{" "}
-                      or drag and drop
                     </p>
-                    <p className="text-xs text-gray-500 ">
-                      SVG, PNG, JPG or GIF (MAX. 60MB)
-                    </p>
+                    <p className="text-xs text-gray-500 "></p>
                   </div>
                 ) : (
                   <div className="flex flex-col items-end flex-wrap">
@@ -419,7 +421,7 @@ export default function FileUpload() {
                   id="dropzone-file"
                   name="file"
                   type="file"
-                  accept="image/png, image/gif, image/jpeg, image/jpg,  image/svg"
+                  //accept="image/png, image/gif, image/jpeg, image/jpg,  image/svg, application/pdf"
                   className="hidden"
                   onChange={(e) => {
                     setFileFile(e.target.value)
@@ -481,7 +483,7 @@ export default function FileUpload() {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               >
                 <option value={"0"} width={"0"} price={"0"}>
-                  نوع پارچه - قیمت مشتری - قیمت همکار
+                  نوع پارچه - قیمت
                 </option>
                 {loadingFabrics ? (
                   fabrics.map((fabric) => {
@@ -489,7 +491,7 @@ export default function FileUpload() {
                     return (
                       <option
                         price={
-                          Cookies.get("customer") === 1
+                          window.localStorage.getItem("customer") === "1"
                             ? fabric.price
                             : fabric.price_partner
                         }
@@ -498,8 +500,12 @@ export default function FileUpload() {
                         key={fabric.id}
                         value={fabric.id}
                       >
-                        {fabric.name} - {fabric.price.toLocaleString("en-US")}ت
-                        - {fabric.price_partner.toLocaleString("en-US")}ت
+                        {}
+                        {fabric.name} -{" "}
+                        {window.localStorage.getItem("customer") === "1"
+                          ? fabric.price.toLocaleString("en-US")
+                          : fabric.price_partner.toLocaleString("en-US")}
+                        ت
                       </option>
                     )
                   })
@@ -699,8 +705,17 @@ export default function FileUpload() {
           <ConfirmPage confirm={confirm} data={data} click={click} />
           {confirm ? (
             <div
-              className={"flex justify-center " + (click ? " hidden " : " ")}
+              className={
+                "flex justify-center gap-4 " + (click ? " hidden " : " ")
+              }
             >
+              <button
+                onClick={handleBack}
+                className="mb-20 w-9/12 py-2.5 flex items-center justify-center gap-2  rounded-lg text-base text-white bg-orange-500 mx-auto mt-3"
+              >
+                <FaArrowRight />
+                بازگشت به فرم
+              </button>
               <button
                 className="mb-20 w-9/12 py-2.5 rounded-lg text-lg text-white bg-blue-600 mx-auto mt-3"
                 onClick={() => {

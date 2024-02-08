@@ -38,20 +38,20 @@ export default function AdminSettings() {
           <FaUsersCog />
           کاربران
         </Link>
-        <Link
+        {/* <Link
           className=" border flex items-center gap-3 justify-center w-9/12 md:w-52 py-3 rounded"
           to="fabrics"
         >
           <AiFillQuestionCircle />
           سوالات
-        </Link>
-        <Link
+        </Link> */}
+        {/* <Link
           className=" border flex items-center gap-3 justify-center w-9/12 md:w-52 py-3 rounded"
           to="fabrics"
         >
           <CgProfile />
           پروفایل
-        </Link>
+        </Link> */}
       </div>
     </div>
   )

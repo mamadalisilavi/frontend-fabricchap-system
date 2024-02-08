@@ -1,24 +1,26 @@
-import Cookies from "js-cookie";
-import { useEffect, useState } from "react";
-import api from "../../../../api";
+import Cookies from "js-cookie"
+import { useEffect, useState } from "react"
+import api from "../../../../api"
 
 export default function Prices() {
-  const [prices, setPrices] = useState();
-  const [loading, setLoading] = useState(false);
+  const [prices, setPrices] = useState()
+  const [loading, setLoading] = useState(false)
   async function getPrices() {
     return api
       .get("fabrics", {
         headers: { Authorization: "Bearer " + Cookies.get("jht4") },
       })
       .then((e) => {
-        setPrices(e.data.fabrics);
-        setLoading(true);
+        setPrices(e.data.fabrics)
+        setLoading(true)
       })
-      .catch((e) => console.log(e));
+      .catch((e) => console.log(e))
   }
   useEffect(() => {
-    console.log(getPrices());
-  }, []);
+    console.log(getPrices())
+  }, [])
+
+  const isCustomer = parseInt(Cookies.get("customer"))
 
   return (
     <div dir="rtl" className="">
@@ -32,12 +34,17 @@ export default function Prices() {
               <th scope="col" className="px-4 py-2">
                 عرض(سانتیمتر)
               </th>
-              <th scope="col" className="px-4 py-2">
-                قیمت مشتری(تومان)
-              </th>
-              <th scope="col" className="px-4 py-2">
-                قیمت همکار(تومان)
-              </th>
+              {isCustomer === 1 ? (
+                <th scope="col" className="px-4 py-2">
+                  قیمت (تومان)
+                </th>
+              ) : null}
+              {isCustomer === 0 ? (
+                <th scope="col" className="px-4 py-2">
+                  قیمت (تومان)
+                </th>
+              ) : null}
+
               <th scope="col" className="px-4 py-2">
                 درصد تخفیف
               </th>
@@ -57,12 +64,16 @@ export default function Prices() {
                       <th scope="row" className="px-6 py-4 ">
                         {price.width}
                       </th>
-                      <td className="px-4 py-2">
-                        {price.price.toLocaleString("en-US")}
-                      </td>
-                      <td className="px-4 py-2">
-                        {price.price_partner.toLocaleString("en-US")}
-                      </td>
+                      {isCustomer === 1 ? (
+                        <td className="px-4 py-2">
+                          {price.price.toLocaleString("en-US")}
+                        </td>
+                      ) : null}
+                      {isCustomer === 0 ? (
+                        <td className="px-4 py-2">
+                          {price.price_partner.toLocaleString("en-US")}
+                        </td>
+                      ) : null}
                       <td className="px-4 py-2 ">
                         {price.percent > 0 ? (
                           <div className="bg-yellow-500 text-white p-2 rounded-full w-max">
@@ -71,12 +82,12 @@ export default function Prices() {
                         ) : null}
                       </td>
                     </tr>
-                  );
+                  )
                 })
               : "لطفا صبر کنید..."}
           </tbody>
         </table>
       </div>
     </div>
-  );
+  )
 }

@@ -40,25 +40,39 @@ export default function ConfirmPage({ data, confirm, click }) {
     <div className={confirm ? (click ? "hidden" : "") : "hidden"}>
       {loading ? (
         customer === 1 ? (
-          <div className="flex justify-center mt-6 w-80 ">
-            <div className="text-2xl font-bold">
-              {Number(
-                Number(
-                  parseInt(data.fabric_price) *
-                    (parseInt(data.size_y) / 100) *
-                    parseInt(data.count)
-                ) +
+          <div className="">
+            <div className="flex justify-center mt-6 w-80 ">
+              <div className="text-2xl font-bold">
+                {Number(
                   Number(
-                    sewingPrices(
-                      data.sewing_status,
-                      parseInt(data.size_x) / 100,
-                      parseInt(data.size_y) / 100,
-                      parseInt(data.sewing_price),
+                    parseInt(data.fabric_price) *
+                      (parseInt(data.size_y) / 100) *
                       parseInt(data.count)
+                  ) +
+                    Number(
+                      sewingPrices(
+                        data.sewing_status,
+                        parseInt(data.size_x) / 100,
+                        parseInt(data.size_y) / 100,
+                        parseInt(data.sewing_price),
+                        parseInt(data.count)
+                      )
                     )
-                  )
-              ).toLocaleString("en-US")}
-              تومان
+                ).toLocaleString("en-US")}
+                تومان
+              </div>
+            </div>
+            <div className="text-red-600 text-sm text-center my-3">
+              توجه : ممکن است در قیمت نهایی کم و زیاد داشته باشد.
+            </div>
+
+            <div className="px-6 py-3 gap-4 text-sm  text-gray-900 bg-white flex">
+              <div> {data.file_name}</div>
+              <div>{data.fabric_name}</div>
+              <div>
+                {data.size_x}x{data.size_y}سانتیمتر
+              </div>
+              <div>{data.sewing_name}</div>
             </div>
           </div>
         ) : (
@@ -133,12 +147,32 @@ export default function ConfirmPage({ data, confirm, click }) {
                   >
                     عدد
                   </th>
+
                   <th
                     scope="col"
                     className="px-6 py-3 text-gray-700 bg-stone-50 flex"
                   >
                     <div className=""> {data.count} </div>
                   </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-gray-700 bg-stone-50"
+                  ></th>
+                </tr>
+                <tr>
+                  <th scope="col" className="px-6 py-3  text-gray-900 bg-white">
+                    دو رو
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-gray-700 bg-stone-50"
+                  >
+                    {data.backforth === 1 ? "دو رو" : "تک رو"}
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-gray-700 bg-stone-50"
+                  ></th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-gray-700 bg-stone-50"
@@ -162,9 +196,16 @@ export default function ConfirmPage({ data, confirm, click }) {
                   >
                     <div className=" border-b border-stone-800">
                       {" "}
-                      {Number(
-                        data.fabric_price * (data.size_y / 100) * data.count
-                      ).toLocaleString("en-US")}{" "}
+                      {data.backforth === 1
+                        ? Number(
+                            data.fabric_price *
+                              (data.size_y / 100) *
+                              data.count *
+                              2
+                          ).toLocaleString("en-US")
+                        : Number(
+                            data.fabric_price * (data.size_y / 100) * data.count
+                          ).toLocaleString("en-US")}{" "}
                     </div>
                   </th>
                 </tr>
@@ -290,27 +331,57 @@ export default function ConfirmPage({ data, confirm, click }) {
                     className="px-6 py-3 text-gray-900 bg-green-200 flex"
                   >
                     <div className="border-double border-b-4 border-stone-800 ">
-                      {Number(
-                        Number(
-                          parseInt(data.fabric_price) *
-                            (parseInt(data.size_y) / 100) *
-                            parseInt(data.count)
-                        ) +
-                          Number(
-                            sewingPrices(
-                              data.sewing_status,
-                              parseInt(data.size_x) / 100,
-                              parseInt(data.size_y) / 100,
-                              parseInt(data.sewing_price),
-                              parseInt(data.count)
-                            )
-                          )
-                      ).toLocaleString("en-US")}
+                      {data.backforth === 0
+                        ? Number(
+                            Number(
+                              parseInt(data.fabric_price) *
+                                (parseInt(data.size_y) / 100) *
+                                parseInt(data.count)
+                            ) +
+                              Number(
+                                sewingPrices(
+                                  data.sewing_status,
+                                  parseInt(data.size_x) / 100,
+                                  parseInt(data.size_y) / 100,
+                                  parseInt(data.sewing_price),
+                                  parseInt(data.count)
+                                )
+                              )
+                          ).toLocaleString("en-US")
+                        : Number(
+                            Number(
+                              parseInt(data.fabric_price) *
+                                (parseInt(data.size_y) / 100) *
+                                parseInt(data.count) *
+                                2
+                            ) +
+                              Number(
+                                sewingPrices(
+                                  data.sewing_status,
+                                  parseInt(data.size_x) / 100,
+                                  parseInt(data.size_y) / 100,
+                                  parseInt(data.sewing_price),
+                                  parseInt(data.count) * 2
+                                )
+                              )
+                          ).toLocaleString("en-US")}
                     </div>
                   </th>
                 </tr>
               </tbody>
             </table>
+            <div className="text-red-600 text-sm text-center my-3">
+              توجه : ممکن است در قیمت نهایی کم و زیاد داشته باشد.
+            </div>
+
+            <div className="px-6 py-3 gap-4 text-sm  text-gray-900 bg-white flex">
+              <div> {data.file_name}</div>
+              <div>{data.fabric_name}</div>
+              <div>
+                {data.size_x}x{data.size_y}سانتیمتر
+              </div>
+              <div>{data.sewing_name}</div>
+            </div>
           </div>
         )
       ) : (

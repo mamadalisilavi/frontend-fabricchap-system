@@ -8,6 +8,7 @@ export default function EditSewing() {
     id: null,
     name: null,
     price: null,
+    status: null,
     description: null,
   })
   const [loading, setLoading] = useState(false)
@@ -47,6 +48,7 @@ export default function EditSewing() {
       .then((e) => {
         setLoading(true)
         setData(e.data.sewing)
+        console.log(e)
       })
       .catch((e) => console.log(e))
   }
@@ -124,6 +126,28 @@ export default function EditSewing() {
               required
             />
           </div>
+          <select
+            onChange={handleInputChange}
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+            name="status"
+            id="status"
+          >
+            <option value="0" selected={data.status === "0"}>
+              انتخاب کنید
+            </option>
+            <option value="1" selected={data.status === 1}>
+              قطعی
+            </option>
+            <option value="2" selected={data.status === 2}>
+              کامل
+            </option>
+            <option value="3" selected={data.status === 3}>
+              یک طرفه
+            </option>
+            <option value="4" selected={data.status === 4}>
+              غیر موجود
+            </option>
+          </select>
           <div>
             <div className="">
               <label

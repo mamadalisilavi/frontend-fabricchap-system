@@ -48,7 +48,7 @@ export default function BodyChat() {
                         className="block text-sm text-blue-600"
                         href={process.env.REACT_APP_API_STORAGE + file.file}
                       >
-                        مشاهده عکس
+                        مشاهده فایل
                       </a>
                     </div>
                     <div className="mx-3 my-2">
