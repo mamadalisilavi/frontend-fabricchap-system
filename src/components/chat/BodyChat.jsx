@@ -52,7 +52,7 @@ export default function BodyChat() {
                       </a>
                     </div>
                     <div className="mx-3 my-2 w-[123px]">
-                      <div className="font-bold mb-3 w-1/2 md:w-full overflow-x-auto ">
+                      <div className="font-bold mb-3 w-1/2 md:w-full overflow-x-auto md:overflow-x-visible ">
                         {" "}
                         {file.file_name}
                       </div>
