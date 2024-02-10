@@ -66,7 +66,11 @@ export default function MenuChat() {
             }
           >
             <ListMenu id={1} title={"ثبت سفارش"} click={() => setNextPage(1)} />
-            <ListMenu id={2} title={"قیمت ها"} click={() => setNextPage(2)} />
+            <ListMenu
+              id={2}
+              title={"قیمت پارچه ها"}
+              click={() => setNextPage(2)}
+            />
             <a
               href="https://fabricchap.com"
               className="flex justify-center items-center gap-2 bg-stone-200 rounded-full w-1/2 text-center py-2"

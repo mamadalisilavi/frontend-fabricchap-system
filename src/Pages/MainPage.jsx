@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
-import { BsChatLeftDotsFill } from "react-icons/bs"
-import { CgProfile } from "react-icons/cg"
+import { GoHomeFill } from "react-icons/go"
+import { FaUserLarge } from "react-icons/fa6"
 import { useState } from "react"
 import Cookies from "js-cookie"
 import { useEffect } from "react"
@@ -52,14 +52,14 @@ export default function MainPage({ children }) {
               to={"/"}
               className="flex flex-col justify-center items-center"
             >
-              <BsChatLeftDotsFill color="white" size={"24px"} />
-              <div className="text-sm text-white">چت</div>
+              <GoHomeFill color="white" size={"24px"} />
+              <div className="text-sm text-white">صفحه اصلی</div>
             </Link>
             <Link
               to={"/profile"}
               className="flex flex-col justify-center items-center"
             >
-              <CgProfile color="white" size={"24px"} />
+              <FaUserLarge color="white" size={"22px"} />
               <div className="text-sm text-white">پروفایل</div>
             </Link>
           </div>

@@ -28,7 +28,7 @@ export default function SewingsSettings() {
   }, [])
   const sewingStatus = [
     { id: 1, name: "قطعی" },
-    { id: 2, name: "کامل" },
+    { id: 2, name: "دور تا دور" },
     { id: 3, name: "یک طرفه" },
     { id: 4, name: "غیر موجود" },
   ]

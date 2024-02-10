@@ -363,18 +363,18 @@ export default function FileUpload() {
     }))
   }
   return (
-    <div className=" flex items-center flex-col w-full overflow-y-auto h-96  px-4">
+    <div className=" flex items-center flex-col w-full overflow-y-scroll overflow-x-hidden  h-96">
       <div className="w-4/5 px-3 flex flex-col items-center ">
         {/* <div className={confirm ? "hidden" : ""}> */}
         {/* <div className="text-red-500 text-sm my-1">{data.errors.count}</div> */}
         <form
           onSubmit={HandleSubmit}
           action=""
-          className="flex flex-col items-center justify-center "
+          className="flex flex-col items-center justify-center  "
           dir="rtl"
         >
-          <div className="flex flex-col items-center">
-            <div className={(confirm ? "hidden" : "") + " mr-[80px] md:m-0 "}>
+          <div className="">
+            <div className={(confirm ? "hidden" : "") + " pr-[72px] md:pr-0"}>
               <div
                 className="flex items-center justify-center w-11/12 max-w-[300px]"
                 dir="rtl"
@@ -535,7 +535,7 @@ export default function FileUpload() {
                   <div className="text-xs text-stone-500 w-72">
                     {max === 0
                       ? null
-                      : ` در صورت نیاز طرح با عرض بیشتر از ${max} سانت این تیک را فعال کنید`}
+                      : ` در صورت نیاز طرح  با عرض بیشتر از ${max} سانت  این تیک را فعال کنید`}
                   </div>
                 </div>
                 <label
@@ -544,9 +544,17 @@ export default function FileUpload() {
                 >
                   چند تیکه
                   <div className="text-xs text-stone-500 w-96 py-1 font-normal">
-                    {checkedPieces
-                      ? ` تعداد تیکه بر اساس عرض طرح، برای مثال طرح با عرض 280 سانت و طول بیشتر از 140 سانت باید 2 تیکه بشود.`
-                      : null}
+                    {checkedPieces ? (
+                      <>
+                        {" "}
+                        <div>
+                          {" "}
+                          تعداد تیکه بر اساس عرض طرح، برای مثال طرح با عرض 280
+                          سانت
+                        </div>{" "}
+                        <div> و طول بیشتر از 140 سانت باید 2 تیکه بشود.</div>
+                      </>
+                    ) : null}
                   </div>
                 </label>
                 <input
@@ -693,7 +701,7 @@ export default function FileUpload() {
                 {data.errors.description}
               </div>
               {validForm ? (
-                <div className="flex justify-center">
+                <div className="md:flex md:justify-center">
                   <button
                     className="w-9/12 py-2.5 rounded-lg text-lg text-white bg-blue-500 mt-3 hover:bg-blue-600 "
                     onClick={handleConfirm}
@@ -718,13 +726,13 @@ export default function FileUpload() {
               >
                 <button
                   onClick={handleBack}
-                  className="mb-20 w-9/12 py-2.5 flex items-center justify-center gap-2 mr-5 rounded-lg text-base text-white bg-orange-500 mx-auto mt-3 "
+                  className="bg-orange-500 px-2.5 py-2 flex gap-1 justify-center items-center mb-20 rounded-lg text-white w-[150px] "
                 >
                   <FaArrowRight />
                   بازگشت به فرم
                 </button>
                 <button
-                  className="mb-20 w-9/12 py-2.5 rounded-lg text-base ml-5 md:text-lg text-white bg-blue-600 mx-auto mt-3"
+                  className="bg-blue-600 px-2.5 py-2 flex gap-1 justify-center items-center mb-20 rounded-lg text-white w-[150px]"
                   onClick={() => {
                     setClick(true)
                   }}

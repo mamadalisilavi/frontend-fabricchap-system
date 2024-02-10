@@ -139,7 +139,7 @@ export default function EditSewing() {
               قطعی
             </option>
             <option value="2" selected={data.status === 2}>
-              کامل
+              دور تا دور
             </option>
             <option value="3" selected={data.status === 3}>
               یک طرفه

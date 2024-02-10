@@ -1,10 +1,11 @@
 import { useState } from "react"
-import Cookies from "js-cookie"
-import { useEffect } from "react"
-import api from "../../api"
+// import Cookies from "js-cookie"
+// import { useEffect } from "react"
+// import api from "../../api"
 import { Link } from "react-router-dom"
 import { BiLinkExternal } from "react-icons/bi"
-
+import { IoMdSettings } from "react-icons/io"
+import { LuNetwork } from "react-icons/lu"
 export default function Dashboard() {
   const [loading, setLoading] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
@@ -50,18 +51,20 @@ export default function Dashboard() {
           <BiLinkExternal />
         </Link>
       </div>
-      <div className="flex gap-2 items-center justify-center ">
+      <div className="flex flex-col gap-2 items-center justify-center ">
         <Link
-          className="flex justify-center items-center w-32 h-32 rounded-lg text-lg text-white bg-blue-600 "
-          to="/admin/settings"
-        >
-          تنظیمات
-        </Link>
-        <Link
-          className="flex justify-center items-center w-32 h-32 rounded-lg text-lg text-white bg-orange-600 "
+          className="flex gap-1 justify-center items-center w-72 h-16 rounded-lg text-lg text-white bg-blue-600 hover:bg-blue-800 hover:-translate-y-1 transition-all duration-500 "
           to="/admin/chap"
         >
           امور چاپ
+          <LuNetwork />
+        </Link>
+        <Link
+          className="flex gap-1 justify-center items-center w-72 h-16 rounded-lg text-lg text-white bg-blue-800 hover:bg-blue-900 hover:-translate-y-1 transition-all duration-500"
+          to="/admin/settings"
+        >
+          تنظیمات
+          <IoMdSettings />
         </Link>
         {/* <Link
               className="flex justify-center items-center w-32 h-32 rounded-lg text-lg text-white bg-green-600"

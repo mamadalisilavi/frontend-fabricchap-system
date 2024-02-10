@@ -197,15 +197,26 @@ export default function ConfirmPage({ data, confirm, click }) {
                     <div className=" border-b border-stone-800">
                       {" "}
                       {data.backforth === 1
-                        ? Number(
+                        ? parseInt(data.pieces) > 1
+                          ? Number(
+                              data.fabric_price *
+                                (data.size_y / 100) *
+                                data.count *
+                                2 *
+                                parseInt(data.pieces)
+                            ).toLocaleString("en-US")
+                          : Number(
+                              data.fabric_price *
+                                (data.size_y / 100) *
+                                data.count *
+                                2
+                            ).toLocaleString("en-US")
+                        : Number(
                             data.fabric_price *
                               (data.size_y / 100) *
-                              data.count *
-                              2
-                          ).toLocaleString("en-US")
-                        : Number(
-                            data.fabric_price * (data.size_y / 100) * data.count
-                          ).toLocaleString("en-US")}{" "}
+                              parseInt(data.pieces) *
+                              data.count
+                          ).toLocaleString("en-US")}
                     </div>
                   </th>
                 </tr>
@@ -330,13 +341,14 @@ export default function ConfirmPage({ data, confirm, click }) {
                     scope="col"
                     className="px-6 py-3 text-gray-900 bg-green-200 flex"
                   >
-                    <div className="border-double border-b-4 border-stone-800 ">
+                    <div className="border-double border-b-4 border-stone-800 h-[40px] flex flex-col items-center justify-center">
                       {data.backforth === 0
                         ? Number(
                             Number(
                               parseInt(data.fabric_price) *
                                 (parseInt(data.size_y) / 100) *
-                                parseInt(data.count)
+                                parseInt(data.count) *
+                                parseInt(data.pieces)
                             ) +
                               Number(
                                 sewingPrices(
@@ -353,7 +365,8 @@ export default function ConfirmPage({ data, confirm, click }) {
                               parseInt(data.fabric_price) *
                                 (parseInt(data.size_y) / 100) *
                                 parseInt(data.count) *
-                                2
+                                2 *
+                                parseInt(data.pieces)
                             ) +
                               Number(
                                 sewingPrices(
@@ -374,7 +387,7 @@ export default function ConfirmPage({ data, confirm, click }) {
               توجه : ممکن است در قیمت نهایی کم و زیاد داشته باشد.
             </div>
 
-            <div className="px-6 py-3 gap-4 text-sm  text-gray-900 bg-white flex">
+            <div className="px-6 py-3 gap-4 text-sm flex flex-col text-gray-900 bg-white ">
               <div> {data.file_name}</div>
               <div>{data.fabric_name}</div>
               <div>
