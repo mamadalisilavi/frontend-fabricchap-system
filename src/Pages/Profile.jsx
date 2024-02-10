@@ -65,7 +65,7 @@ export default function Profile() {
         </Link>
         <button
           onClick={handleLogout}
-          className="bg-red-500 flex gap-2 items-center hover:bg-red-800  text-white rounded-xl my-3 mx-2 text-base font-bold py-3 w-9/12 md:w-max md:px-14"
+          className="bg-red-500 flex gap-2 justify-center items-center hover:bg-red-800  text-white rounded-xl my-3 mx-2 text-base font-bold py-3 w-9/12 md:w-max md:px-14"
         >
           <CiLogout size={"24px"} />
           خروج از حساب

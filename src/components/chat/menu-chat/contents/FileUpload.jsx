@@ -363,152 +363,310 @@ export default function FileUpload() {
     }))
   }
   return (
-    <div className=" flex justify-center overflow-y-auto h-96  px-4">
-      <div className="">
+    <div className=" flex items-center flex-col w-full overflow-y-auto h-96  px-4">
+      <div className="w-4/5 px-3 flex flex-col items-center ">
         {/* <div className={confirm ? "hidden" : ""}> */}
         {/* <div className="text-red-500 text-sm my-1">{data.errors.count}</div> */}
         <form
           onSubmit={HandleSubmit}
           action=""
-          className="flex flex-col "
+          className="flex flex-col items-center justify-center "
           dir="rtl"
         >
-          <div className={confirm ? "hidden" : ""}>
-            <div className="flex items-center justify-center w-full" dir="rtl">
-              <label
-                htmlFor="dropzone-file"
-                className="flex flex-col items-center justify-center w-full md:w-3/4 h-44 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 "
+          <div className="flex flex-col items-center">
+            <div className={(confirm ? "hidden" : "") + " mr-[80px] md:m-0 "}>
+              <div
+                className="flex items-center justify-center w-11/12 max-w-[300px]"
+                dir="rtl"
               >
-                {file === null ? (
-                  <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                    <svg
-                      className="w-8 h-8 mb-4 text-gray-500 "
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 20 16"
-                    >
-                      <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                      />
-                    </svg>
-                    <p className="mb-2 text-sm text-gray-500 ">
-                      <span className="font-semibold">
-                        برای آپلود فایل کلیک کنید.
-                      </span>{" "}
-                    </p>
-                    <p className="text-xs text-gray-500 "></p>
-                  </div>
-                ) : (
-                  <div className="flex justify-center flex-col flex-wrap w-3/4">
-                    <div className="flex  w-3/4" dir="ltr">
-                      name:
-                      <div className="text-stone-700  ml-2 w-1/4 truncate ">
-                        {" "}
-                        {file.name}
+                <label
+                  htmlFor="dropzone-file"
+                  className="flex flex-col items-center justify-center w-full h-44 md:mr-12 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 "
+                >
+                  {file === null ? (
+                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                      <svg
+                        className="w-8 h-8 mb-4 text-gray-500 "
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 20 16"
+                      >
+                        <path
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                        />
+                      </svg>
+                      <p className="mb-2 text-sm text-gray-500 ">
+                        <span className="font-semibold">
+                          برای آپلود فایل کلیک کنید.
+                        </span>{" "}
+                      </p>
+                      <p className="text-xs text-gray-500 "></p>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col flex-wrap w-3/4">
+                      <div className="flex  w-3/4" dir="ltr">
+                        name:
+                        <div className="text-stone-700  w-3/4 block truncate ">
+                          {" "}
+                          {file.name}
+                        </div>
+                      </div>
+                      <div className="flex  w-3/4" dir="ltr">
+                        size:
+                        <div className="text-stone-700 ml-5 truncate ">
+                          {(file.size / (1024 * 1024)).toFixed(3) + "MB"}
+                        </div>
                       </div>
                     </div>
-                    <div className="flex  w-3/4" dir="ltr">
-                      size:
-                      <div className="text-stone-700 ml-5 truncate ">
-                        {(file.size / (1024 * 1024)).toFixed(3) + "MB"}
-                      </div>
-                    </div>
-                  </div>
-                )}
+                  )}
+                  <input
+                    id="dropzone-file"
+                    name="file"
+                    type="file"
+                    //accept="image/png, image/gif, image/jpeg, image/jpg,  image/svg, application/pdf"
+                    className="hidden"
+                    onChange={(e) => {
+                      setFileFile(e.target.value)
+                      setFile(e.target.files[0])
+                    }}
+                  />
+                </label>
+              </div>
+              <div className="text-red-500 text-sm my-1 ">{fileError}</div>
+              <div>
+                <label
+                  htmlFor="file_name"
+                  className="block my-2 text-sm font-medium text-gray-900 "
+                >
+                  نام یا کد فایل
+                </label>
                 <input
-                  id="dropzone-file"
-                  name="file"
-                  type="file"
-                  //accept="image/png, image/gif, image/jpeg, image/jpg,  image/svg, application/pdf"
-                  className="hidden"
-                  onChange={(e) => {
-                    setFileFile(e.target.value)
-                    setFile(e.target.files[0])
-                  }}
+                  onChange={handleInputChange}
+                  type="text"
+                  name="file_name"
+                  id="file_name"
+                  value={data.file_name}
+                  className="bg-gray-50 border  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-4/5  md:w-full  p-2.5"
+                  placeholder="نام فایل"
+                  required
                 />
-              </label>
-            </div>
-            <div className="text-red-500 text-sm my-1">{fileError}</div>
-            <div>
-              <label
-                htmlFor="file_name"
-                className="block my-2 text-sm font-medium text-gray-900 "
-              >
-                نام یا کد فایل
-              </label>
-              <input
-                onChange={handleInputChange}
-                type="text"
-                name="file_name"
-                id="file_name"
-                value={data.file_name}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                placeholder="نام فایل"
-                required
-              />
-              <div className="text-red-500 text-sm my-1">
-                {data.errors.file_name}
+                <div className="text-red-500 text-sm my-1">
+                  {data.errors.file_name}
+                </div>
+                <label
+                  htmlFor="fabric"
+                  className="block my-2 text-sm font-medium text-gray-900 "
+                >
+                  نوع پارچه
+                </label>
+                <select
+                  onChange={(e) => {
+                    setData((prev) => ({
+                      ...prev,
+                      fabric: e.target.value,
+                    }))
+                    var index = e.target.selectedIndex
+                    var optionElement = e.target.childNodes[index]
+                    var option = optionElement.getAttribute("width")
+                    var fabricPrice = optionElement.getAttribute("price")
+                    var fabricName = optionElement.getAttribute("name")
+                    setMax(option)
+                    setData((prev) => ({
+                      ...prev,
+                      fabric_price: fabricPrice,
+                    }))
+                    setData((prev) => ({
+                      ...prev,
+                      fabric_name: fabricName,
+                    }))
+                  }}
+                  name="fabric"
+                  id="fabric"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-4/5  md:w-full p-2.5"
+                >
+                  <option value={"0"} width={"0"} price={"0"}>
+                    نوع پارچه - قیمت
+                  </option>
+                  {loadingFabrics ? (
+                    fabrics.map((fabric) => {
+                      // setMax(fabric.width)
+                      return (
+                        <option
+                          price={
+                            window.localStorage.getItem("customer") === "1"
+                              ? fabric.price
+                              : fabric.price_partner
+                          }
+                          name={fabric.name}
+                          width={fabric.width}
+                          key={fabric.id}
+                          value={fabric.id}
+                        >
+                          {}
+                          {fabric.name} -{" "}
+                          {window.localStorage.getItem("customer") === "1"
+                            ? fabric.price.toLocaleString("en-US")
+                            : fabric.price_partner.toLocaleString("en-US")}
+                          ت
+                        </option>
+                      )
+                    })
+                  ) : (
+                    <option value="">لطفا منتظر بمانید</option>
+                  )}
+                </select>
+                <div className="text-red-500 text-sm my-1">{fabricError}</div>
+                <div className="flex items-center gap-2 mt-4 mb-2">
+                  <input
+                    className=" w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 "
+                    type="checkbox"
+                    onChange={() => {
+                      setCheckedPieces(!checkedPieces)
+                    }}
+                    name=""
+                    id=""
+                  />
+                  <div className="text-sm">چند تیکه</div>
+                  <div className="text-xs text-stone-500 w-72">
+                    {max === 0
+                      ? null
+                      : ` در صورت نیاز طرح با عرض بیشتر از ${max} سانت این تیک را فعال کنید`}
+                  </div>
+                </div>
+                <label
+                  htmlFor="pieces"
+                  className="block text-sm font-medium text-gray-900 "
+                >
+                  چند تیکه
+                  <div className="text-xs text-stone-500 w-96 py-1 font-normal">
+                    {checkedPieces
+                      ? ` تعداد تیکه بر اساس عرض طرح، برای مثال طرح با عرض 280 سانت و طول بیشتر از 140 سانت باید 2 تیکه بشود.`
+                      : null}
+                  </div>
+                </label>
+                <input
+                  onChange={handleInputChange}
+                  type="number"
+                  min={"1"}
+                  id="pieces"
+                  name="pieces"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-4/5  md:w-full p-2.5 disabled:bg-stone-200"
+                  placeholder={``}
+                  disabled={!checkedPieces}
+                />
+                <div className="text-red-500 text-sm my-1">
+                  {data.errors.pieces}
+                </div>
+                <div className="">
+                  <div className="flex flex-col">
+                    <label
+                      htmlFor="size_y"
+                      className="block my-2 text-sm font-medium text-gray-900 "
+                    >
+                      طول (سانتیمتر)
+                    </label>
+                    <input
+                      onChange={handleInputChange}
+                      type="number"
+                      name="size_y"
+                      id="size_y"
+                      step="0.1"
+                      min={"0"}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-4/5  md:w-full p-2.5"
+                      placeholder=" طول به سانتی متر "
+                      required
+                    />
+                    <span className="text-red-500 text-sm my-1 max-w-[150px] truncate">
+                      {data.errors.size_y}
+                    </span>
+                  </div>
+
+                  <div className="flex flex-col mx-1">
+                    <label
+                      htmlFor="size_x"
+                      className="block my-2 text-sm font-medium text-gray-900 "
+                    >
+                      عرض (سانتیمتر)
+                    </label>
+                    <input
+                      onChange={handleInputChange}
+                      type="number"
+                      name="size_x"
+                      id="size_x"
+                      step="0.1"
+                      min={0}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-4/5  md:w-full p-2.5"
+                      placeholder="عرض به سانتی متر"
+                      required
+                    />
+                    <div className="text-red-500 text-sm my-1">
+                      {data.errors.size_x}
+                    </div>
+                  </div>
+                </div>
+                <label
+                  htmlFor="count"
+                  className="block my-2 text-sm font-medium text-gray-900 "
+                >
+                  تعداد
+                </label>
+                <input
+                  onChange={handleInputChange}
+                  type="number"
+                  name="count"
+                  id="count"
+                  min={"1"}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-4/5  md:w-full p-2.5"
+                  placeholder="تعداد چاپ فایل "
+                  required
+                />
+                <div className="text-red-500 text-sm my-1">
+                  {data.errors.count}
+                </div>
+              </div>
+              <div className="flex items-center gap-2 mt-4 mb-2">
+                <input
+                  className=" w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 "
+                  onChange={handleInputChecked}
+                  type="checkbox"
+                  name="backfroth"
+                  id="backfroth"
+                />
+                دو رو
+                <div className="text-xs text-stone-500 w-72">
+                  اگر به دورو شدن طرح نیاز دارید، این تیک را فعال کنید
+                </div>
               </div>
               <label
-                htmlFor="fabric"
+                htmlFor="sewing"
                 className="block my-2 text-sm font-medium text-gray-900 "
               >
-                نوع پارچه
+                نوع دوخت
               </label>
               <select
-                onChange={(e) => {
-                  setData((prev) => ({
-                    ...prev,
-                    fabric: e.target.value,
-                  }))
-                  var index = e.target.selectedIndex
-                  var optionElement = e.target.childNodes[index]
-                  var option = optionElement.getAttribute("width")
-                  var fabricPrice = optionElement.getAttribute("price")
-                  var fabricName = optionElement.getAttribute("name")
-                  setMax(option)
-                  setData((prev) => ({
-                    ...prev,
-                    fabric_price: fabricPrice,
-                  }))
-                  setData((prev) => ({
-                    ...prev,
-                    fabric_name: fabricName,
-                  }))
-                }}
-                name="fabric"
-                id="fabric"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                onChange={handleSewingChinge}
+                name="sewing"
+                id="sewing"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-4/5  md:w-full p-2.5"
               >
-                <option value={"0"} width={"0"} price={"0"}>
-                  نوع پارچه - قیمت
-                </option>
-                {loadingFabrics ? (
-                  fabrics.map((fabric) => {
-                    // setMax(fabric.width)
+                <option value="">انتخاب کنید</option>
+                {loadingSewings ? (
+                  sewings.map((sewing) => {
                     return (
                       <option
-                        price={
-                          window.localStorage.getItem("customer") === "1"
-                            ? fabric.price
-                            : fabric.price_partner
-                        }
-                        name={fabric.name}
-                        width={fabric.width}
-                        key={fabric.id}
-                        value={fabric.id}
+                        key={sewing.id}
+                        price={sewing.price}
+                        name={sewing.name}
+                        value={sewing.id}
+                        status={sewing.status}
                       >
-                        {}
-                        {fabric.name} -{" "}
-                        {window.localStorage.getItem("customer") === "1"
-                          ? fabric.price.toLocaleString("en-US")
-                          : fabric.price_partner.toLocaleString("en-US")}
-                        ت
+                        {sewing.name} - {sewing.price.toLocaleString("en-US")}
+                        تومان
                       </option>
                     )
                   })
@@ -516,271 +674,118 @@ export default function FileUpload() {
                   <option value="">لطفا منتظر بمانید</option>
                 )}
               </select>
-              <div className="text-red-500 text-sm my-1">{fabricError}</div>
-              <div className="flex items-center gap-2 mt-4 mb-2">
-                <input
-                  className=" w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 "
-                  type="checkbox"
-                  onChange={() => {
-                    setCheckedPieces(!checkedPieces)
-                  }}
-                  name=""
-                  id=""
-                />
-                <div className="text-sm">چند تیکه</div>
-                <div className="text-xs text-stone-500 w-72">
-                  {max === 0
-                    ? null
-                    : ` در صورت نیاز طرح با عرض بیشتر از ${max} سانت این تیک را فعال کنید`}
-                </div>
-              </div>
+              <div className="text-red-500 text-sm my-1">{sewingError}</div>
               <label
-                htmlFor="pieces"
-                className="block text-sm font-medium text-gray-900 "
-              >
-                چند تیکه
-                <div className="text-xs text-stone-500 w-96 py-1 font-normal">
-                  {checkedPieces
-                    ? ` تعداد تیکه بر اساس عرض طرح، برای مثال طرح با عرض 280 سانت و طول بیشتر از 140 سانت باید 2 تیکه بشود.`
-                    : null}
-                </div>
-              </label>
-              <input
-                onChange={handleInputChange}
-                type="number"
-                min={"1"}
-                id="pieces"
-                name="pieces"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 disabled:bg-stone-200"
-                placeholder={``}
-                disabled={!checkedPieces}
-              />
-              <div className="text-red-500 text-sm my-1">
-                {data.errors.pieces}
-              </div>
-              <div className="flex">
-                <div className="flex flex-col ">
-                  <label
-                    htmlFor="size_y"
-                    className="block my-2 text-sm font-medium text-gray-900 "
-                  >
-                    طول (سانتیمتر)
-                  </label>
-                  <input
-                    onChange={handleInputChange}
-                    type="number"
-                    name="size_y"
-                    id="size_y"
-                    step="0.1"
-                    min={"0"}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    placeholder=" طول به سانتی متر "
-                    required
-                  />
-                  <div className="text-red-500 text-sm my-1">
-                    {data.errors.size_y}
-                  </div>
-                </div>
-
-                <div className="flex flex-col mx-1">
-                  <label
-                    htmlFor="size_x"
-                    className="block my-2 text-sm font-medium text-gray-900 "
-                  >
-                    عرض (سانتیمتر)
-                  </label>
-                  <input
-                    onChange={handleInputChange}
-                    type="number"
-                    name="size_x"
-                    id="size_x"
-                    step="0.1"
-                    min={0}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    placeholder="عرض به سانتی متر"
-                    required
-                  />
-                  <div className="text-red-500 text-sm my-1">
-                    {data.errors.size_x}
-                  </div>
-                </div>
-              </div>
-              <label
-                htmlFor="count"
+                htmlFor="description"
                 className="block my-2 text-sm font-medium text-gray-900 "
               >
-                تعداد
+                توضیحات و آدرس
               </label>
-              <input
+              <textarea
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-4/5  md:w-full p-2.5"
                 onChange={handleInputChange}
-                type="number"
-                name="count"
-                id="count"
-                min={"1"}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                placeholder="تعداد چاپ فایل "
-                required
-              />
+                name="description"
+                id="description"
+                cols="30"
+                rows="10"
+              ></textarea>
               <div className="text-red-500 text-sm my-1">
-                {data.errors.count}
+                {data.errors.description}
               </div>
-            </div>
-            <div className="flex items-center gap-2 mt-4 mb-2">
-              <input
-                className=" w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 "
-                onChange={handleInputChecked}
-                type="checkbox"
-                name="backfroth"
-                id="backfroth"
-              />
-              دو رو
-              <div className="text-xs text-stone-500 w-72">
-                اگر به دورو شدن طرح نیاز دارید، این تیک را فعال کنید
-              </div>
-            </div>
-            <label
-              htmlFor="sewing"
-              className="block my-2 text-sm font-medium text-gray-900 "
-            >
-              نوع دوخت
-            </label>
-            <select
-              onChange={handleSewingChinge}
-              name="sewing"
-              id="sewing"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            >
-              <option value="">انتخاب کنید</option>
-              {loadingSewings ? (
-                sewings.map((sewing) => {
-                  return (
-                    <option
-                      key={sewing.id}
-                      price={sewing.price}
-                      name={sewing.name}
-                      value={sewing.id}
-                      status={sewing.status}
-                    >
-                      {sewing.name} - {sewing.price.toLocaleString("en-US")}
-                      تومان
-                    </option>
-                  )
-                })
+              {validForm ? (
+                <div className="flex justify-center">
+                  <button
+                    className="w-9/12 py-2.5 rounded-lg text-lg text-white bg-blue-500 mt-3 hover:bg-blue-600 "
+                    onClick={handleConfirm}
+                  >
+                    تایید و ادامه
+                  </button>
+                </div>
               ) : (
-                <option value="">لطفا منتظر بمانید</option>
+                <div className="w-4/5 md:w-9/12  py-2.5 rounded-lg flex justify-center text-base text-red-600 bg-red-200 border boeder-red-400  md:mx-auto md:mt-3 ">
+                  لطفا اطلاعات صحیح وارد کنید
+                </div>
               )}
-            </select>
-            <div className="text-red-500 text-sm my-1">{sewingError}</div>
-            <label
-              htmlFor="description"
-              className="block my-2 text-sm font-medium text-gray-900 "
-            >
-              توضیحات و آدرس
-            </label>
-            <textarea
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              onChange={handleInputChange}
-              name="description"
-              id="description"
-              cols="30"
-              rows="10"
-            ></textarea>
-            <div className="text-red-500 text-sm my-1">
-              {data.errors.description}
+              <div className="h-20"></div>
             </div>
-            {validForm ? (
-              <div className="flex justify-center">
+
+            <ConfirmPage confirm={confirm} data={data} click={click} />
+            {confirm ? (
+              <div
+                className={
+                  "flex justify-center gap-4  " + (click ? " hidden " : " ")
+                }
+              >
                 <button
-                  className="w-9/12 py-2.5 rounded-lg text-lg text-white bg-blue-500 mt-3 hover:bg-blue-600 "
-                  onClick={handleConfirm}
+                  onClick={handleBack}
+                  className="mb-20 w-9/12 py-2.5 flex items-center justify-center gap-2 mr-5 rounded-lg text-base text-white bg-orange-500 mx-auto mt-3 "
                 >
-                  تایید و ادامه
+                  <FaArrowRight />
+                  بازگشت به فرم
+                </button>
+                <button
+                  className="mb-20 w-9/12 py-2.5 rounded-lg text-base ml-5 md:text-lg text-white bg-blue-600 mx-auto mt-3"
+                  onClick={() => {
+                    setClick(true)
+                  }}
+                >
+                  تایید و ارسال
                 </button>
               </div>
-            ) : (
-              <div className="w-9/12 py-2.5 rounded-lg flex justify-center text-base text-red-600 bg-red-200 border boeder-red-400  mx-auto mt-3 ">
-                لطفا اطلاعات صحیح وارد کنید
-              </div>
-            )}
-            <div className="h-20"></div>
-          </div>
-
-          <ConfirmPage confirm={confirm} data={data} click={click} />
-          {confirm ? (
-            <div
-              className={
-                "flex justify-center gap-4  " + (click ? " hidden " : " ")
-              }
-            >
-              <button
-                onClick={handleBack}
-                className="mb-20 w-9/12 py-2.5 flex items-center justify-center gap-2 mr-5 rounded-lg text-base text-white bg-orange-500 mx-auto mt-3 "
-              >
-                <FaArrowRight />
-                بازگشت به فرم
-              </button>
-              <button
-                className="mb-20 w-9/12 py-2.5 rounded-lg text-base ml-5 md:text-lg text-white bg-blue-600 mx-auto mt-3"
-                onClick={() => {
-                  setClick(true)
-                }}
-              >
-                تایید و ارسال
-              </button>
-            </div>
-          ) : null}
-          <div className={" w-80 " + (click ? " " : " hidden")}>
-            {success ? (
-              <>
-                <div className="success-animation">
-                  <svg
-                    className="checkmark"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 52 52"
-                  >
-                    <circle
-                      className="checkmark__circle"
-                      cx="26"
-                      cy="26"
-                      r="25"
-                      fill="none"
-                    />
-                    <path
-                      className="checkmark__check"
-                      fill="none"
-                      d="M14.1 27.2l7.1 7.2 16.7-16.8"
-                    />
-                  </svg>
-                </div>
-                <div className="flex justify-center my-5">
-                  طرح با موفقیت ارسال شد
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="w-full bg-gray-200 rounded-full ">
-                  <div
-                    className="bg-blue-600 text-xs font-medium text-blue-100 text-center p-1 leading-none rounded-full transition-all"
-                    style={{ width: persentUpload + "%" }}
-                  >
-                    {" "}
-                    {persentUpload}%
+            ) : null}
+            <div className={" w-80 " + (click ? " " : " hidden")}>
+              {success ? (
+                <>
+                  <div className="success-animation">
+                    <svg
+                      className="checkmark"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 52 52"
+                    >
+                      <circle
+                        className="checkmark__circle"
+                        cx="26"
+                        cy="26"
+                        r="25"
+                        fill="none"
+                      />
+                      <path
+                        className="checkmark__check"
+                        fill="none"
+                        d="M14.1 27.2l7.1 7.2 16.7-16.8"
+                      />
+                    </svg>
                   </div>
-                </div>
-                <div className="text-center py-4">
-                  ...درحال ارسال لطفا منتظر بمانید
-                  {loadIsFull ? (
-                    <div className="w-full flex justify-center mt-5">
-                      <Loading />
-                      درحال اپلود فایل لطفا منتظر بمانید
+                  <div className="flex justify-center my-5">
+                    طرح با موفقیت ارسال شد
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="w-full bg-gray-200 rounded-full ">
+                    <div
+                      className="bg-blue-600 text-xs font-medium text-blue-100 text-center p-1 leading-none rounded-full transition-all"
+                      style={{ width: persentUpload + "%" }}
+                    >
+                      {" "}
+                      {persentUpload}%
                     </div>
-                  ) : null}
-                </div>
-                <div className="text-red-500">
-                  {errorBackend === null ? null : errorBackend}
-                </div>
-              </>
-            )}
+                  </div>
+                  <div className="text-center py-4">
+                    ...درحال ارسال لطفا منتظر بمانید
+                    {loadIsFull ? (
+                      <div className="w-full flex justify-center mt-5">
+                        <Loading />
+                        درحال اپلود فایل لطفا منتظر بمانید
+                      </div>
+                    ) : null}
+                  </div>
+                  <div className="text-red-500">
+                    {errorBackend === null ? null : errorBackend}
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </form>
       </div>

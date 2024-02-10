@@ -152,18 +152,23 @@ export default function PrintManager() {
                         </td>
 
                         <td className="px-6 py-4">
-                          <img
-                            id="theImage"
-                            loading="lazy"
-                            width={"70px"}
-                            className="p-1 rounded"
-                            src={
-                              process.env.REACT_APP_API_STORAGE +
-                              "resize/" +
-                              plat.file
-                            }
-                            alt=""
-                          />
+                          <Link
+                            className="underline hover:text-blue-600"
+                            to={"" + plat.id}
+                          >
+                            <img
+                              id="theImage"
+                              loading="lazy"
+                              width={"70px"}
+                              className="p-1 rounded"
+                              src={
+                                process.env.REACT_APP_API_STORAGE +
+                                "resize/" +
+                                plat.file
+                              }
+                              alt=""
+                            />
+                          </Link>
                         </td>
 
                         <td className="px-6 py-4">
@@ -178,7 +183,9 @@ export default function PrintManager() {
                         <td className="px-6 py-4">
                           {plat.active === 0 ? (
                             <div className="bg-red-500 rounded px-3 py-1.5 text-white text-center">
-                              غیر فعال
+                              <Link className="" to={"" + plat.id}>
+                                غیر فعال
+                              </Link>
                             </div>
                           ) : (
                             <div className="bg-green-500 rounded px-3 py-1.5 text-white text-center">
