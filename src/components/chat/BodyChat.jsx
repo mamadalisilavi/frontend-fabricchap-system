@@ -51,9 +51,12 @@ export default function BodyChat() {
                         مشاهده فایل
                       </a>
                     </div>
-                    <div className="mx-3 my-2">
-                      <div className="font-bold mb-3"> {file.file_name}</div>
-                      <div className="flex">
+                    <div className="mx-3 my-2 w-[123px]">
+                      <div className="font-bold mb-3 w-1/2 md:w-full overflow-x-auto ">
+                        {" "}
+                        {file.file_name}
+                      </div>
+                      <div className="flex text-sm ">
                         <span className="">{file.size_x}</span>x
                         <span className="">{file.size_y}</span>
                         سانت
