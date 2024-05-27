@@ -13,6 +13,7 @@ import SewingsSettings from "./admin/pages/settings/sewing/SewingsSettings"
 import EditSewing from "./admin/pages/settings/sewing/EditSewing"
 import Plats from "./admin/pages/plats/Plats"
 import Chap from "./admin/pages/plats/Chap"
+import AddPlats from "./admin/pages/plats/AddPlats"
 import PrintManager from "./admin/pages/print managment/PrintManager"
 import EditPrint from "./admin/pages/print managment/EditPrint"
 import Celender from "./admin/pages/celender/Celender"
@@ -23,6 +24,7 @@ import Dashboard from "./admin/pages/Dashboard"
 import UsersSettings from "./admin/pages/settings/users/UsersSetting"
 import EditUser from "./admin/pages/settings/users/EditUser"
 import Password from "./Pages/Password"
+import AddUser from "./admin/pages/settings/users/AddUser"
 
 const router = createBrowserRouter([
   {
@@ -86,6 +88,10 @@ const router = createBrowserRouter([
         element: <UsersSettings />,
       },
       {
+        path: "settings/users/add",
+        element: <AddUser />,
+      },
+      {
         path: "settings/users/edit",
         element: <EditUser />,
       },
@@ -96,6 +102,10 @@ const router = createBrowserRouter([
       {
         path: "chap",
         element: <Chap />,
+      },
+      {
+        path: "add-plats",
+        element: <AddPlats />,
       },
       {
         path: "print-manager",

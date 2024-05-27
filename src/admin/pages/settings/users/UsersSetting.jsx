@@ -86,6 +86,14 @@ export default function UsersSettings() {
           </tbody>
         </table>
       </div>
+        <Link
+        className="bg-blue-500 text-white w-9/12 md:w-1/3 rounded py-2 text-center mx-auto mt-4 flex gap-3 justify-center items-center"
+        to="add"
+      >
+        افزودن کاربر
+        <FaPlus />
+      </Link>
+
     </div>
   )
 }
