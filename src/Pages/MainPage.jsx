@@ -1,11 +1,17 @@
-import { Link } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 import { GoHomeFill } from "react-icons/go"
-import { FaUserLarge } from "react-icons/fa6"
+import { FaListCheck, FaUserLarge } from "react-icons/fa6"
 import { useState } from "react"
 import Cookies from "js-cookie"
 import { useEffect } from "react"
 import api from "../api"
 import Loading from "../components/Loading"
+import Navbar from './../components/Navbar';
+import { IoMdPricetags } from "react-icons/io"
+import { AiFillProduct } from "react-icons/ai";
+import { BiSolidCategory } from "react-icons/bi"
+import { HiDocumentPlus } from "react-icons/hi2"
+import { FaInfoCircle } from "react-icons/fa"
 export default function MainPage({ children }) {
   const [loading, setLoading] = useState(false)
   const [isLogin, setIsLogin] = useState(false)
@@ -42,26 +48,58 @@ export default function MainPage({ children }) {
     if (isLogin) {
       return (
         <div className="w-full md:w-9/12 lg:w-1/2  mx-auto container">
+          <Navbar />
           <div>{children}</div>
           <div
             id="menu-chat"
-            className="fixed bottom-0 bg-[#128c7e] py-2 flex w-full md:w-9/12 lg:w-1/2 mx-auto container justify-around"
+            className="fixed bottom-0 bg-cyan-950  flex w-full md:w-9/12 lg:w-1/2 mx-auto container justify-around"
             dir="rtl"
           >
-            <Link
-              to={"/"}
-              className="flex flex-col justify-center items-center"
+            <NavLink
+              to="/"
+              className={({ isActive, isPending }) =>
+                isPending ? "" : isActive ? " flex flex-col justify-center items-center text-white mb-2 pt-2" : "flex flex-col justify-center items-center py-2 text-stone-400"
+              }
             >
-              <GoHomeFill color="white" size={"24px"} />
-              <div className="text-sm text-white">صفحه اصلی</div>
-            </Link>
-            <Link
-              to={"/profile"}
-              className="flex flex-col justify-center items-center"
+              <HiDocumentPlus size={"22px"} />
+              <div className="text-xs ms:text-sm">ثبت سفارش</div>
+            </NavLink>
+            <NavLink
+              to="/list-chaps"
+              className={({ isActive, isPending }) =>
+                isPending ? "" : isActive ? " flex flex-col justify-center items-center text-white mb-2 pt-2" : "flex flex-col justify-center items-center py-2 text-stone-400"
+              }
             >
-              <FaUserLarge color="white" size={"22px"} />
-              <div className="text-sm text-white">پروفایل</div>
-            </Link>
+              <FaListCheck size={"22px"} />
+              <div className="text-xs ms:text-sm">لیست سفارشات</div>
+            </NavLink>
+             <NavLink
+              to="/prices"
+              className={({ isActive, isPending }) =>
+                isPending ? "" : isActive ? " flex flex-col justify-center items-center text-white mb-2 pt-2" : "flex flex-col justify-center items-center py-2 text-stone-400"
+              }
+            >
+              <IoMdPricetags size={"22px"} />
+              <div className="text-xs ms:text-sm">لیست قیمت ها</div>
+            </NavLink>
+             <NavLink
+              to="/products"
+              className={({ isActive, isPending }) =>
+                isPending ? "" : isActive ? " flex flex-col justify-center items-center text-white mb-2 pt-2" : "flex flex-col justify-center items-center py-2 text-stone-400"
+              }
+            >
+              <BiSolidCategory size={"22px"} />
+              <div className="text-xs ms:text-sm">لیست محصولات</div>
+            </NavLink>
+             <NavLink
+              to="/info"
+              className={({ isActive, isPending }) =>
+                isPending ? "" : isActive ? " flex flex-col justify-center items-center text-white mb-2 pt-2" : "flex flex-col justify-center items-center py-2 text-stone-400"
+              }
+            >
+              <FaInfoCircle size={"22px"} />
+              <div className="text-xs ms:text-sm">تماس با ما</div>
+            </NavLink>
           </div>
         </div>
       )

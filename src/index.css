@@ -16,11 +16,11 @@ code {
     monospace;
 }
 
-.bg-chat {
+/* .bg-chat {
   background-image: url("./assets/images/bg-w.png");
   background-size: contain;
   background-attachment: fixed;
-}
+} */
 
 body {
   font-family: 'Vazirmatn', sans-serif;

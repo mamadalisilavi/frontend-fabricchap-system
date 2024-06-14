@@ -1,6 +1,8 @@
 import Cookies from "js-cookie"
 import { useEffect, useState } from "react"
-import api from "../../../../api"
+import api from "../api"
+import MainPage from "./MainPage"
+import Loading from "../components/Loading"
 
 export default function Prices() {
   const [prices, setPrices] = useState()
@@ -24,9 +26,9 @@ export default function Prices() {
 
   return (
     <div dir="rtl" className="">
-      <div className="relative overflow-auto shadow-md sm:rounded-lg h-80 w-96 md:w-full">
-        <table className="w-9/12 md:w-full text-sm text-left rtl:text-right text-gray-500 ">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
+      <div className="mt-20 overflow-auto shadow-md sm:rounded-lg">
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-100 ">
             <tr>
               <th scope="col" className="px-4 py-2">
                 نام پارچه
@@ -84,7 +86,12 @@ export default function Prices() {
                     </tr>
                   )
                 })
-              : "لطفا صبر کنید..."}
+              : 
+              <div className="absolute top-96 right-1/2">
+
+                  <Loading />
+              </div>
+              }
           </tbody>
         </table>
       </div>

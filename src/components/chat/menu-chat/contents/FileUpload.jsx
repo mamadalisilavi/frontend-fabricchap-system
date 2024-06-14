@@ -29,13 +29,13 @@ export default function FileUpload() {
     sewing_price: "",
     sewing_status: 0,
     errors: {
-      file_name: "لطفا اسم فایل را پر کنید",
+      file_name: "لطفا نام فایل را وارد کنید",
       pieces: "",
-      size_y: "لطفا طول طرح را پر کنید",
-      size_x: "لطفا عرض طرح را پر کنید",
-      count: "لطفا تعداد را انتخاب کنید",
+      size_y: "لطفا طول طرح را وارد کنید",
+      size_x: "لطفا عرض طرح را وارد کنید",
+      count: "لطفا تعداد را وارد کنید",
       backforth: "",
-      description: "لطفا توضیحات را بنویسید",
+      description: "لطفا توضیحات و آدرس را بنویسید",
     },
   })
   const [sewingError, setSewingError] = useState("لطفا نوع دوخت را انتخاب کنید")
@@ -363,14 +363,14 @@ export default function FileUpload() {
     }))
   }
   return (
-    <div className=" flex items-center flex-col w-full overflow-y-scroll overflow-x-hidden  h-96">
+    <div className=" flex items-center flex-col w-full mt-20 ">
       <div className="w-4/5 px-3 flex flex-col items-center ">
         {/* <div className={confirm ? "hidden" : ""}> */}
         {/* <div className="text-red-500 text-sm my-1">{data.errors.count}</div> */}
         <form
           onSubmit={HandleSubmit}
           action=""
-          className="flex flex-col items-center justify-center  "
+          className="flex flex-col items-center justify-center overflow-auto"
           dir="rtl"
         >
           <div className="">
@@ -764,8 +764,9 @@ export default function FileUpload() {
                       />
                     </svg>
                   </div>
-                  <div className="flex justify-center my-5">
+                    <div className="flex justify-center items-center gap-4 flex-col my-5">
                     طرح با موفقیت ارسال شد
+                    <button onClick={()=> window.location.reload()} className="bg-blue-600 px-2.5 py-2 flex gap-1 justify-center items-center mb-20 rounded-lg text-white w-[150px]">ثبت سفارش جدید</button>
                   </div>
                 </>
               ) : (

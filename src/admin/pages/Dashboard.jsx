@@ -60,6 +60,13 @@ export default function Dashboard() {
           <LuNetwork />
         </Link>
         <Link
+          className="flex gap-1 justify-center items-center w-72 h-16 rounded-lg text-lg text-white bg-green-600 hover:bg-green-800 hover:-translate-y-1 transition-all duration-500 "
+          to="/admin/finance"
+        >
+          امور مالی
+          <LuNetwork />
+        </Link>
+        <Link
           className="flex gap-1 justify-center items-center w-72 h-16 rounded-lg text-lg text-white bg-blue-800 hover:bg-blue-900 hover:-translate-y-1 transition-all duration-500"
           to="/admin/settings"
         >

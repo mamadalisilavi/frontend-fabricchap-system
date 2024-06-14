@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom"
 import Register from "./Auth/Register"
 import Login from "./Auth/Login"
-import Chat from "./Pages/Chat"
+import Main from "./Pages/Main"
 import Admin from "./admin/pages/Admin"
 import AdminSettings from "./admin/pages/AdminSettings"
 import Profile from "./Pages/Profile"
@@ -25,6 +25,11 @@ import UsersSettings from "./admin/pages/settings/users/UsersSetting"
 import EditUser from "./admin/pages/settings/users/EditUser"
 import Password from "./Pages/Password"
 import AddUser from "./admin/pages/settings/users/AddUser"
+import ListChap from "./Pages/ListChap"
+import FileUpload from "./components/chat/menu-chat/contents/FileUpload"
+import Prices from "./Pages/Prices"
+import Info from "./Pages/Info"
+import Finance from "./admin/pages/finance/Finance"
 
 const router = createBrowserRouter([
   {
@@ -45,7 +50,29 @@ const router = createBrowserRouter([
   },
   {
     path: "",
-    element: <Chat />,
+    element: <Main />,
+    children: [
+      {
+        path: "",
+        element: <FileUpload />,
+      },
+      {
+        path: "list-chaps",
+        element: <ListChap />,
+      },
+      {
+        path: "prices",
+        element: <Prices />,
+      },
+      {
+        path: "info",
+        element: <Info />,
+      },
+      {
+        path: "products",
+        element: <></>,
+      },
+    ]
   },
   {
     path: "admin",
@@ -54,6 +81,10 @@ const router = createBrowserRouter([
       {
         path: "dashboard",
         element: <Dashboard />,
+      },
+      {
+        path: "finance",
+        element: <Finance />,
       },
       {
         path: "settings",
@@ -89,7 +120,8 @@ const router = createBrowserRouter([
       },
       {
         path: "settings/users/add",
-        element: <AddUser />,
+        element: <AddUser
+        />,
       },
       {
         path: "settings/users/edit",
