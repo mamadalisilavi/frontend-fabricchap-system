@@ -370,11 +370,12 @@ export default function FileUpload() {
         <form
           onSubmit={HandleSubmit}
           action=""
-          className="flex flex-col items-center justify-center overflow-auto"
+          className="mr-16 md:mr-0"
           dir="rtl"
         >
           <div className="">
-            <div className={(confirm ? "hidden" : "") + " pr-[72px] md:pr-0"}>
+            <div className={(confirm ? "hidden" : "") + " "}>
+              <div className="pr-10"></div>
               <div
                 className="flex items-center justify-center w-11/12 max-w-[300px]"
                 dir="rtl"
